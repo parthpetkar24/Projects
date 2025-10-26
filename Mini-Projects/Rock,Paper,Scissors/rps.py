@@ -1,9 +1,15 @@
+#-----------------------------------------Rock, Paper and Scissors Game-----------------------------------
+
+# Random module to select rock, paper or scissors randomly
 import random
 from time import sleep
 
+#Total points of player
 points=0
 
+# List containing Playable contents 
 options=["Rock","Scissors","Paper"]
+
 '''Simplification Table:
 Rock:
     Beats-Scissors
@@ -15,11 +21,17 @@ Scissors:
     Beats-Paper
     Losses to- Rock'''
 
+# Function for main game and user input is parameter
 def game(usrply):
+    # Options and Points are declared global for easier use
     global options,points
+    #Random Play is selected from options list using choice function from random module
     randomplay= random.choice(options)
+    # Only first character from the random choice is selected
     comp_play=randomplay[0].lower()
+    # Only first character from the user input is selected
     inp=usrply[0].lower()
+    
     if inp==comp_play:
         print(f"Computer's Play: {randomplay}\nTie!!!!!\nPoints: {points}")
     elif inp=="r" and comp_play=="s":
