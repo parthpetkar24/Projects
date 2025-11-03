@@ -84,7 +84,7 @@ if __name__=="__main__":
             "Year":[]
         }
         issue={
-            "Id:":[],
+            "Id":[],
             "Books":[],
             "Borrower_Name":[],
             "Contact":[],
