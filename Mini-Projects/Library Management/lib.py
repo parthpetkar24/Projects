@@ -3,7 +3,10 @@ import pandas as pd
 from time import sleep
 
 def add_book(libFrame):
-    book_id=int(input("\nEnter Book Id: "))
+    try:
+        book_id=int(input("\nEnter Book Id: "))
+    except Exception as e:
+        print("Enter Valid Numerical Id")
     book_name=input("Enter Book Name: ")
     if ((libFrame['Id'] == book_id) & (libFrame['Books'] == book_name)).any():
         print("\nThis book already exists in the library!")
@@ -106,7 +109,10 @@ if __name__=="__main__":
     print("\nLibrary Manager Opened!")
     while True:
         print("\nOperations Available:\n1.Add Book\t2.Issue Book\t3.Remove book from Library\n4.View Current Books in Library\t5.View Issued Books\t6.Exit")
-        action=int(input("Enter Index of Operation to be performed(1/2/3/4): "))
+        try:
+            action=int(input("Enter Index of Operation to be performed(1/2/3/4): "))
+        except Exception as e:
+            print("Enter a Valid Operation Number!")
         match(action):
             case 1:
                 add_book(libFrame)
