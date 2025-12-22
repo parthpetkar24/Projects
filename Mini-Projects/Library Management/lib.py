@@ -8,7 +8,7 @@ def add_book(libFrame):
     except Exception as e:
         print("Enter Valid Numerical Id")
     book_name=input("Enter Book Name: ")
-    if ((libFrame['Id'] == book_id) & (libFrame['Books'] == book_name)).any():
+    if ((libFrame['Id'] == book_id) & (libFrame['Books'] == book_name.lower())).any():
         print("\nThis book already exists in the library!")
         return  
     book_author=input("Enter Book Author Name: ")
@@ -18,33 +18,36 @@ def add_book(libFrame):
         "Books":book_name.lower(),
         "Author":book_author.lower(),
         "Year":book_year}
-    libFrame.to_csv('Mini-Projects/Library Management/index.csv',index=False)
+    libFrame.to_csv('index.csv',index=False)
     print("\nBook Added Successfully!!")
 
 def issue_book(libFrame,issueFrame):
+    print(f"\nCurrent Books in Library: \n{libFrame}")
     issue_id=int(input("Enter Book Id to Issue: "))
-    for id in libFrame["Id"]:
-        if issue_id in libFrame["Id"].values:
-            issue_to=input("Enter Borrower Name: ")
-            issue_contact=int(input("Enter Borrower Contact: "))
-            issue_date=input("Enter Issue Date: ")
-            issueFrame.loc[len(issueFrame)]={
-                "Id":issue_id,
-                "Books":libFrame.loc[libFrame["Id"] == issue_id, "Books"].values[0],
-                "Borrower_Name":issue_to,
-                "Contact":issue_contact,
-                "Issue_Date":issue_date
-                }
-            indice=libFrame[libFrame["Id"]==issue_id].index
-            libFrame.drop(indice,inplace=True)
-            libFrame.to_csv('Mini-Projects/Library Management/index.csv',index=False)
-            issueFrame.to_csv('Mini-Projects/Library Management/issue.csv',index=False)
-        else:
-            print("Book Not Avaliable in Library!")
-            break 
+    if issue_id in libFrame["Id"].values:
+        issue_to=input("Enter Borrower Name: ")
+        issue_contact=int(input("Enter Borrower Contact: "))
+        issue_date=input("Enter Issue Date: ")
+        issueFrame.loc[len(issueFrame)]={
+            "Id":issue_id,
+            "Books":libFrame.loc[libFrame["Id"] == issue_id, "Books"].values[0],
+            "Author":libFrame.loc[libFrame["Id"] == issue_id, "Author"].values[0],
+            "Year":libFrame.loc[libFrame["Id"] == issue_id, "Year"].values[0],
+            "Borrower_Name":issue_to,
+            "Contact":issue_contact,
+            "Issue_Date":issue_date
+            }
+        indice=libFrame[libFrame["Id"]==issue_id].index
+        libFrame.drop(indice,inplace=True)
+        libFrame.to_csv('index.csv',index=False)
+        issueFrame.to_csv('issue.csv',index=False)
+    else:
+        print("Book Not Avaliable in Library!")
+ 
 
 def remove_book(libFrame):
     found=False
+    print(f"\nCurrent Books in Library: \n{libFrame}")
     removeby=int(input("\nRemove Book by: \n1.Id \t2.Name\nInput: "))
     if removeby==1:
         removebyid=int(input("Enter Book Id: "))
@@ -52,7 +55,7 @@ def remove_book(libFrame):
             if id == removebyid:
                 indice=libFrame[libFrame["Id"]==removebyid].index
                 libFrame.drop(indice,inplace=True)
-                libFrame.to_csv('Mini-Projects/Library Management/index.csv',index=False)
+                libFrame.to_csv('index.csv',index=False)
                 print("Book Removed Successfully!")
                 found=True
         if not found:
@@ -63,7 +66,7 @@ def remove_book(libFrame):
             if name == removebyname.lower():
                 indice=libFrame[libFrame["Books"]==removebyname].index
                 libFrame.drop(indice,inplace=True)
-                libFrame.to_csv('Mini-Projects/Library Management/index.csv',index=False)
+                libFrame.to_csv('index.csv',index=False)
                 print("Book Removed Successfully!")
                 found=True
         if not found:
@@ -71,17 +74,47 @@ def remove_book(libFrame):
     else:
         print("Invalid Input!")
 
+def return_book(libFrame,issueFrame):
+    print(f"\nCurrent Issued Books: {issueFrame}")
+    try: 
+        returnid=int(input("Enter Book Id: "))
+    except Exception as e:
+        print("Enter Valid Id:")
+    if (issueFrame['Id'] == returnid).any():
+        libFrame.loc[len(libFrame)]={
+            "Id":returnid,
+            "Books":issueFrame.loc[issueFrame["Id"] == returnid, "Books"].values[0],
+            "Author":issueFrame.loc[issueFrame["Id"] == returnid, "Author"].values[0],
+            "Year":issueFrame.loc[issueFrame["Id"] == returnid, "Year"].values[0]
+        }
+        libFrame.to_csv('index.csv',index=False)
+        indice=issueFrame[issueFrame["Id"]==returnid].index
+        issueFrame.drop(indice,inplace=True)
+        issueFrame.to_csv('issue.csv')
+        print("Book Returned!")
+    else:
+        print("Enter Valid Id")
+    
+
 def view_current(libFrame):
-    print(f"Current Library Data: \n{libFrame}")
+    if libFrame.empty:
+        print("No current Books in Library!")
+    else: 
+        print(f"\nCurrent Library Data: \n{libFrame}")
 
 def view_issued_books(issueFrame):
-    print(f"Issued Books: \n{issueFrame}")
+    if issueFrame.empty:
+        print("No current Books in Library!")
+    else: 
+        print(f"\nIssued Books: \n{issueFrame}")
 
 if __name__=="__main__":
     print("Welcome to Library Managment System!\n")
     sleep(1)
-    file_name='Mini-Projects/Library Management/index.csv'
-    issuer_file='Mini-Projects/Library Management/issue.csv'
+    file_name='index.csv'
+    issuer_file='issue.csv'
+    folder='Library Management'
+    os.chdir('Library Management')
     if os.path.isfile(file_name) and os.path.isfile(issuer_file):
         print("Opening File...")
     else:
@@ -94,23 +127,25 @@ if __name__=="__main__":
         issue={
             "Id":[],
             "Books":[],
+            "Author":[],
+            "Year":[],
             "Borrower_Name":[],
             "Contact":[],
             "Issue_Date":[]
         }
         libFrame=pd.DataFrame(lib)
         issueFrame=pd.DataFrame(issue)
-        libFrame.to_csv('Mini-Projects/Library Management/index.csv',index=False)
-        issueFrame.to_csv('Mini-Projects/Library Management/issue.csv',index=False)
+        libFrame.to_csv('index.csv',index=False)
+        issueFrame.to_csv('issue.csv',index=False)
         print("File Created!")
 
-    libFrame=pd.read_csv('Mini-Projects/Library Management/index.csv')
-    issueFrame=pd.read_csv('Mini-Projects/Library Management/issue.csv')
+    libFrame=pd.read_csv('index.csv')
+    issueFrame=pd.read_csv('issue.csv')
     print("\nLibrary Manager Opened!")
     while True:
-        print("\nOperations Available:\n1.Add Book\t2.Issue Book\t3.Remove book from Library\n4.View Current Books in Library\t5.View Issued Books\t6.Exit")
+        print("\nOperations Available:\n1.Add Book\t2.Issue Book\t3.Remove book from Library\n4.View Current Books in Library\t5.View Issued Books\n6.Return Book\t7.Exit")
         try:
-            action=int(input("Enter Index of Operation to be performed(1/2/3/4): "))
+            action=int(input("Enter Index of Operation to be performed(1/2/3/4/5/6/7): "))
         except Exception as e:
             print("Enter a Valid Operation Number!")
         match(action):
@@ -125,6 +160,8 @@ if __name__=="__main__":
             case 5:
                 view_issued_books(issueFrame)
             case 6:
+                return_book(libFrame,issueFrame)
+            case 7:
                 print("Thank You for using Library Management System! ")
                 break
             case _:

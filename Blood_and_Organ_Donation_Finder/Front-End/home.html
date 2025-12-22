@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood and Organ Donation Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Blood & Organ <br> Donation Finder</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="donate.html">Donate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Request</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Guidelines</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Login/SignUp</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="hero">
+        <h1>A Few Minutes For You, A Lifeline for Someone</h1>
+        <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-donate" onclick="window.open('donate.html','_blank')">Donate</button>
+            <button class="btn btn-request">Request</button>
+        </div>
+    </section>
+    <div class="guidelines-box container">
+        <h5>Donation Guidelines</h5>
+        <div class="guidelines-icons">
+            <div class="guideline">
+                <i class="bi bi-person-circle"></i>
+                <p>Eligibility</p>
+            </div>
+            <div class="guideline">
+                <i class="bi bi-droplet"></i>
+                <p>Pre-Donation</p>
+            </div>
+            <div class="guideline">
+                <i class="bi bi-heart"></i>
+                <p>Post-Donation</p>
+            </div>
+            <div class="guideline">
+                <i class="bi bi-file-earmark-text"></i>
+                <p>Legal Consent</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <button class="btn btn-outline-dark ml-3" onclick="window.open('https://www.who.int/campaigns/world-blood-donor-day/2018/who-can-give-blood', '_blank')">
+                WHO Blood Donation Guidelines
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('https://www.who.int/health-topics/transplantation#tab=tab_1', '_blank')">
+                WHO Organ Transplantation Guidelines
+            </button>
+        </div>
+    </div>
+    <section class="articles container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4>Top Articles</h4>
+            <a href="#" class="text-decoration-none fw-semibold">→</a>
+        </div>
+        <div class="row g-4 mt-2">
+            <div class="col-md-4">
+                <div class="card article-card">
+                    <div class="card-body" onclick="window.open('https://www.who.int/news-room/fact-sheets/detail/blood-safety-and-availability', '_blank')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/WHO_logo.svg/800px-WHO_logo.svg.png" class="articleimg" style="font-size: 3rem; color:#ef233c;" alt="WHO">
+                        <h6>Blood Safety & Availability</h6>
+                        <p>World Health Organization (WHO)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card article-card">
+                    <div class="card-body" onclick="window.open('https://pmc.ncbi.nlm.nih.gov/articles/PMC6396593/', '_blank')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/NIH_Master_Logo_Vertical_2Color.png?20130312195925" class="articleimg" style="font-size: 3rem; color:#ef233c;">
+                        <h6>Organ Donation</h6>
+                        <p>National Institute of Health</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card article-card">
+                    <div class="card-body" onclick="window.open('https://rotarybloodbank.org/', '_blank')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Rotary_International_Logo.svg" class="articleimg" style="font-size: 3rem; color:#ef233c;">
+                        <h6>Indian Blood Bank</h6>
+                        <p>Rotary Blood Bank</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
