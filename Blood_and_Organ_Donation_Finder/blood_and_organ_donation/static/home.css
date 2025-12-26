@@ -1,0 +1,162 @@
+body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+}
+
+.navbar {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+    
+.navbar-brand {
+      font-weight: 700;
+      color: #d90429 !important;
+}
+    
+.nav-link {
+      font-weight: 500;
+}
+
+.nav-link.active {
+      background: #d90429;
+      color: #fff !important;
+      border-radius: 20px;
+      padding: 5px 15px;
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: 600;       
+  padding-top: 0.5rem;    
+  padding-bottom: 0.5rem; 
+}
+
+.hero {
+  background: linear-gradient(135deg, #d90429, #ef233c, #ff6b6b, #ff9f1c);
+  background-size: 300% 300%;
+  animation: gradientShift 4s ease infinite; 
+  color: white;
+  text-align: center;
+  padding: 100px 20px 60px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.hero .btn {
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.hero .btn-donate {
+  background: #e63946;
+  border: none;
+  color: #fff;
+}
+
+.hero .btn-donate:hover {
+  background: #c1121f;
+  color: #fff;
+}
+
+.hero .btn-request {
+  background: #06d6a0;
+  border: none;
+  color: #fff;
+}
+
+.hero .btn-request:hover {
+  background: #049b72;
+  color: #fff;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.guidelines-box {
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 25px;
+      margin: -40px auto 50px;
+      max-width: 900px;
+      text-align: center;
+}
+
+.guidelines-box h5 {
+      font-weight: 600;
+      margin-bottom: 20px;
+}
+
+.guidelines-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin-bottom: 20px;
+}
+
+.guideline {
+      text-align: center;
+      flex: 1 1 150px;
+      margin: 10px;
+}
+
+.guideline i {
+      font-size: 2rem;
+      color: #d90429;
+      margin-bottom: 8px;
+}
+
+.guidelines-box .btn {
+      border-radius: 25px;
+      font-weight: 600;
+}
+
+.articles {
+      padding: 40px 20px;
+}
+
+.articles h4 {
+      font-weight: 600;
+      margin-bottom: 25px;
+}
+    
+.article-card {
+      background: #fff;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+}
+    
+.article-card:hover {
+      transform: translateY(-5px);
+}
+
+.article-card .card-body {
+      text-align: center;
+}
+
+.article-card h6 {
+      font-weight: 600;
+      margin-top: 10px;
+}
+
+.article-card p {
+      font-size: 0.9rem;
+      color: #6c757d;
+}
+
+.articleimg{
+    height: 200px;
+    width: 200px;
+}
