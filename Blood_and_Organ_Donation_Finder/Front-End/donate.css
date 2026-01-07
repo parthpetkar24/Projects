@@ -1,0 +1,42 @@
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#f8f9fa,#ffe5e5);
+}
+
+.hero{
+  background:linear-gradient(135deg,#d90429,#ef233c,#ff6b6b);
+  color:#fff;
+  padding:70px 20px;
+  text-align:center;
+  border-radius:0 0 40px 40px;
+}
+
+.card-glass{
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.step-indicator span{
+  width:40px;height:40px;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:50%;
+  font-weight:600;
+  background:#dee2e6;
+}
+
+.step-indicator .active{
+  background:#d90429;
+  color:white;
+}
+
+.donate-btn{
+  border-radius:30px;
+  padding:12px;
+  font-weight:600;
+}
+
+.hidden{display:none;}

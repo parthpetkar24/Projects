@@ -1,0 +1,59 @@
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#ffe5e5,#f8f9fa);
+}
+/* USER / HOSPITAL BUTTON TABS */
+.role-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.role-tab-btn {
+  padding: 10px 28px;
+  border-radius: 30px;
+  border: 2px solid #d90429;
+  background: transparent;
+  color: #d90429;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.role-tab-btn:hover {
+  background: #d90429;
+  color: #fff;
+}
+
+.role-tab-btn.active {
+  background: #d90429;
+  color: #fff;
+}
+
+.auth-hero{
+  background:linear-gradient(135deg,#d90429,#ef233c,#ff6b6b);
+  color:#fff;
+  padding:60px 20px;
+  text-align:center;
+  border-radius:0 0 40px 40px;
+}
+
+.auth-card{
+  background:white;
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+  padding:30px;
+}
+
+.action-btn{
+  border-radius:30px;
+  padding:12px;
+  font-weight:600;
+}
+
+.switch-links a{
+  text-decoration:none;
+  font-weight:600;
+}

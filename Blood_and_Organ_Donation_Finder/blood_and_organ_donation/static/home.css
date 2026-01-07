@@ -3,32 +3,7 @@ body {
       background-color: #f8f9fa;
 }
 
-.navbar {
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-    
-.navbar-brand {
-      font-weight: 700;
-      color: #d90429 !important;
-}
-    
-.nav-link {
-      font-weight: 500;
-}
 
-.nav-link.active {
-      background: #d90429;
-      color: #fff !important;
-      border-radius: 20px;
-      padding: 5px 15px;
-}
-
-.navbar-nav .nav-link.active {
-  font-weight: 600;       
-  padding-top: 0.5rem;    
-  padding-bottom: 0.5rem; 
-}
 
 .hero {
   background: linear-gradient(135deg, #d90429, #ef233c, #ff6b6b, #ff9f1c);

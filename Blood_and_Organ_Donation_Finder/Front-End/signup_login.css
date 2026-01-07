@@ -1,0 +1,40 @@
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#ffe5e5,#f8f9fa);
+}
+/* GREEN LOGIN / SIGNUP TABS */
+.nav-pills .nav-link {
+  color: #198754; /* Bootstrap green */
+  font-weight: 600;
+  border-radius: 30px;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #198754 !important;
+  color: #fff !important;
+}
+
+.nav-pills .nav-link:hover {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: #198754;
+}
+
+.auth-card{
+  background:white;
+  border-radius:20px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+}
+
+.role-btn.active{
+  background:#d90429;
+  color:#fff;
+}
+
+.action-btn{
+  border-radius:30px;
+  padding:12px;
+  font-weight:600;
+}
+
+.hidden{display:none;}

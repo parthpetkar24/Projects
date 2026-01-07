@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeConnect - Blood & Organ Donation Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animated Gradient Background */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, 
+                #D32F2F 0%, 
+                #FF6B6B 25%, 
+                #4CAF50 75%, 
+                #388E3C 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Particle Effect */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Glassmorphism Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #D32F2F, #388E3C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "❤️";
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px rgba(211, 47, 47, 0.5));
+        }
+
+        /* Morphing Buttons Container */
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Button Base Styles */
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Login/Signup Dual Button */
+        .auth-btn {
+            background: transparent;
+            color: #263238;
+            border: 2px solid #263238;
+            position: relative;
+        }
+
+        .auth-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .auth-btn:hover::after {
+            left: 100%;
+        }
+
+        .auth-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Donate Button - Pulsing Effect */
+        .donate-btn {
+            background: linear-gradient(45deg, #D32F2F, #FF5252);
+            color: white;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.4);
+        }
+
+        /* Request Button - Ripple Effect */
+        .request-btn {
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            color: white;
+            position: relative;
+        }
+
+        .request-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(56, 142, 60, 0.4);
+        }
+
+        /* Guidelines Dropdown - Unique Design */
+        .guidelines-dropdown {
+            position: relative;
+        }
+
+        .guidelines-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: #263238;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .guidelines-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-radius: 15px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            z-index: 1001;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-content a {
+            color: #263238;
+            padding: 0.8rem 1.2rem;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .dropdown-content a:hover {
+            background: #f5f5f5;
+            border-left: 4px solid #D32F2F;
+            padding-left: 1.5rem;
+        }
+
+        .guidelines-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main Content */
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            max-width: 900px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        /* Stats Counter */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Floating Action Buttons */
+        .floating-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab-donate {
+            background: linear-gradient(45deg, #D32F2F, #FF5252);
+            color: white;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .fab-request {
+            background: linear-gradient(45deg, #388E3C, #66BB6A);
+            color: white;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 3%;
+            }
+            
+            .nav-actions {
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .stats-container {
+                gap: 1rem;
+            }
+            
+            .stat-box {
+                padding: 1rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">LifeConnect</div>
+        <div class="nav-actions">
+            <button class="btn auth-btn" onclick="alert('Login/Signup Modal')">
+                👤 Login/Signup
+            </button>
+            <button class="btn donate-btn" onclick="alert('Donation Form')">
+                🩸 Donate
+            </button>
+            <button class="btn request-btn" onclick="alert('Request Form')">
+                ❤️ Request
+            </button>
+            <div class="guidelines-dropdown">
+                <button class="btn guidelines-btn">
+                    📋 Guidelines ▾
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Blood Donation Process</a>
+                    <a href="#">Organ Donation Info</a>
+                    <a href="#">Eligibility Criteria</a>
+                    <a href="#">Safety Guidelines</a>
+                    <a href="#">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="particles" id="particles"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">BE A LIFESAVER TODAY</h1>
+            <p class="hero-subtitle">Connecting donors with those in need. Every drop counts, every organ matters.</p>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-number" data-count="12500">0</span>
+                    <span class="stat-label">Lives Saved</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-count="8500">0</span>
+                    <span class="stat-label">Active Donors</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-count="3200">0</span>
+                    <span class="stat-label">Successful Matches</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-actions">
+        <button class="fab fab-donate" onclick="alert('Quick Donate')" title="Quick Donate">
+            🩸
+        </button>
+        <button class="fab fab-request" onclick="alert('Emergency Request')" title="Emergency Request">
+            🚨
+        </button>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 20 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${Math.random() * 4 + 4}s`;
+            particle.style.animationDelay = `${Math.random() * 2}s`;
+            document.getElementById('particles').appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 8000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+
+        // Animate counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current).toLocaleString();
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Start animation when page loads
+        window.addEventListener('load', animateCounters);
+    </script>
+</body>
+</html>

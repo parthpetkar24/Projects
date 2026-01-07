@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Blood and Organ Donation Finder{% endblock %}
+{% block title %}LifeLink | Blood and Organ Donation Finder{% endblock %}
 
 {% block sub_head %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,14 +10,16 @@
 <link rel="stylesheet" href="{% static 'home.css' %}">
 {% endblock %}
 
-{% block body %}
+{% block hero %}
     <section class="hero">
         <h1>A Few Minutes For You, A Lifeline for Someone</h1>
         <div class="d-flex justify-content-center gap-3">
-            <button class="btn btn-donate" onclick="window.open('donate.html','_blank')">Donate</button>
-            <button class="btn btn-request">Request</button>
+            <button class="btn btn-donate" onclick="window.open('/donate/','_self')">Donate</button>
+            <button class="btn btn-request" onclick="window.open('/request/','_self')">Request</button>
         </div>
     </section>
+    {% endblock %}
+    {% block body %}
     <div class="guidelines-box container">
         <h5>Donation Guidelines</h5>
         <div class="guidelines-icons">

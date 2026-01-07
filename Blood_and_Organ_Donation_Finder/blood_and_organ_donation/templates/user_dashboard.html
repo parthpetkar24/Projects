@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}User Dashboard | LifeLink{% endblock %}
+
+{% block sub_head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'user_dashboard.css' %}">
+{% endblock %}
+
+{% block hero %}
+
+<!-- HERO -->
+<section class="hero text-center">
+  <h1>Welcome Back, {{ user.userprofile.full_name }}</h1>
+  <p>Your actions save lives </p>
+</section>
+{% endblock %}
+{% block body %}
+<div class="container my-5">
+
+  <!-- CAROUSEL -->
+  <div id="donationCarousel" class="carousel slide shadow rounded mb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" class="d-block w-100 carousel-img">
+        <div class="carousel-caption">
+          <h5>Blood Donation Saves Lives</h5>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1584467735871-b0b6a8f4a56f" class="d-block w-100 carousel-img">
+        <div class="carousel-caption">
+          <h5>Be an Organ Donor</h5>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1606206873764-fd15e242df52" class="d-block w-100 carousel-img">
+        <div class="carousel-caption">
+          <h5>Hospitals Connect Heroes</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD GRID -->
+  <div class="row g-4">
+
+    <!-- DONATION NEWS -->
+    <div class="col-md-6">
+      <div class="card dashboard-card">
+        <h5><i class="bi bi-newspaper"></i> Current Donation News</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">🩸 O+ blood urgently needed in Mumbai</li>
+          <li class="list-group-item">🏥 City Hospital organ drive this weekend</li>
+          <li class="list-group-item">❤️ 120 lives saved this month</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DONOR CONTACT -->
+    <div class="col-md-6">
+      <div class="card dashboard-card highlight-card">
+        <h5><i class="bi bi-person-heart"></i> Requester Trying to Contact You</h5>
+        <p><strong>Name:</strong> Anonymous Requester</p>
+        <p><strong>Blood Group:</strong> A+</p>
+        <button class="btn btn-success">Accept Contact</button>
+        <button class="btn btn-outline-danger mt-2">Ignore</button>
+      </div>
+    </div>
+
+    <!-- STATUS TRACKER -->
+    <div class="col-12">
+      <div class="card dashboard-card">
+        <h5><i class="bi bi-activity"></i> Blood Request Status</h5>
+
+        <div class="status-tracker mt-4">
+          <div class="step active">Requested</div>
+          <div class="step active">Hospital Approved</div>
+          <div class="step">Donor Matched</div>
+          <div class="step">Completed</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'user_dashboard.js' %}"></script>
+{% endblock %}
