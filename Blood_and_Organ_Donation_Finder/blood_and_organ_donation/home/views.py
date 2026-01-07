@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import date
+from geopy.geocoders import Nominatim
+from string import ascii_letters,ascii_lowercase
+
 # Create your views here.
 def home(request):
     return render(request,'home.html')
@@ -75,6 +78,20 @@ def signup_user(request):
     if request.method=="POST":
         email=request.POST.get('email')
         password=request.POST.get('password')
+        city = request.POST.get("city")
+        latitude = None
+        longitude = None
+
+        if city:
+            geolocator = Nominatim(
+                user_agent="blood_and_organ_finder_app",
+                timeout=10
+            )
+            location = geolocator.geocode(city)
+            if location:
+                latitude = location.latitude
+                longitude = location.longitude
+
         if User.objects.filter(username=email).exists():
             messages.error(request, "Email already registered")
             return redirect("signup_user")
@@ -88,6 +105,10 @@ def signup_user(request):
             user=user,
             full_name=request.POST.get('full_name'),
             phone=request.POST.get('phone'),
+            blood_group = request.POST.get("blood_group"),
+            city=city,
+            longitude=longitude,
+            latitude=latitude,
         )
         messages.success(request,'Account Created Successfully!')
         return redirect('login_user')
@@ -97,6 +118,19 @@ def signup_hospital(request):
     if request.method=="POST":
         hospital_email=request.POST.get('hospital_email')
         hospital_password=request.POST.get('hospital_password')
+        city=request.POST.get('city')
+        latitude = None
+        longitude = None
+
+        if city:
+            geolocator = Nominatim(
+                user_agent="blood_and_organ_finder_app",
+                timeout=10
+            )
+            location = geolocator.geocode(city)
+            if location:
+                latitude = location.latitude
+                longitude = location.longitude
         if User.objects.filter(username=hospital_email).exists():
             messages.error(request, "Email already registered")
             return redirect("signup_hospital")
@@ -110,9 +144,11 @@ def signup_hospital(request):
             user=user,
             hospital_name=request.POST.get('hospital_name'),
             registration_id=request.POST.get('registration_id'),
-            city=request.POST.get('city'),
-            contact=request.POST.get('contact'),
-            license=request.POST.get('license'),
+            contact_number=request.POST.get('contact_number'),
+            license=request.FILES.get('license'),
+            city=city,
+            longitude=longitude,
+            latitude=latitude,
         )
         messages.success(request,'Account Created Successfully!')
         return redirect('login_hospital')

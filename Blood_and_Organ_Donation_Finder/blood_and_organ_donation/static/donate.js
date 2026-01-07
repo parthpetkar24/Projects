@@ -33,6 +33,11 @@ function calculateAge() {
   document.getElementById("age").value = age;
 }
 
+function enableSubmit(step) {
+  const btn = document.getElementById(`step${step}SubmitBtn`);
+  if (btn) btn.disabled = false;
+}
+
 function nextStep(step) {
   // hide all steps
   document.querySelectorAll('[id^="step"]').forEach(div => {
