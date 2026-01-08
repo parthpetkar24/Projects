@@ -30,7 +30,7 @@
     </div>
 
     <!-- ONE FORM ONLY -->
-    <form method="post" action="{% url 'donate' %}" enctype="multipart/form-data">
+    <form method="post" action="/donate/" enctype="multipart/form-data">
       {% csrf_token %}
 
       <!-- STEP 1 -->
@@ -69,18 +69,16 @@
         <div class="row g-3">
           <input type="text" class="form-control" name="full_name" placeholder="Full Name" required>
           <input type="text" class="form-control" name="aadhar_id" placeholder="Aadhar ID" maxlength="12" required>
-
-          <!-- FIXED: date instead of datetime -->
           <input type="date" class="form-control" name="dob" id="dob" onchange="calculateAge()" required>
 
           <input type="number" class="form-control" name="age" id="age" placeholder="Age" readonly>
 
           <select name="gender" class="form-select" required>
             <option value="">Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-            <option value="not_preferred">Prefer Not Say</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Other</option>
+            <option value="PNS">Prefer Not Say</option>
           </select>
 
           <input type="text" class="form-control" name="city" placeholder="City" required>
@@ -99,8 +97,8 @@
 
         <!-- BLOOD -->
         <div id="bloodSection">
-          <select name="blood_type" class="form-select">
-            <option value="">Blood Type</option>
+          <select name="blood_group" class="form-select">
+            <option value="">Blood Group</option>
             <option>AB+</option>
             <option>AB-</option>
             <option>A+</option>
@@ -116,8 +114,8 @@
         <div id="organSection" class="hidden">
           <select name="aliveordec" class="form-select mb-3">
             <option value="">Donor Alive or Deceased?</option>
-            <option value="alive">Alive</option>
-            <option value="deceased">Deceased</option>
+            <option value="A">Alive</option>
+            <option value="D">Deceased</option>
           </select>
 
           <select name="organ" class="form-select mb-3">
@@ -135,10 +133,10 @@
         </div>
 
         <input type="number" class="form-control mb-3 mt-2" name="weight" placeholder="Weight (in kg)" required>
-        <input type="text" class="form-control mb-3" name="medical_condition" placeholder="Any Prior Medical or Physical Condition (if any)" required>
+        <input type="text" class="form-control mb-3" name="medical_condition" placeholder="Any Prior Medical or Physical Condition (if any)">
 
         <label class="form-label">Upload Doctor Report</label>
-        <input type="file" class="form-control mb-3" name="doc_report">
+        <input type="file" class="form-control mb-3" name="doc_report" required>
 
         <div class="d-flex justify-content-between mt-4">
           <button type="button" class="btn btn-outline-secondary donate-btn"
@@ -154,16 +152,31 @@
         <i class="bi bi-heart-fill text-danger fs-1"></i>
         <h4 class="fw-bold mt-2">Confirm & Submit</h4>
 
-        <div class="form-check mt-3">
-          <input class="form-check-input" type="checkbox" name="consent" required>
-          <label class="form-check-label">
-            I voluntarily consent to donate blood/organs
-          </label>
-        </div>
+        <div class="form-check d-flex align-items-center justify-content-center mt-3">
+  <input class="form-check-input me-2 consent-check"
+         type="checkbox"
+         id="consent"
+         name="consent"
+         required>
+  <label class="form-check-label" for="consent">
+    I voluntarily consent to donate blood/organs
+  </label>
+</div>
 
-        <button type="submit" class="btn btn-success donate-btn px-5 mt-3">
-          Submit
-        </button>
+<!-- Buttons -->
+<div class="d-flex justify-content-between align-items-center mt-4">
+  <button type="button"
+          class="btn btn-outline-secondary donate-btn"
+          onclick="nextStep(3)">
+    Back
+  </button>
+
+  <button type="submit"
+          class="btn btn-success donate-btn px-5">
+    Submit
+  </button>
+</div>
+        
       </div>
 
     </form>

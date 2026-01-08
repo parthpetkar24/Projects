@@ -9,6 +9,10 @@ function selectType(type, btn) {
 
   document.getElementById("organSection")
     .classList.toggle("hidden", type !== "organ");
+  
+  document.querySelector('[name="blood_group"]').required = (type === "blood");
+  document.querySelector('[name="aliveordec"]').required = (type === "organ");
+  document.querySelector('[name="organ"]').required = (type === "organ");
 
   document.querySelectorAll(".tab-btn").forEach(b => {
     b.classList.remove("active")
