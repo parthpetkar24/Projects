@@ -1,15 +1,54 @@
-let requestType="";
+let requestType = "blood";
 
-function selectType(type){
-  requestType=type;
-  document.getElementById("bloodField").classList.toggle("hidden",type!=="blood");
-  document.getElementById("organField").classList.toggle("hidden",type!=="organ");
+function selectType(type, btn) {
+  requestType = type;
+  document.getElementById("requestType").value = type;
+
+  // Toggle sections
+  document.getElementById("bloodSection")
+    .classList.toggle("hidden", type !== "blood");
+
+  document.getElementById("organSection")
+    .classList.toggle("hidden", type !== "organ");
+
+  // Required fields
+  document.querySelector('[name="blood_group"]').required = (type === "blood");
+  document.querySelector('[name="organ"]').required = (type === "organ");
+
+  // Active tab styling
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
 }
 
-function nextStep(step){
-  ["step1","step2","step3"].forEach(s=>document.getElementById(s).classList.add("hidden"));
-  document.getElementById("step"+step).classList.remove("hidden");
+function calculateAge() {
+  const dob = document.getElementById("dob").value;
+  if (!dob) return;
 
-  ["r1","r2","r3"].forEach(s=>document.getElementById(s).classList.remove("active"));
-  document.getElementById("r"+step).classList.add("active");
+  const birth = new Date(dob);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+
+  if (
+    today.getMonth() < birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() &&
+     today.getDate() < birth.getDate())
+  ) age--;
+
+  document.getElementById("age").value = age;
+}
+
+function nextStep(step) {
+  /* Hide only actual steps */
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById(`step${i}`).classList.add("hidden");
+  }
+
+  document.getElementById(`step${step}`).classList.remove("hidden");
+
+  /* Reset indicators safely */
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById(`s${i}`).classList.remove("active");
+  }
+
+  document.getElementById(`s${step}`).classList.add("active");
 }
