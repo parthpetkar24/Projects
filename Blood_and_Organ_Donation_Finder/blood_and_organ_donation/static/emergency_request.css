@@ -1,0 +1,37 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fff5f5, #f8f9fa);
+}
+
+.hero {
+  background: linear-gradient(135deg, #d90429, #ef233c);
+  color: #fff;
+  padding: 70px 20px;
+  text-align: center;
+  border-radius: 0 0 40px 40px;
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.tab-btn {
+  border: 2px solid #d90429;
+  color: #d90429;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  background: transparent;
+}
+
+.tab-btn.active {
+  background: #d90429;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
