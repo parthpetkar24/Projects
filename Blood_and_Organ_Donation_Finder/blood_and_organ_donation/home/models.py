@@ -35,7 +35,14 @@ class HospitalProfile(models.Model):
         null=True,
         blank=True
     )
-
+    aplusunit=models.IntegerField(default=0)
+    aminusunit=models.IntegerField(default=0)
+    bplusunit=models.IntegerField(default=0)
+    bminusunit=models.IntegerField(default=0)
+    abplusunit=models.IntegerField(default=0)
+    abminusunit=models.IntegerField(default=0)
+    oplusunit=models.IntegerField(default=0)
+    ominusunit=models.IntegerField(default=0)
     def __str__(self):
         return self.hospital_name
     

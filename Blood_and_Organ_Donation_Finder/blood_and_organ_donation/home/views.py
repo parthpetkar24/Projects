@@ -331,6 +331,18 @@ def user_dashboard(request):
 
 @login_required(login_url="login_hospital")
 def hospital_dashboard(request):
+    profile=request.user.hospitalprofile
+    if request.method=="POST":
+        profile.aplusunit=request.POST.get('aplusunit',profile.aplusunit)
+        profile.aminusunit=request.POST.get('aminusunit',profile.aminusunit)
+        profile.bplusunit=request.POST.get('bplusunit',profile.bplusunit)
+        profile.bminusunit=request.POST.get('bminusunit',profile.bminusunit)
+        profile.abplusunit=request.POST.get('abplusunit',profile.abplusunit)
+        profile.abminusunit=request.POST.get('abminusunit',profile.abminusunit)
+        profile.oplusunit=request.POST.get('oplusunit',profile.oplusunit)
+        profile.ominusunit=request.POST.get('ominusunit',profile.ominusunit)
+
+        profile.save()
     return render(request,"hospital_dashboard.html")
 
 

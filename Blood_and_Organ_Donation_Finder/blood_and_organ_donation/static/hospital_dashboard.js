@@ -1,7 +1,10 @@
 function increaseUnit(id) {
   const cell = document.getElementById(id);
+  const store = document.getElementById(id + "_store");
   let value = parseInt(cell.textContent);
-  cell.textContent = value + 1;
+  value=value+1;
+  cell.textContent = value;
+  store.value = value;
 }
 
 function decreaseUnit(id) {
