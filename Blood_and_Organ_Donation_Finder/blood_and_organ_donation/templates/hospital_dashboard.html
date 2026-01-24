@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hospital Dashboard {% endblock %}
+{% block sub_head %}
+    <link rel="stylesheet" href="{% static 'hospital_dashboard.css' %}">
+{% endblock %}
+
+{% block hero %}
+<!-- HERO -->
+<section class="hero text-center">
+  <h1>{{ user.hospitalprofile.hospital_name }} Dashboard</h1>
+  <p>Saving Lives</p>
+</section>
+{% endblock %}
+
+{% block body %}
+<table class="table mt-3 text-center align-middle">
+  <thead>
+    <tr>
+      <th>Blood Group</th>
+      <th>Units</th>
+      <th>+</th>
+      <th>-</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>A+</td>
+      <td id="A+">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('A+')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('A+')">
+          -
+        </button>
+      </td>
+    </tr>
+
+    <tr>
+      <td>A-</td>
+      <td id="A-">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('A-')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('A-')">
+          -
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>B+</td>
+      <td id="B+">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('B+')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('B+')">
+          -
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>B-</td>
+      <td id="B-">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('B-')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('B-')">
+          -
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>AB+</td>
+      <td id="AB+">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('AB+')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('AB+')">
+          -
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>AB-</td>
+      <td id="AB-">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('AB-')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('AB-')">
+          -
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>O+</td>
+      <td id="O+">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('O+')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('O+')">
+          -
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>O-</td>
+      <td id="O-">0</td>
+      <td>
+        <button class="btn btn-sm btn-outline-success"
+                onclick="increaseUnit('O-')">
+          +
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger"
+                onclick="decreaseUnit('O-')">
+          -
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row g-4 mt-2">
+
+  <!-- BLOOD DONATION -->
+  <div class="col-md-6">
+    <div class="card dashboard-card">
+      <h5><i class="bi bi-heart-fill"></i> Blood Donation Applications</h5>
+
+      <div class="application-card">
+        <p><strong>Donor:</strong> Rahul Sharma</p>
+        <p><strong>Blood Group:</strong> O+</p>
+        <button class="btn btn-success btn-sm">Approve</button>
+        <button class="btn btn-outline-danger btn-sm">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOOD REQUEST -->
+  <div class="col-md-6">
+    <div class="card dashboard-card highlight-card">
+      <h5><i class="bi bi-droplet-half"></i> Blood Request Applications</h5>
+
+      <div class="application-card">
+        <p><strong>Patient:</strong> Emergency Case</p>
+        <p><strong>Blood Group:</strong> A+</p>
+        <button class="btn btn-success btn-sm">Approve</button>
+        <button class="btn btn-outline-danger btn-sm">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGAN DONATION -->
+  <div class="col-md-6">
+    <div class="card dashboard-card">
+      <h5><i class="bi bi-lungs-fill"></i> Organ Donation Applications</h5>
+
+      <div class="application-card">
+        <p><strong>Donor:</strong> Ankit Verma</p>
+        <p><strong>Organ:</strong> Kidney</p>
+        <button class="btn btn-success btn-sm">Approve</button>
+        <button class="btn btn-outline-danger btn-sm">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGAN REQUEST -->
+  <div class="col-md-6">
+    <div class="card dashboard-card highlight-card">
+      <h5><i class="bi bi-hospital-fill"></i> Organ Request Applications</h5>
+
+      <div class="application-card">
+        <p><strong>Patient:</strong> Confidential</p>
+        <p><strong>Organ Needed:</strong> Liver</p>
+        <button class="btn btn-success btn-sm">Approve</button>
+        <button class="btn btn-outline-danger btn-sm">Reject</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+  <!-- NEWS SECTION -->
+  <div class="card dashboard-card mt-5">
+    <h5><i class="bi bi-megaphone"></i> Publish Hospital News</h5>
+
+    <input type="text" class="form-control mb-2" placeholder="News Title">
+    <textarea class="form-control mb-3" rows="3" placeholder="News Message"></textarea>
+
+    <button class="btn btn-danger">Publish News</button>
+
+    <hr>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">🩸 O+ Blood urgently needed</li>
+      <li class="list-group-item">🏥 Donation camp on Sunday</li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="{% static 'hospital_dashboard.js' %}"></script>
+{% endblock %}

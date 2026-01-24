@@ -14,4 +14,5 @@ urlpatterns = [
     path('signup_hospital/',views.signup_hospital,name='signup_hospital'),
     path('logout/', views.logout_user, name="logout_user"),
     path('user_dashboard/',views.user_dashboard,name="user_dashboard"),
+    path('hospital_dashboard/',views.hospital_dashboard,name="hospital_dashboard"),
 ]

@@ -329,5 +329,9 @@ def logout_user(request):
 def user_dashboard(request):
     return render(request,"user_dashboard.html")
 
+@login_required(login_url="login_hospital")
+def hospital_dashboard(request):
+    return render(request,"hospital_dashboard.html")
+
 
 

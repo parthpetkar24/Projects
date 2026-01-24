@@ -1,0 +1,44 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f8f9fa;
+}
+
+.hero {
+  background: linear-gradient(135deg,#d90429,#ef233c,#ff6b6b);
+  color: white;
+  padding: 80px 20px;
+  border-radius: 0 0 40px 40px;
+}
+
+.dashboard-card {
+  border-radius: 18px;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.dashboard-card h5 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.highlight-card {
+  background: linear-gradient(135deg,#fff5f5,#ffe5e5);
+}
+
+.application-card {
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  background: #fff;
+}
+
+.blood-icon {
+  color: #d90429;
+  font-size: 1.3rem;
+}
+
+.table button {
+  border-radius: 50%;
+}
