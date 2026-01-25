@@ -30,135 +30,137 @@
   <tbody>
     <tr>
       <td>A+</td>
-      <td id="Aplus">{{user.hospitalprofile.aplusunit}}</td>
+      <td id="aplus_display">{{user.hospitalprofile.aplusunit}}</td>
       <input type="hidden" name="aplusunit"  id="aplus_store" value="{{ user.hospitalprofile.aplusunit }}">
 
       <td>
-        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('Aplus')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('aplus')">
           +
         </button>
       </td>
       <td>
-        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('Aplus')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('aplus')">
           -
         </button>
       </td>
     </tr>
-
-    <tr>
+        <tr>
       <td>A-</td>
-      <td id="A-" name="aminusunit">{{user.hospitalprofile.aminusunit}}</td>
+      <td id="aminus_display">{{user.hospitalprofile.aminusunit}}</td>
+      <input type="hidden" name="aminusunit"  id="aminus_store" value="{{ user.hospitalprofile.aminusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('A-')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('aminus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('A-')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('aminus')">
           -
         </button>
       </td>
     </tr>
-    <tr>
+        <tr>
       <td>B+</td>
-      <td id="B+" name="bplusunit">{{user.hospitalprofile.bplusunit}}</td>
+      <td id="bplus_display">{{user.hospitalprofile.bplusunit}}</td>
+      <input type="hidden" name="bplusunit"  id="bplus_store" value="{{ user.hospitalprofile.bplusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('B+')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('bplus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('B+')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('bplus')">
           -
         </button>
       </td>
     </tr>
-    <tr>
+        <tr>
       <td>B-</td>
-      <td id="B-" name="bminusunit">{{user.hospitalprofile.bminusunit}}</td>
+      <td id="bminus_display">{{user.hospitalprofile.aplusunit}}</td>
+      <input type="hidden" name="bminusunit"  id="bminus_store" value="{{ user.hospitalprofile.bminusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('B-')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('bminus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('B-')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('bminus')">
           -
         </button>
       </td>
     </tr>
-    <tr>
+        <tr>
       <td>AB+</td>
-      <td id="AB+" name="abplusunit">{{user.hospitalprofile.abplusunit}}</td>
+      <td id="abplus_display">{{user.hospitalprofile.abplusunit}}</td>
+      <input type="hidden" name="abplusunit"  id="abplus_store" value="{{ user.hospitalprofile.abplusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('AB+')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('abplus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('AB+')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('abplus')">
           -
         </button>
       </td>
     </tr>
     <tr>
       <td>AB-</td>
-      <td id="AB-" name="abminusunit">{{user.hospitalprofile.abminusunit}}</td>
+      <td id="abminus_display">{{user.hospitalprofile.abminusunit}}</td>
+      <input type="hidden" name="abminusunit"  id="abminus_store" value="{{ user.hospitalprofile.abminusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('AB-')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('abminus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('AB-')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('abminus')">
           -
         </button>
       </td>
-    </tr>
-    <tr>
+    </tr><tr>
       <td>O+</td>
-      <td id="O+" name="oplusunit">{{user.hospitalprofile.oplusunit}}</td>
+      <td id="oplus_display">{{user.hospitalprofile.oplusunit}}</td>
+      <input type="hidden" name="oplusunit"  id="oplus_store" value="{{ user.hospitalprofile.oplusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('O+')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('oplus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('O+')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('oplus')">
           -
         </button>
       </td>
-    </tr>
-    <tr>
+    </tr><tr>
       <td>O-</td>
-      <td id="O-" name="ominusunit">{{user.hospitalprofile.ominusunit}}</td>
+      <td id="ominus_display">{{user.hospitalprofile.ominusunit}}</td>
+      <input type="hidden" name="ominusunit"  id="ominus_store" value="{{ user.hospitalprofile.ominusunit }}">
+
       <td>
-        <button class="btn btn-sm btn-outline-success"
-                onclick="increaseUnit('O-')">
+        <button  type="button" class="btn btn-sm btn-outline-success" onclick="increaseUnit('ominus')">
           +
         </button>
       </td>
       <td>
-        <button class="btn btn-sm btn-outline-danger"
-                onclick="decreaseUnit('O-')">
+        <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseUnit('ominus')">
           -
         </button>
       </td>
     </tr>
   </tbody>
 </table>
+<div class="text-center">
+  <button type="submit" class="btn btn-danger mt-3">
+    Save 
+  </button>
+</div>
 </form>
 
 <div class="row g-4 mt-2">

@@ -333,7 +333,7 @@ def user_dashboard(request):
 def hospital_dashboard(request):
     profile=request.user.hospitalprofile
     if request.method=="POST":
-        profile.aplusunit=request.POST.get('aplusunit',profile.aplusunit)
+        profile.aplusunit=int(request.POST.get('aplusunit',profile.aplusunit))
         profile.aminusunit=request.POST.get('aminusunit',profile.aminusunit)
         profile.bplusunit=request.POST.get('bplusunit',profile.bplusunit)
         profile.bminusunit=request.POST.get('bminusunit',profile.bminusunit)

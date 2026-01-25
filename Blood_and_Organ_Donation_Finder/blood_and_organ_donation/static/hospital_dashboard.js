@@ -1,17 +1,22 @@
-function increaseUnit(id) {
-  const cell = document.getElementById(id);
-  const store = document.getElementById(id + "_store");
-  let value = parseInt(cell.textContent);
-  value=value+1;
-  cell.textContent = value;
+function increaseUnit(type) {
+  const display = document.getElementById(type + "_display");
+  const store = document.getElementById(type + "_store");
+
+  let value = parseInt(display.textContent) || 0;
+  value++;
+
+  display.textContent = value;
   store.value = value;
 }
 
-function decreaseUnit(id) {
-  const cell = document.getElementById(id);
-  let value = parseInt(cell.textContent);
+function decreaseUnit(type) {
+  const display = document.getElementById(type + "_display");
+  const store = document.getElementById(type + "_store");
 
-  if (value > 0) {
-    cell.textContent = value - 1;
-  }
+  let value = parseInt(display.textContent) || 0;
+
+  if (value > 0) value--;
+
+  display.textContent = value;
+  store.value = value;
 }
