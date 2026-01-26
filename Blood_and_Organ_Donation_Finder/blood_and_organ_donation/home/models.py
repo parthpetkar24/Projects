@@ -74,7 +74,7 @@ class BloodDonation(models.Model):
         ],
         null=True,
     )
-    weight=models.PositiveIntegerField()
+    weight=models.FloatField()
     medical_condition=models.CharField(
         max_length=122,
         blank=True,
@@ -130,7 +130,7 @@ class OrganDonation(models.Model):
         ],
         null=True,
     )
-    weight=models.PositiveIntegerField()
+    weight=models.FloatField()
     medical_condition=models.CharField(max_length=122)
     doc_report=models.FileField(
         upload_to='user_report/',
@@ -170,7 +170,7 @@ class BloodRequest(models.Model):
         ],
         null=True,
     )
-    weight=models.PositiveIntegerField()
+    weight=models.FloatField()
     medical_condition=models.CharField(
         max_length=122,
         blank=True,
@@ -218,7 +218,7 @@ class OrganRequest(models.Model):
         ],
         null=True,
     )
-    weight=models.PositiveIntegerField()
+    weight=models.FloatField()
     medical_condition=models.CharField(max_length=122)
     doc_report=models.FileField(
         upload_to='user_report/',
@@ -258,7 +258,7 @@ class EmergencyBloodRequest(models.Model):
         ],
         null=True,
     )
-    weight=models.PositiveIntegerField()
+    weight=models.FloatField()
     medical_condition=models.CharField(
         max_length=122,
         blank=True,
@@ -306,7 +306,7 @@ class EmergencyOrganRequest(models.Model):
         ],
         null=True,
     )
-    weight=models.PositiveIntegerField()
+    weight=models.FloatField()
     medical_condition=models.CharField(max_length=122)
     doc_report=models.FileField(
         upload_to='user_report/',

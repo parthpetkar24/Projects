@@ -44,7 +44,12 @@ function nextStep(step) {
   }
 
   document.getElementById(`step${step}`).classList.remove("hidden");
-
+  const weight = document.querySelector('[name="weight"]');
+  if (step === 3) {
+    weight.required = true;     // visible step
+  } else {
+    weight.required = false;    // hidden step
+  }
   /* Reset indicators safely */
   for (let i = 1; i <= 4; i++) {
     document.getElementById(`s${i}`).classList.remove("active");

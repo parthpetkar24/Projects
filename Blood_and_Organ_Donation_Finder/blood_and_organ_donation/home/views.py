@@ -8,6 +8,7 @@ from datetime import date
 from geopy.geocoders import Nominatim
 from random import choice
 from string import ascii_letters,digits
+import math
 
 # Create your views here.
 def home(request):
@@ -30,19 +31,16 @@ def donatepage(request):
         if not dob:
             messages.error(request, "Date of birth is required")
             return redirect("donate")
-        dob = date.fromisoformat(dob)
-        today = date.today()
-        age = today.year - dob.year - (
-            (today.month, today.day) < (dob.month, dob.day)
-        )
-        if age < 18:
-            messages.error(request, "Donor must be at least 18 years old")
-            return redirect("donate")
         gender=request.POST.get("gender")
         city=request.POST.get("city")
         latitude, longitude=get_location(city)
         phone=request.POST.get("phone")
-        weight=int(request.POST.get("weight"))
+        weight_raw = request.POST.get("weight")
+        try:
+            weight = float(weight_raw)
+        except (TypeError, ValueError):
+            messages.error(request, "Please enter a valid weight.")
+            return redirect("donate")
         medical_condition=request.POST.get("medical_condition")
         doc_report=request.FILES.get("doc_report")
         if donation_type=="blood":
@@ -95,6 +93,9 @@ def requestpage(request):
             messages.error(request, "Invalid donation type")
             return redirect("request")
         consent = request.POST.get("consent")
+        if not consent:
+            messages.error(request, "You must give consent")
+            return redirect("request")
         full_name=request.POST.get("full_name")
         aadhar_id=request.POST.get("aadhar_id")
         dob = request.POST.get("dob")
@@ -104,8 +105,19 @@ def requestpage(request):
         gender=request.POST.get("gender")
         city=request.POST.get("city")
         latitude, longitude=get_location(city)
+        if latitude is None or longitude is None:
+            messages.error(
+                request,
+                "Unable to detect location from the city name. Please enter a valid city."
+                )
+            return redirect("donate")
         phone=request.POST.get("phone")
-        weight=int(request.POST.get("weight"))
+        weight_raw = request.POST.get("weight")
+        try:
+            weight = float(weight_raw)
+        except (TypeError, ValueError):
+            messages.error(request, "Please enter a valid weight.")
+            return redirect("donate")
         medical_condition=request.POST.get("medical_condition")
         doc_report=request.FILES.get("doc_report")
         if request_type=="blood":
@@ -123,7 +135,7 @@ def requestpage(request):
                 weight=weight,
                 medical_condition=medical_condition,
                 doc_report=doc_report,
-                form_id=create_form_id(BloodDonation)
+                form_id=create_form_id(BloodRequest)
             )
         elif request_type=="organ":
             organ=request.POST.get("organ")
@@ -140,7 +152,7 @@ def requestpage(request):
                 weight=weight,
                 medical_condition=medical_condition,
                 doc_report=doc_report,
-                form_id=create_form_id(OrganDonation)
+                form_id=create_form_id(OrganRequest)
             )
 
 
@@ -163,8 +175,22 @@ def emergency_request(request):
         gender=request.POST.get("gender")
         city=request.POST.get("city")
         latitude, longitude=get_location(city)
+        latitude, longitude = get_location(city)
+
+        if latitude is None or longitude is None:
+            messages.error(
+                request,
+                "Unable to detect location from the city name. Please enter a valid city."
+                )
+            return redirect("donate")
+
         phone=request.POST.get("phone")
-        weight=int(request.POST.get("weight"))
+        weight_raw = request.POST.get("weight")
+        try:
+            weight = float(weight_raw)
+        except (TypeError, ValueError):
+            messages.error(request, "Please enter a valid weight.")
+            return redirect("donate")
         medical_condition=request.POST.get("medical_condition")
         doc_report=request.FILES.get("doc_report")
         if request_type=="blood":
@@ -182,7 +208,7 @@ def emergency_request(request):
                 weight=weight,
                 medical_condition=medical_condition,
                 doc_report=doc_report,
-                form_id=create_form_id(BloodDonation)
+                form_id=create_form_id(EmergencyBloodRequest)
             )
         elif request_type=="organ":
             organ=request.POST.get("organ")
@@ -199,7 +225,7 @@ def emergency_request(request):
                 weight=weight,
                 medical_condition=medical_condition,
                 doc_report=doc_report,
-                form_id=create_form_id(OrganDonation)
+                form_id=create_form_id(EmergencyOrganRequest)
             )
         messages.success(request, "Request Made Successfully! ")
         return redirect("homepage")
@@ -297,6 +323,11 @@ def signup_hospital(request):
         return redirect('login_hospital')
     return render(request, "signup_hospital.html")
 
+def logout_user(request):
+    logout(request) 
+    messages.success(request, "You have been logged out successfully")
+    return redirect("homepage")
+
 def get_location(city):
     latitude = None
     longitude = None
@@ -319,11 +350,50 @@ def get_location(city):
 
     return latitude, longitude
     
+def haversine_distance(lat1,lon1,lat2,lon2):
+    if None in[lat1,lon1,lat2,lon2]:
+        return None
+    
+    # Radius of Earth in km
+    R=6371
+    lat1,lon1,lat2,lon2=map(math.radians,[lat1,lon1,lat2,lon2])
+    dlat=lat2-lat1
+    dlon=lon2-lon1
+    a=math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
+    c = 2 * math.asin(math.sqrt(a))
+    return R * c
 
-def logout_user(request):
-    logout(request) 
-    messages.success(request, "You have been logged out successfully")
-    return redirect("homepage")
+def get_nearby_applications(hospital,radius_km=10):
+    lat=hospital.latitude
+    lon=hospital.longitude
+    results={
+        "blood_donations":[],
+        "blood_requests":[],
+        "organ_donations":[],
+        "organ_requests":[],
+        "emergency_blood_requests":[],
+        "emergency_organ_requests":[],
+    }
+    def filter_queryset(queryset,label):
+        for obj in queryset.exclude(latitude=None,longitude=None):
+            distance=haversine_distance(lat,lon,obj.latitude,obj.longitude)
+            if distance and distance<=radius_km:
+                results[label].append({
+                    "form_id":obj.form_id,
+                    "name":obj.full_name,
+                    "city": obj.city,
+                    "phone": obj.phone,
+                    "distance": round(distance, 2),
+                    "data": obj
+                })
+    filter_queryset(BloodDonation.objects.all(), "blood_donations")
+    filter_queryset(BloodRequest.objects.all(), "blood_requests")
+    filter_queryset(OrganDonation.objects.all(), "organ_donations")
+    filter_queryset(OrganRequest.objects.all(), "organ_requests")
+    filter_queryset(EmergencyBloodRequest.objects.all(), "emergency_blood_requests")
+    filter_queryset(EmergencyOrganRequest.objects.all(), "emergency_organ_requests")
+
+    return results
 
 @login_required(login_url="login_user")
 def user_dashboard(request):
@@ -341,9 +411,9 @@ def hospital_dashboard(request):
         profile.abminusunit=request.POST.get('abminusunit',profile.abminusunit)
         profile.oplusunit=request.POST.get('oplusunit',profile.oplusunit)
         profile.ominusunit=request.POST.get('ominusunit',profile.ominusunit)
-
         profile.save()
-    return render(request,"hospital_dashboard.html")
 
+        nearby_data=get_nearby_applications(profile)
+    return render(request,"hospital_dashboard.html",nearby_data)
 
 

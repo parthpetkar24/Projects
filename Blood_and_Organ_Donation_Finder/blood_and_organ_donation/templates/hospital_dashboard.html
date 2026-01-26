@@ -78,7 +78,7 @@
     </tr>
         <tr>
       <td>B-</td>
-      <td id="bminus_display">{{user.hospitalprofile.aplusunit}}</td>
+      <td id="bminus_display">{{user.hospitalprofile.bminusunit}}</td>
       <input type="hidden" name="bminusunit"  id="bminus_store" value="{{ user.hospitalprofile.bminusunit }}">
 
       <td>
@@ -169,13 +169,20 @@
   <div class="col-md-6">
     <div class="card dashboard-card">
       <h5><i class="bi bi-heart-fill"></i> Blood Donation Applications</h5>
-
+      {% for item in blood_donations %}
       <div class="application-card">
-        <p><strong>Donor:</strong> Rahul Sharma</p>
-        <p><strong>Blood Group:</strong> O+</p>
+        <p><strong>Form Id: </strong>{{ item.form_id }}</p>
+        <p><strong>Donor:</strong> {{ item.name }}</p>
+        <p><strong>City:</strong> {{ item.city }}</p>
+        <p><strong>Phone:</strong> {{ item.phone }}</p>
+        <p><strong>Distance:</strong> {{ item.distance }} km</p>
+        <p><strong>Blood Group:</strong> {{ item.data }}</p>
         <button class="btn btn-success btn-sm">Approve</button>
         <button class="btn btn-outline-danger btn-sm">Reject</button>
       </div>
+      {% empty %}
+      <p class="text-muted">No nearby blood donations</p>
+      {% endfor %}
     </div>
   </div>
 
@@ -215,6 +222,32 @@
       <div class="application-card">
         <p><strong>Patient:</strong> Confidential</p>
         <p><strong>Organ Needed:</strong> Liver</p>
+        <button class="btn btn-success btn-sm">Approve</button>
+        <button class="btn btn-outline-danger btn-sm">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card dashboard-card highlight-card">
+      <h5><i class="bi bi-droplet-half"></i>Emergency Blood Request Applications</h5>
+
+      <div class="application-card">
+        <p><strong>Patient:</strong> Emergency Case</p>
+        <p><strong>Blood Group:</strong> A+</p>
+        <button class="btn btn-success btn-sm">Approve</button>
+        <button class="btn btn-outline-danger btn-sm">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card dashboard-card highlight-card">
+      <h5><i class="bi bi-droplet-half"></i>Emergency Organ Request Applications</h5>
+
+      <div class="application-card">
+        <p><strong>Patient:</strong> Emergency Case</p>
+        <p><strong>Blood Group:</strong> A+</p>
         <button class="btn btn-success btn-sm">Approve</button>
         <button class="btn btn-outline-danger btn-sm">Reject</button>
       </div>

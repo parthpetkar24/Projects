@@ -50,7 +50,12 @@ function nextStep(step) {
 
   // show current step
   document.getElementById("step" + step).classList.remove("hidden");
-
+  const weight = document.querySelector('[name="weight"]');
+  if (step === 3) {
+    weight.required = true;     // visible step
+  } else {
+    weight.required = false;    // hidden step
+  }
   // reset all indicators
   document.querySelectorAll('[id^="s"]').forEach(span => {
     span.classList.remove("active");
