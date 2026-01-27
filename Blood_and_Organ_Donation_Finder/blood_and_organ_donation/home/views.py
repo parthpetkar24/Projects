@@ -363,7 +363,7 @@ def haversine_distance(lat1,lon1,lat2,lon2):
     c = 2 * math.asin(math.sqrt(a))
     return R * c
 
-def get_nearby_applications(hospital,radius_km=10):
+def get_nearby_applications(hospital,radius_km=50):
     lat=hospital.latitude
     lon=hospital.longitude
     results={
@@ -386,6 +386,9 @@ def get_nearby_applications(hospital,radius_km=10):
                     "distance": round(distance, 2),
                     "data": obj
                 })
+        results[label].sort(key=lambda x: x['distance'])
+        
+        
     filter_queryset(BloodDonation.objects.all(), "blood_donations")
     filter_queryset(BloodRequest.objects.all(), "blood_requests")
     filter_queryset(OrganDonation.objects.all(), "organ_donations")
@@ -402,15 +405,16 @@ def user_dashboard(request):
 @login_required(login_url="login_hospital")
 def hospital_dashboard(request):
     profile=request.user.hospitalprofile
+    nearby_data=get_nearby_applications(profile)
     if request.method=="POST":
         profile.aplusunit=int(request.POST.get('aplusunit',profile.aplusunit))
-        profile.aminusunit=request.POST.get('aminusunit',profile.aminusunit)
-        profile.bplusunit=request.POST.get('bplusunit',profile.bplusunit)
-        profile.bminusunit=request.POST.get('bminusunit',profile.bminusunit)
-        profile.abplusunit=request.POST.get('abplusunit',profile.abplusunit)
-        profile.abminusunit=request.POST.get('abminusunit',profile.abminusunit)
-        profile.oplusunit=request.POST.get('oplusunit',profile.oplusunit)
-        profile.ominusunit=request.POST.get('ominusunit',profile.ominusunit)
+        profile.aminusunit=int(request.POST.get('aminusunit',profile.aminusunit))
+        profile.bplusunit=int(request.POST.get('bplusunit',profile.bplusunit))
+        profile.bminusunit=int(request.POST.get('bminusunit',profile.bminusunit))
+        profile.abplusunit=int(request.POST.get('abplusunit',profile.abplusunit))
+        profile.abminusunit=int(request.POST.get('abminusunit',profile.abminusunit))
+        profile.oplusunit=int(request.POST.get('oplusunit',profile.oplusunit))
+        profile.ominusunit=int(request.POST.get('ominusunit',profile.ominusunit))
         profile.save()
 
         nearby_data=get_nearby_applications(profile)
