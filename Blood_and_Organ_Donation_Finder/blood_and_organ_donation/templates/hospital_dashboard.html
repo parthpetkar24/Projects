@@ -164,13 +164,12 @@
 </form>
 
 <div class="row g-4 mt-2">
-
- <div class="col-md-6">
+  <div class="col-md-6">
     <div class="card dashboard-card">
-      <h5><i class="bi bi-heart-fill"></i> Blood Donation Applications</h5>
+      <h5><i class="bi bi-heart-fill"></i> Emergency Blood Request Applications ({{ emergency_blood_requests|length }})</h5>
       <div class="application-scroll-container">
-        {% for item in blood_donations %}
-        <div class="application-card">
+        {% for item in emergency_blood_requests %}
+        <div class="application-card" id="app-blood_donation-{{ item.form_id }}">
           <p><strong>Form ID:</strong> {{ item.form_id }}</p>
           <p><strong>Donor:</strong> {{ item.name }}</p>
           <p><strong>Blood Group:</strong> {{ item.data.blood_group }}</p>
@@ -183,8 +182,63 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm">Approve</button>
-          <button class="btn btn-outline-danger btn-sm">Reject</button>
+          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_blood_requests', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_blood_requests', '{{ item.form_id }}')">Reject</button>
+        </div>
+        {% empty %}
+        <p class="text-muted">No nearby blood donations</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card dashboard-card">
+      <h5><i class="bi bi-heart-fill"></i> Emergency Organ Request Applications ({{ emergency_organ_requests|length }})</h5>
+      <div class="application-scroll-container">
+        {% for item in emergency_organ_requests %}
+        <div class="application-card" id="app-emergency_blood_requests-{{ item.form_id }}">
+          <p><strong>Form ID:</strong> {{ item.form_id }}</p>
+          <p><strong>Donor:</strong> {{ item.name }}</p>
+          <p><strong>Blood Group:</strong> {{ item.data.blood_group }}</p>
+          <p><strong>City:</strong> {{ item.city }}</p>
+          <p><strong>Phone:</strong> {{ item.phone }}</p>
+          <p><strong>Distance:</strong> {{ item.distance }} km</p>
+          <p><strong>Weight:</strong> {{ item.data.weight }} kg</p>
+          <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
+          <p><strong>DOB:</strong> {{ item.data.dob }}</p>
+          {% if item.data.medical_condition %}
+          <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
+          {% endif %}
+          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_organ_requests', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_organ_requests', '{{ item.form_id }}')">Reject</button>
+        </div>
+        {% empty %}
+        <p class="text-muted">No nearby blood donations</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+ <div class="col-md-6">
+    <div class="card dashboard-card">
+      <h5><i class="bi bi-heart-fill"></i> Blood Donation Applications ({{ blood_donations|length }})</h5>
+      <div class="application-scroll-container">
+        {% for item in blood_donations %}
+        <div class="application-card" id="app-emergency_organ_requests-{{ item.form_id }}">
+          <p><strong>Form ID:</strong> {{ item.form_id }}</p>
+          <p><strong>Donor:</strong> {{ item.name }}</p>
+          <p><strong>Blood Group:</strong> {{ item.data.blood_group }}</p>
+          <p><strong>City:</strong> {{ item.city }}</p>
+          <p><strong>Phone:</strong> {{ item.phone }}</p>
+          <p><strong>Distance:</strong> {{ item.distance }} km</p>
+          <p><strong>Weight:</strong> {{ item.data.weight }} kg</p>
+          <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
+          <p><strong>DOB:</strong> {{ item.data.dob }}</p>
+          {% if item.data.medical_condition %}
+          <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
+          {% endif %}
+          <button class="btn btn-success btn-sm" onclick="handleApproval('blood_donation', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('blood_donation', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
         <p class="text-muted">No nearby blood donations</p>
@@ -196,10 +250,10 @@
   <!-- BLOOD REQUEST -->
   <div class="col-md-6">
     <div class="card dashboard-card highlight-card">
-      <h5><i class="bi bi-droplet-half"></i> Blood Request Applications</h5>
+      <h5><i class="bi bi-droplet-half"></i> Blood Request Applications ({{ blood_requests|length }})</h5>
       <div class="application-scroll-container">
         {% for item in blood_requests %}
-        <div class="application-card">
+        <div class="application-card" id="app-blood_request-{{ item.form_id }}">
           <p><strong>Form ID:</strong> {{ item.form_id }}</p>
           <p><strong>Patient:</strong> {{ item.name }}</p>
           <p><strong>Blood Group:</strong> {{ item.data.blood_group }}</p>
@@ -212,8 +266,8 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm">Approve</button>
-          <button class="btn btn-outline-danger btn-sm">Reject</button>
+          <button class="btn btn-success btn-sm" onclick="handleApproval('blood_request', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('blood_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
         <p class="text-muted">No nearby blood requests</p>
@@ -225,10 +279,10 @@
   <!-- ORGAN DONATION -->
   <div class="col-md-6">
     <div class="card dashboard-card">
-      <h5><i class="bi bi-lungs-fill"></i> Organ Donation Applications</h5>
+      <h5><i class="bi bi-lungs-fill"></i> Organ Donation Applications ({{ organ_donations|length }})</h5>
       <div class="application-scroll-container">
         {% for item in organ_donations %}
-        <div class="application-card">
+        <div class="application-card" id="app-organ_donation-{{ item.form_id }}">
           <p><strong>Form ID:</strong> {{ item.form_id }}</p>
           <p><strong>Donor:</strong> {{ item.name }}</p>
           <p><strong>Organ:</strong> {{ item.data.organ }}</p>
@@ -240,8 +294,8 @@
           <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
           <p><strong>DOB:</strong> {{ item.data.dob }}</p>
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
-          <button class="btn btn-success btn-sm">Approve</button>
-          <button class="btn btn-outline-danger btn-sm">Reject</button>
+          <button class="btn btn-success btn-sm" onclick="handleApproval('organ_donation', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('organ_donation', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
         <p class="text-muted">No nearby organ donations</p>
@@ -253,10 +307,10 @@
   <!-- ORGAN REQUEST -->
   <div class="col-md-6">
     <div class="card dashboard-card highlight-card">
-      <h5><i class="bi bi-hospital-fill"></i> Organ Request Applications</h5>
+      <h5><i class="bi bi-hospital-fill"></i> Organ Request Applications ({{ organ_requests|length }})</h5>
       <div class="application-scroll-container">
         {% for item in organ_requests %}
-        <div class="application-card">
+        <div class="application-card" id="app-organ_request-{{ item.form_id }}">
           <p><strong>Form ID:</strong> {{ item.form_id }}</p>
           <p><strong>Patient:</strong> {{ item.name }}</p>
           <p><strong>Organ Needed:</strong> {{ item.data.organ }}</p>
@@ -267,8 +321,8 @@
           <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
           <p><strong>DOB:</strong> {{ item.data.dob }}</p>
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
-          <button class="btn btn-success btn-sm">Approve</button>
-          <button class="btn btn-outline-danger btn-sm">Reject</button>
+          <button class="btn btn-success btn-sm" onclick="handleApproval('organ_request', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('organ_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
         <p class="text-muted">No nearby organ requests</p>
@@ -276,63 +330,6 @@
       </div>
     </div>
   </div>
-
-  <!-- EMERGENCY BLOOD REQUEST -->
-  <div class="col-md-6">
-    <div class="card dashboard-card highlight-card">
-      <h5><i class="bi bi-exclamation-triangle-fill"></i> Emergency Blood Request Applications</h5>
-      <div class="application-scroll-container">
-        {% for item in emergency_blood_requests %}
-        <div class="application-card">
-          <p><strong>Form ID:</strong> {{ item.form_id }}</p>
-          <p><strong>Patient:</strong> {{ item.name }}</p>
-          <p><strong>Blood Group:</strong> {{ item.data.blood_group }}</p>
-          <p><strong>City:</strong> {{ item.city }}</p>
-          <p><strong>Phone:</strong> {{ item.phone }}</p>
-          <p><strong>Distance:</strong> {{ item.distance }} km</p>
-          <p><strong>Weight:</strong> {{ item.data.weight }} kg</p>
-          <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
-          <p><strong>DOB:</strong> {{ item.data.dob }}</p>
-          {% if item.data.medical_condition %}
-          <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
-          {% endif %}
-          <button class="btn btn-success btn-sm">Approve</button>
-          <button class="btn btn-outline-danger btn-sm">Reject</button>
-        </div>
-        {% empty %}
-        <p class="text-muted">No nearby emergency blood requests</p>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-
-  <!-- EMERGENCY ORGAN REQUEST -->
-  <div class="col-md-6">
-    <div class="card dashboard-card highlight-card">
-      <h5><i class="bi bi-exclamation-triangle-fill"></i> Emergency Organ Request Applications</h5>
-      <div class="application-scroll-container">
-        {% for item in emergency_organ_requests %}
-        <div class="application-card">
-          <p><strong>Form ID:</strong> {{ item.form_id }}</p>
-          <p><strong>Patient:</strong> {{ item.name }}</p>
-          <p><strong>Organ Needed:</strong> {{ item.data.organ }}</p>
-          <p><strong>City:</strong> {{ item.city }}</p>
-          <p><strong>Phone:</strong> {{ item.phone }}</p>
-          <p><strong>Distance:</strong> {{ item.distance }} km</p>
-          <p><strong>Weight:</strong> {{ item.data.weight }} kg</p>
-          <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
-          <p><strong>DOB:</strong> {{ item.data.dob }}</p>
-          <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
-          <button class="btn btn-success btn-sm">Approve</button>
-          <button class="btn btn-outline-danger btn-sm">Reject</button>
-        </div>
-        {% empty %}
-        <p class="text-muted">No nearby emergency organ requests</p>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-
 </div>
 
 

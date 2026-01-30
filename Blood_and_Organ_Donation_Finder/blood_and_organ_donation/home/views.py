@@ -9,6 +9,9 @@ from geopy.geocoders import Nominatim
 from random import choice
 from string import ascii_letters,digits
 import math
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 # Create your views here.
 def home(request):
@@ -363,32 +366,37 @@ def haversine_distance(lat1,lon1,lat2,lon2):
     c = 2 * math.asin(math.sqrt(a))
     return R * c
 
-def get_nearby_applications(hospital,radius_km=50):
-    lat=hospital.latitude
-    lon=hospital.longitude
-    results={
-        "blood_donations":[],
-        "blood_requests":[],
-        "organ_donations":[],
-        "organ_requests":[],
-        "emergency_blood_requests":[],
-        "emergency_organ_requests":[],
+def get_nearby_applications(hospital, radius_km=50):
+    lat = hospital.latitude
+    lon = hospital.longitude
+    
+    results = {
+        "blood_donations": [],
+        "blood_requests": [],
+        "organ_donations": [],
+        "organ_requests": [],
+        "emergency_blood_requests": [],
+        "emergency_organ_requests": [],
     }
-    def filter_queryset(queryset,label):
-        for obj in queryset.exclude(latitude=None,longitude=None):
-            distance=haversine_distance(lat,lon,obj.latitude,obj.longitude)
-            if distance and distance<=radius_km:
+    
+    def filter_queryset(queryset, label):
+        # Only fetch pending applications
+        for obj in queryset.filter(status='pending').exclude(latitude=None, longitude=None):
+            distance = haversine_distance(lat, lon, obj.latitude, obj.longitude)
+            if distance is not None and distance <= radius_km:
                 results[label].append({
-                    "form_id":obj.form_id,
-                    "name":obj.full_name,
+                    "form_id": obj.form_id,
+                    "name": obj.full_name,
                     "city": obj.city,
                     "phone": obj.phone,
                     "distance": round(distance, 2),
-                    "data": obj
+                    "data": obj,
+                    "status": obj.status,
                 })
+        # Sort by distance (nearest first)
         results[label].sort(key=lambda x: x['distance'])
-        
-        
+
+    # Filter all types of applications
     filter_queryset(BloodDonation.objects.all(), "blood_donations")
     filter_queryset(BloodRequest.objects.all(), "blood_requests")
     filter_queryset(OrganDonation.objects.all(), "organ_donations")
@@ -405,7 +413,6 @@ def user_dashboard(request):
 @login_required(login_url="login_hospital")
 def hospital_dashboard(request):
     profile=request.user.hospitalprofile
-    nearby_data=get_nearby_applications(profile)
     if request.method=="POST":
         profile.aplusunit=int(request.POST.get('aplusunit',profile.aplusunit))
         profile.aminusunit=int(request.POST.get('aminusunit',profile.aminusunit))
@@ -417,7 +424,82 @@ def hospital_dashboard(request):
         profile.ominusunit=int(request.POST.get('ominusunit',profile.ominusunit))
         profile.save()
 
-        nearby_data=get_nearby_applications(profile)
-    return render(request,"hospital_dashboard.html",nearby_data)
+    nearby_data = get_nearby_applications(profile)  
+    return render(request, "hospital_dashboard.html", nearby_data)  
 
+@login_required(login_url="login_hospital")
+@require_POST
+def approve_application(request):
+    app_type = request.POST.get('app_type')
+    form_id = request.POST.get('form_id')
+    remarks = request.POST.get('remarks', '')
+    
+    try:
+        hospital_profile = request.user.hospitalprofile
+    except HospitalProfile.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Hospital profile not found'})
+    
+    # Map application types to models
+    model_map = {
+        'blood_donation': BloodDonation,
+        'blood_request': BloodRequest,
+        'organ_donation': OrganDonation,
+        'organ_request': OrganRequest,
+        'emergency_blood_request': EmergencyBloodRequest,
+        'emergency_organ_request': EmergencyOrganRequest,
+    }
+    
+    if app_type not in model_map:
+        return JsonResponse({'success': False, 'error': 'Invalid application type'})
+    
+    try:
+        application = model_map[app_type].objects.get(form_id=form_id)
+        application.status = 'approved'
+        application.approved_by = hospital_profile
+        application.approved_at = timezone.now()
+        application.remarks = remarks
+        application.save()
+        
+        messages.success(request, f"Application {form_id} approved successfully")
+        return JsonResponse({'success': True})
+    except model_map[app_type].DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Application not found'})
 
+@login_required(login_url="login_hospital")
+@require_POST
+def reject_application(request):
+
+    app_type = request.POST.get('app_type')
+    form_id = request.POST.get('form_id')
+    remarks = request.POST.get('remarks', '')
+    
+    try:
+        hospital_profile = request.user.hospitalprofile
+    except HospitalProfile.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Hospital profile not found'})
+    
+    # Map application types to models
+    model_map = {
+        'blood_donation': BloodDonation,
+        'blood_request': BloodRequest,
+        'organ_donation': OrganDonation,
+        'organ_request': OrganRequest,
+        'emergency_blood_request': EmergencyBloodRequest,
+        'emergency_organ_request': EmergencyOrganRequest,
+    }
+    
+    if app_type not in model_map:
+        return JsonResponse({'success': False, 'error': 'Invalid application type'})
+    
+    try:
+        application = model_map[app_type].objects.get(form_id=form_id)
+        application.status = 'rejected'
+        application.approved_by = hospital_profile
+        application.approved_at = timezone.now()
+        application.remarks = remarks
+        application.save()
+        
+        messages.success(request, f"Application {form_id} rejected")
+        return JsonResponse({'success': True})
+    except model_map[app_type].DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Application not found'})

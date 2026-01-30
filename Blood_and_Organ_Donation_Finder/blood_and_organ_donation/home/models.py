@@ -1,5 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
+STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('approved', 'Approved'),
+    ('rejected', 'Rejected'),
+    ('completed', 'Completed'),
+]
+
 
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -85,9 +94,28 @@ class BloodDonation(models.Model):
         blank=True
     )
     form_id=models.CharField(max_length=5,unique=True, null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+    approved_by = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_blood_donations'
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.status == 'approved' and self.approved_at is None:
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.form_id
+        return self.form_id or f"BloodDonation #{self.pk}"
 
 class OrganDonation(models.Model):
     full_name=models.CharField(max_length=122)
@@ -138,9 +166,27 @@ class OrganDonation(models.Model):
         blank=True
     )
     form_id=models.CharField(max_length=5,unique=True,null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+    approved_by = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_organ_donations'
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+    def save(self, *args, **kwargs):
+        if self.status == 'approved' and self.approved_at is None:
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.form_id
+        return self.form_id or f"OrganDonation #{self.pk}"
     
 class BloodRequest(models.Model):
     full_name=models.CharField(max_length=122)
@@ -181,9 +227,27 @@ class BloodRequest(models.Model):
         blank=True
     )
     form_id=models.CharField(max_length=5,unique=True, null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+    approved_by = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_blood_requests'
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+    def save(self, *args, **kwargs):
+        if self.status == 'approved' and self.approved_at is None:
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.form_id
+        return self.form_id or f"BloodRequest #{self.pk}"
     
 class OrganRequest(models.Model):
     full_name=models.CharField(max_length=122)
@@ -226,9 +290,27 @@ class OrganRequest(models.Model):
         blank=True
     )
     form_id=models.CharField(max_length=5,unique=True,null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+    approved_by = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_organ_requests'
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+    def save(self, *args, **kwargs):
+        if self.status == 'approved' and self.approved_at is None:
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.form_id
+        return self.form_id or f"OrganRequest #{self.pk}"
     
 class EmergencyBloodRequest(models.Model):
     full_name=models.CharField(max_length=122)
@@ -269,9 +351,27 @@ class EmergencyBloodRequest(models.Model):
         blank=True
     )
     form_id=models.CharField(max_length=5,unique=True, null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+    approved_by = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_emergency_blood_requests'
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+    def save(self, *args, **kwargs):
+        if self.status == 'approved' and self.approved_at is None:
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.form_id
+        return self.form_id or f"EmergencyBloodRequest #{self.pk}"
 
 class EmergencyOrganRequest(models.Model):
     full_name=models.CharField(max_length=122)
@@ -314,6 +414,24 @@ class EmergencyOrganRequest(models.Model):
         blank=True
     )
     form_id=models.CharField(max_length=5,unique=True,null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
+    approved_by = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='approved_emergency_organ_requests'
+    )
+    approved_at = models.DateTimeField(null=True, blank=True)
+    remarks = models.TextField(blank=True, null=True)
+    def save(self, *args, **kwargs):
+        if self.status == 'approved' and self.approved_at is None:
+            self.approved_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.form_id
+        return self.form_id or f"EmergencyOrganRequest #{self.pk}"
