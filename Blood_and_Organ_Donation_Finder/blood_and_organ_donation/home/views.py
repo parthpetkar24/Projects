@@ -432,7 +432,6 @@ def hospital_dashboard(request):
 def approve_application(request):
     app_type = request.POST.get('app_type')
     form_id = request.POST.get('form_id')
-    remarks = request.POST.get('remarks', '')
     
     try:
         hospital_profile = request.user.hospitalprofile
@@ -457,7 +456,6 @@ def approve_application(request):
         application.status = 'approved'
         application.approved_by = hospital_profile
         application.approved_at = timezone.now()
-        application.remarks = remarks
         application.save()
         
         messages.success(request, f"Application {form_id} approved successfully")
@@ -471,7 +469,6 @@ def reject_application(request):
 
     app_type = request.POST.get('app_type')
     form_id = request.POST.get('form_id')
-    remarks = request.POST.get('remarks', '')
     
     try:
         hospital_profile = request.user.hospitalprofile
@@ -496,7 +493,6 @@ def reject_application(request):
         application.status = 'rejected'
         application.approved_by = hospital_profile
         application.approved_at = timezone.now()
-        application.remarks = remarks
         application.save()
         
         messages.success(request, f"Application {form_id} rejected")

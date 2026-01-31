@@ -107,8 +107,6 @@ class BloodDonation(models.Model):
         related_name='approved_blood_donations'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
-    remarks = models.TextField(blank=True, null=True)
-
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -179,7 +177,6 @@ class OrganDonation(models.Model):
         related_name='approved_organ_donations'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
-    remarks = models.TextField(blank=True, null=True)
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -240,7 +237,6 @@ class BloodRequest(models.Model):
         related_name='approved_blood_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
-    remarks = models.TextField(blank=True, null=True)
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -303,7 +299,6 @@ class OrganRequest(models.Model):
         related_name='approved_organ_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
-    remarks = models.TextField(blank=True, null=True)
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -364,7 +359,6 @@ class EmergencyBloodRequest(models.Model):
         related_name='approved_emergency_blood_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
-    remarks = models.TextField(blank=True, null=True)
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -427,7 +421,6 @@ class EmergencyOrganRequest(models.Model):
         related_name='approved_emergency_organ_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
-    remarks = models.TextField(blank=True, null=True)
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
