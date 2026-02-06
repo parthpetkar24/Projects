@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import UserProfile,HospitalProfile,OrganDonation,BloodDonation,BloodRequest,OrganRequest,EmergencyBloodRequest,EmergencyOrganRequest
+from .models import UserProfile,HospitalProfile,OrganDonation,BloodDonation,BloodRequest,OrganRequest,EmergencyBloodRequest,EmergencyOrganRequest,HospitalNews
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -250,7 +250,7 @@ def login_user(request):
         if user:
             login(request, user)
             messages.success(request,"Login Successfull!")
-            return redirect("homepage")
+            return redirect("user_dashboard")
 
         messages.error(request, "Invalid credentials")
         return redirect("login_user")
@@ -258,16 +258,17 @@ def login_user(request):
 
 def login_hospital(request):
     if request.method=="POST":
-        email=request.POST['email']
-        password=request.POST['password']
+        email=request.POST["email"]
+        password=request.POST["password"]
         user=authenticate(username=email,password=password)
         if user:
-            login(request, user)
-            return redirect("homepage")
-
-        messages.error(request, "Invalid credentials")
+            login(request,user)
+            messages.success(request,"Login Successfull!")
+            return redirect("hospital_dashboard")
+        
+        messages.error(request,"Invalid credentials")
         return redirect("login_hospital")
-    return render(request, "login_hospital.html")
+    return render(request,"login_hospital.html")
 
 def signup_user(request):
     if request.method=="POST":
@@ -423,7 +424,14 @@ def hospital_dashboard(request):
         profile.oplusunit=int(request.POST.get('oplusunit',profile.oplusunit))
         profile.ominusunit=int(request.POST.get('ominusunit',profile.ominusunit))
         profile.save()
-
+    if request.method == "POST" and "news_title" in request.POST:
+        HospitalNews.objects.create(
+            hospital=profile,
+            title=request.POST.get("news_title"),
+            content=request.POST.get("news_content")
+        )
+        messages.success(request,'News Published Successfully!')
+        return redirect('hospital_dashboard')
     nearby_data = get_nearby_applications(profile)  
     return render(request, "hospital_dashboard.html", nearby_data)  
 
@@ -475,7 +483,6 @@ def reject_application(request):
     except HospitalProfile.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Hospital profile not found'})
     
-    # Map application types to models
     model_map = {
         'blood_donation': BloodDonation,
         'blood_request': BloodRequest,

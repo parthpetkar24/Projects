@@ -43,7 +43,6 @@ function handleApproval(appType, formId) {
         return;
     }
     
-    const remarks = prompt('Enter any remarks (optional):');
     
     fetch('/approve_application/', {
         method: 'POST',
@@ -51,7 +50,7 @@ function handleApproval(appType, formId) {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRFToken': csrftoken
         },
-        body: `app_type=${appType}&form_id=${formId}&remarks=${encodeURIComponent(remarks || '')}`
+        body: `app_type=${appType}&form_id=${formId}`
     })
     .then(response => response.json())
     .then(data => {
@@ -76,35 +75,24 @@ function handleApproval(appType, formId) {
 
 // Handle rejection of application
 function handleRejection(appType, formId) {
-    const remarks = prompt('Enter reason for rejection:');
-    
-    if (remarks === null) {
-        return; // User cancelled
-    }
-    
-    if (!remarks.trim()) {
-        alert('Please provide a reason for rejection');
+    if (!confirm(`Are you sure you want to reject application ${formId}?`)) {
         return;
     }
-    
+
     fetch('/reject_application/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRFToken': csrftoken
         },
-        body: `app_type=${appType}&form_id=${formId}&remarks=${encodeURIComponent(remarks)}`
+        body: `app_type=${appType}&form_id=${formId}`
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert(`Application ${formId} rejected`);
-            // Remove the application card from view
             const appCard = document.getElementById(`app-${appType}-${formId}`);
-            if (appCard) {
-                appCard.remove();
-            }
-            // Reload page to update counts
+            if (appCard) appCard.remove();
             location.reload();
         } else {
             alert('Error: ' + data.error);

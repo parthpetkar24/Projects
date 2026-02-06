@@ -182,8 +182,8 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_blood_requests', '{{ item.form_id }}')">Approve</button>
-          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_blood_requests', '{{ item.form_id }}')">Reject</button>
+          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_blood_request', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_blood_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
         <p class="text-muted">No nearby blood donations</p>
@@ -209,8 +209,8 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_organ_requests', '{{ item.form_id }}')">Approve</button>
-          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_organ_requests', '{{ item.form_id }}')">Reject</button>
+          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_organ_request', '{{ item.form_id }}')">Approve</button>
+          <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_organ_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
         <p class="text-muted">No nearby blood donations</p>
@@ -337,11 +337,12 @@
   <!-- NEWS SECTION -->
   <div class="card dashboard-card mt-5">
     <h5><i class="bi bi-megaphone"></i> Publish Hospital News</h5>
+  <form action="/hospital_dashboard/" method="post">
+    {% csrf_token %}
+    <input type="text" class="form-control mb-2" placeholder="News Title" name="news_title">
+    <textarea class="form-control mb-3" rows="3" placeholder="News Message" name="news_content"></textarea>
 
-    <input type="text" class="form-control mb-2" placeholder="News Title">
-    <textarea class="form-control mb-3" rows="3" placeholder="News Message"></textarea>
-
-    <button class="btn btn-danger">Publish News</button>
+    <button type="submit" class="btn btn-danger">Publish News</button>
 
     <hr>
 
@@ -349,6 +350,7 @@
       <li class="list-group-item">🩸 O+ Blood urgently needed</li>
       <li class="list-group-item">🏥 Donation camp on Sunday</li>
     </ul>
+    </form>
   </div>
 
 </div>

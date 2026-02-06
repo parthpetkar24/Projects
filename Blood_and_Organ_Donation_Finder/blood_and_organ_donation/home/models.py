@@ -52,6 +52,7 @@ class HospitalProfile(models.Model):
     abminusunit=models.IntegerField(default=0)
     oplusunit=models.IntegerField(default=0)
     ominusunit=models.IntegerField(default=0)
+
     def __str__(self):
         return self.hospital_name
     
@@ -428,3 +429,16 @@ class EmergencyOrganRequest(models.Model):
 
     def __str__(self):
         return self.form_id or f"EmergencyOrganRequest #{self.pk}"
+
+class HospitalNews(models.Model):
+    hospital = models.ForeignKey(
+        HospitalProfile,
+        on_delete=models.CASCADE,
+        related_name="news"
+    )
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

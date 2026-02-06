@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, HospitalProfile, BloodDonation, OrganDonation, BloodRequest, OrganRequest, EmergencyBloodRequest, EmergencyOrganRequest
+from .models import UserProfile, HospitalProfile, BloodDonation, OrganDonation, BloodRequest, OrganRequest, EmergencyBloodRequest, EmergencyOrganRequest,HospitalNews
 
 
 @admin.register(UserProfile)
@@ -14,6 +14,13 @@ class HospitalProfileAdmin(admin.ModelAdmin):
     search_fields = ('hospital_name', 'registration_id', 'city')
     list_filter = ('city',)
 
+@admin.register(HospitalNews)
+class HospitalNewsAdmin(admin.ModelAdmin):
+    list_display = ("title", "hospital", "created_at")
+    search_fields = ("title", "content", "hospital__hospital_name")
+    list_filter = ("hospital", "created_at")
+    ordering = ("-created_at",)
+    
 @admin.register(BloodDonation)
 class BloodDonationAdmin(admin.ModelAdmin):
     list_display = (
