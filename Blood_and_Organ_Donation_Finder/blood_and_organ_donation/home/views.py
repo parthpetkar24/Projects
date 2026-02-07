@@ -409,7 +409,11 @@ def get_nearby_applications(hospital, radius_km=50):
 
 @login_required(login_url="login_user")
 def user_dashboard(request):
-    return render(request,"user_dashboard.html")
+    news_list = HospitalNews.objects.all().order_by("-created_at")
+
+    return render(request, "user_dashboard.html", {
+        "news_list": news_list
+    })
 
 @login_required(login_url="login_hospital")
 def hospital_dashboard(request):
@@ -433,7 +437,15 @@ def hospital_dashboard(request):
         messages.success(request,'News Published Successfully!')
         return redirect('hospital_dashboard')
     nearby_data = get_nearby_applications(profile)  
-    return render(request, "hospital_dashboard.html", nearby_data)  
+    news_list = HospitalNews.objects.filter(
+        hospital=profile
+    ).order_by("-created_at")
+
+    context = {
+        **nearby_data,
+        "news_list": news_list
+    }
+    return render(request, "hospital_dashboard.html", context)  
 
 @login_required(login_url="login_hospital")
 @require_POST
