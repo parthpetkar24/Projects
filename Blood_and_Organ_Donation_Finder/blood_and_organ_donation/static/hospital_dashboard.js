@@ -37,41 +37,33 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-// Handle approval of application
-function handleApproval(appType, formId) {
-    if (!confirm(`Are you sure you want to approve application ${formId}?`)) {
+function approveWithAppointment(appType, formId) {
+    const date = document.getElementById(`date-${formId}`).value;
+    const time = document.getElementById(`time-${formId}`).value;
+
+    if (!date || !time) {
+        alert("Appointment date and time are required");
         return;
     }
-    
-    
-    fetch('/approve_application/', {
-        method: 'POST',
+
+    fetch("/approve_application/", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': csrftoken
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": csrftoken
         },
-        body: `app_type=${appType}&form_id=${formId}`
+        body: `app_type=${appType}&form_id=${formId}&date=${date}&time=${time}`
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
         if (data.success) {
-            alert(`Application ${formId} approved successfully!`);
-            // Remove the application card from view
-            const appCard = document.getElementById(`app-${appType}-${formId}`);
-            if (appCard) {
-                appCard.remove();
-            }
-            // Reload page to update counts
-            location.reload();
+            window.location.href = data.pdf_url;
         } else {
-            alert('Error: ' + data.error);
+            alert(data.error);
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while approving the application');
     });
 }
+
 
 // Handle rejection of application
 function handleRejection(appType, formId) {

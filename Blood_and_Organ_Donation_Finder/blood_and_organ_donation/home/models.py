@@ -57,6 +57,13 @@ class HospitalProfile(models.Model):
         return self.hospital_name
     
 class BloodDonation(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="blood_donations"
+    )
     full_name=models.CharField(max_length=122)
     aadhar_id=models.CharField(max_length=12)
     dob=models.DateField()
@@ -108,15 +115,31 @@ class BloodDonation(models.Model):
         related_name='approved_blood_donations'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
+    appointment_date = models.DateField(null=True, blank=True)
+    appointment_time = models.TimeField(null=True, blank=True)
+    appointment_pdf = models.FileField(
+        upload_to="appointments/blood_donations/",
+        null=True,
+        blank=True
+    )
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
         super().save(*args, **kwargs)
 
+    
+
     def __str__(self):
         return self.form_id or f"BloodDonation #{self.pk}"
 
 class OrganDonation(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="organ_donations"
+    )
     full_name=models.CharField(max_length=122)
     aadhar_id=models.CharField(max_length=12)
     dob=models.DateField()
@@ -178,6 +201,14 @@ class OrganDonation(models.Model):
         related_name='approved_organ_donations'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
+    appointment_date = models.DateField(null=True, blank=True)
+    appointment_time = models.TimeField(null=True, blank=True)
+
+    appointment_pdf = models.FileField(
+        upload_to="appointments/organ_donations/",
+        null=True,
+        blank=True
+    )
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -187,6 +218,13 @@ class OrganDonation(models.Model):
         return self.form_id or f"OrganDonation #{self.pk}"
     
 class BloodRequest(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="blood_requests"
+    )
     full_name=models.CharField(max_length=122)
     aadhar_id=models.CharField(max_length=12)
     dob=models.DateField()
@@ -238,6 +276,14 @@ class BloodRequest(models.Model):
         related_name='approved_blood_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
+    appointment_date = models.DateField(null=True, blank=True)
+    appointment_time = models.TimeField(null=True, blank=True)
+
+    appointment_pdf = models.FileField(
+        upload_to="appointments/blood_requests/",
+        null=True,
+        blank=True
+    )
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -247,6 +293,13 @@ class BloodRequest(models.Model):
         return self.form_id or f"BloodRequest #{self.pk}"
     
 class OrganRequest(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="organ_requests"
+    )
     full_name=models.CharField(max_length=122)
     aadhar_id=models.CharField(max_length=12)
     dob=models.DateField()
@@ -300,6 +353,14 @@ class OrganRequest(models.Model):
         related_name='approved_organ_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
+    appointment_date = models.DateField(null=True, blank=True)
+    appointment_time = models.TimeField(null=True, blank=True)
+
+    appointment_pdf = models.FileField(
+        upload_to="appointments/organ_requests/",
+        null=True,
+        blank=True
+    )
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -309,6 +370,13 @@ class OrganRequest(models.Model):
         return self.form_id or f"OrganRequest #{self.pk}"
     
 class EmergencyBloodRequest(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="emergency_blood_requests"
+    )
     full_name=models.CharField(max_length=122)
     aadhar_id=models.CharField(max_length=12)
     dob=models.DateField()
@@ -360,6 +428,14 @@ class EmergencyBloodRequest(models.Model):
         related_name='approved_emergency_blood_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
+    appointment_date = models.DateField(null=True, blank=True)
+    appointment_time = models.TimeField(null=True, blank=True)
+
+    appointment_pdf = models.FileField(
+        upload_to="appointments/emergency_blood_requests/",
+        null=True,
+        blank=True
+    )
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()
@@ -369,6 +445,13 @@ class EmergencyBloodRequest(models.Model):
         return self.form_id or f"EmergencyBloodRequest #{self.pk}"
 
 class EmergencyOrganRequest(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="emergency_organ_requests"
+    )
     full_name=models.CharField(max_length=122)
     aadhar_id=models.CharField(max_length=12)
     dob=models.DateField()
@@ -422,6 +505,14 @@ class EmergencyOrganRequest(models.Model):
         related_name='approved_emergency_organ_requests'
     )
     approved_at = models.DateTimeField(null=True, blank=True)
+    appointment_date = models.DateField(null=True, blank=True)
+    appointment_time = models.TimeField(null=True, blank=True)
+
+    appointment_pdf = models.FileField(
+        upload_to="appointments/emergency_organ_requests/",
+        null=True,
+        blank=True
+    )
     def save(self, *args, **kwargs):
         if self.status == 'approved' and self.approved_at is None:
             self.approved_at = timezone.now()

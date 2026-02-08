@@ -1,5 +1,22 @@
 /* Hospital Dashboard Enhanced Styles */
+/* FIXED SIZE DASHBOARD CARDS */
+.dashboard-card {
+    height: 520px;              /* 🔒 fixed card height */
+    display: flex;
+    flex-direction: column;
+}
 
+/* Card title should not scroll */
+.dashboard-card h5 {
+    flex-shrink: 0;
+}
+
+/* Scroll only the application list */
+.application-scroll-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: none;           /* override old max-height */
+}
 .application-scroll-container {
     max-height: 400px;
     overflow-y: auto;

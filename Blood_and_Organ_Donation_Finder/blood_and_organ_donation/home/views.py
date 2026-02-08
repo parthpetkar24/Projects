@@ -12,6 +12,10 @@ import math
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from django.conf import settings
+import os
 
 # Create your views here.
 def home(request):
@@ -49,6 +53,7 @@ def donatepage(request):
         if donation_type=="blood":
             blood_group=request.POST.get("blood_group")
             BloodDonation.objects.create(
+                user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -67,6 +72,7 @@ def donatepage(request):
             aliveordec=request.POST.get('aliveordec')
             organ=request.POST.get("organ")
             OrganDonation.objects.create(
+                user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -126,6 +132,7 @@ def requestpage(request):
         if request_type=="blood":
             blood_group=request.POST.get("blood_group")
             BloodRequest.objects.create(
+                user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -143,6 +150,7 @@ def requestpage(request):
         elif request_type=="organ":
             organ=request.POST.get("organ")
             OrganRequest.objects.create(
+                user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -199,6 +207,7 @@ def emergency_request(request):
         if request_type=="blood":
             blood_group=request.POST.get("blood_group")
             EmergencyBloodRequest.objects.create(
+                user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -216,6 +225,7 @@ def emergency_request(request):
         elif request_type=="organ":
             organ=request.POST.get("organ")
             EmergencyOrganRequest.objects.create(
+                user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -410,10 +420,18 @@ def get_nearby_applications(hospital, radius_km=50):
 @login_required(login_url="login_user")
 def user_dashboard(request):
     news_list = HospitalNews.objects.all().order_by("-created_at")
+    user = request.user
 
-    return render(request, "user_dashboard.html", {
-        "news_list": news_list
-    })
+    context = {
+        "blood_donations": BloodDonation.objects.filter(user=user).order_by("-approved_at"),
+        "organ_donations": OrganDonation.objects.filter(user=user).order_by("-approved_at"),
+        "blood_requests": BloodRequest.objects.filter(user=user).order_by("-approved_at"),
+        "organ_requests": OrganRequest.objects.filter(user=user).order_by("-approved_at"),
+        "emergency_blood_requests": EmergencyBloodRequest.objects.filter(user=user).order_by("-approved_at"),
+        "emergency_organ_requests": EmergencyOrganRequest.objects.filter(user=user).order_by("-approved_at"),
+        "news_list": news_list,
+    }
+    return render(request, "user_dashboard.html", context)
 
 @login_required(login_url="login_hospital")
 def hospital_dashboard(request):
@@ -452,6 +470,14 @@ def hospital_dashboard(request):
 def approve_application(request):
     app_type = request.POST.get('app_type')
     form_id = request.POST.get('form_id')
+    date = request.POST.get("date")
+    time = request.POST.get("time")
+
+    if not date or not time:
+        return JsonResponse({
+            "success": False,
+            "error": "Appointment date and time required"
+        })
     
     try:
         hospital_profile = request.user.hospitalprofile
@@ -476,6 +502,29 @@ def approve_application(request):
         application.status = 'approved'
         application.approved_by = hospital_profile
         application.approved_at = timezone.now()
+        application.appointment_date = date
+        application.appointment_time = time
+        filename = f"{form_id}_appointment.pdf"
+        folder_path = os.path.join(settings.MEDIA_ROOT, "appointments")
+        os.makedirs(folder_path, exist_ok=True)
+
+        file_path = os.path.join(folder_path, filename)
+
+        pdf = canvas.Canvas(file_path, pagesize=A4)
+        pdf.setFont("Helvetica", 12)
+
+        pdf.drawString(50, 800, "APPOINTMENT CONFIRMATION")
+        pdf.drawString(50, 770, f"Hospital Name: {hospital_profile.hospital_name}")
+        pdf.drawString(50, 750, f"Hospital City: {hospital_profile.city}")
+        pdf.drawString(50, 720, f"Applicant Name: {application.full_name}")
+        pdf.drawString(50, 700, f"Form ID: {application.form_id}")
+        pdf.drawString(50, 680, f"Appointment Date: {application.appointment_date}")
+        pdf.drawString(50, 660, f"Appointment Time: {application.appointment_time}")
+
+        pdf.showPage()
+        pdf.save()
+
+        application.appointment_pdf = f"appointments/approved/{filename}"
         application.save()
         
         messages.success(request, f"Application {form_id} approved successfully")

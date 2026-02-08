@@ -182,7 +182,13 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_blood_request', '{{ item.form_id }}')">Approve</button>
+          <label>Appointment Date</label>
+          <input type="date" id="date-{{ item.form_id }}">
+          <label>Appointment Time</label>
+          <input type="time" id="time-{{ item.form_id }}">
+        <button class="btn btn-success" onclick="approveWithAppointment('emergency_blood_request', '{{ item.form_id }}')">
+            Approve & Generate PDF
+        </button>
           <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_blood_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
@@ -209,7 +215,13 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm" onclick="handleApproval('emergency_organ_request', '{{ item.form_id }}')">Approve</button>
+          <label>Appointment Date</label>
+          <input type="date" id="date-{{ item.form_id }}">
+          <label>Appointment Time</label>
+          <input type="time" id="time-{{ item.form_id }}">
+        <button class="btn btn-success" onclick="approveWithAppointment('emergency_organ_request', '{{ item.form_id }}')">
+            Approve & Generate PDF
+        </button>
           <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('emergency_organ_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
@@ -237,7 +249,13 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm" onclick="handleApproval('blood_donation', '{{ item.form_id }}')">Approve</button>
+          <label>Appointment Date</label>
+          <input type="date" id="date-{{ item.form_id }}">
+          <label>Appointment Time</label>
+          <input type="time" id="time-{{ item.form_id }}">
+        <button class="btn btn-success" onclick="approveWithAppointment('blood_donation', '{{ item.form_id }}')">
+            Approve & Generate PDF
+        </button>
           <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('blood_donation', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
@@ -266,7 +284,13 @@
           {% if item.data.medical_condition %}
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
           {% endif %}
-          <button class="btn btn-success btn-sm" onclick="handleApproval('blood_request', '{{ item.form_id }}')">Approve</button>
+          <label>Appointment Date</label>
+          <input type="date" id="date-{{ item.form_id }}">
+          <label>Appointment Time</label>
+          <input type="time" id="time-{{ item.form_id }}">
+        <button class="btn btn-success" onclick="approveWithAppointment('blood_request', '{{ item.form_id }}')">
+            Approve & Generate PDF
+        </button>
           <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('blood_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
@@ -294,7 +318,13 @@
           <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
           <p><strong>DOB:</strong> {{ item.data.dob }}</p>
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
-          <button class="btn btn-success btn-sm" onclick="handleApproval('organ_donation', '{{ item.form_id }}')">Approve</button>
+          <label>Appointment Date</label>
+          <input type="date" id="date-{{ item.form_id }}">
+          <label>Appointment Time</label>
+          <input type="time" id="time-{{ item.form_id }}">
+        <button class="btn btn-success" onclick="approveWithAppointment('organ_donation', '{{ item.form_id }}')">
+            Approve & Generate PDF
+        </button>
           <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('organ_donation', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}
@@ -321,7 +351,13 @@
           <p><strong>Gender:</strong> {{ item.data.get_gender_display }}</p>
           <p><strong>DOB:</strong> {{ item.data.dob }}</p>
           <p><strong>Medical Condition:</strong> {{ item.data.medical_condition }}</p>
-          <button class="btn btn-success btn-sm" onclick="handleApproval('organ_request', '{{ item.form_id }}')">Approve</button>
+          <label>Appointment Date</label>
+          <input type="date" id="date-{{ item.form_id }}">
+          <label>Appointment Time</label>
+          <input type="time" id="time-{{ item.form_id }}">
+        <button class="btn btn-success" onclick="approveWithAppointment('organ_request', '{{ item.form_id }}')">
+            Approve & Generate PDF
+        </button>
           <button class="btn btn-outline-danger btn-sm" onclick="handleRejection('organ_request', '{{ item.form_id }}')">Reject</button>
         </div>
         {% empty %}

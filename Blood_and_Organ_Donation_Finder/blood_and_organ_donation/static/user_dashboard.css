@@ -119,3 +119,24 @@ body {
     color: #6c757d;
     font-style: italic;
 }
+.status-tracker {
+  display: flex;
+  gap: 8px;
+}
+
+.status-tracker.small .step {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.step {
+  border-radius: 20px;
+  background: #e9ecef;
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.step.active {
+  background: #842029;
+  color: #fff;
+}
