@@ -407,15 +407,6 @@ def get_nearby_applications(hospital, radius_km=50):
         # Sort by distance (nearest first)
         results[label].sort(key=lambda x: x['distance'])
 
-    # Filter all types of applications
-    filter_queryset(BloodDonation.objects.all(), "blood_donations")
-    filter_queryset(BloodRequest.objects.all(), "blood_requests")
-    filter_queryset(OrganDonation.objects.all(), "organ_donations")
-    filter_queryset(OrganRequest.objects.all(), "organ_requests")
-    filter_queryset(EmergencyBloodRequest.objects.all(), "emergency_blood_requests")
-    filter_queryset(EmergencyOrganRequest.objects.all(), "emergency_organ_requests")
-
-    return results
 
 @login_required(login_url="login_user")
 def user_dashboard(request):
