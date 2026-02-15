@@ -46,7 +46,7 @@ def car_predict(user_input):
     # Pre-process the data
     std_scalar=preprocessing.StandardScaler()
     X_train_std=std_scalar.fit_transform(X_train)
-    X_test_std=std_scalar.fit_transform(X_test)
+    X_test_std=std_scalar.transform(X_test)
 
     # print(pd.DataFrame(X_train_std).describe().round(2))
     # print(pd.DataFrame(X_test_std).describe().round(2))
