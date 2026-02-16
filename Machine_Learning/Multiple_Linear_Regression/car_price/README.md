@@ -94,3 +94,42 @@ python car_predict.py
 ```
 
 ### Enter car details when prompted
+## 📌 Notes
+
+- Scaling is applied before training.
+- The scaler is fit only on training data.
+- The same scaler is used to transform user input.
+- Random state is fixed (42) for reproducibility.
+
+---
+
+## 📊 Evaluation Metrics
+
+| Metric | Meaning |
+|--------|---------|
+| MAE | Average absolute error |
+| MSE | Average squared error |
+| R² | Model accuracy score |
+
+---
+
+## 🧪 Possible Improvements
+
+- Save trained model using `joblib`
+- Add visualization of regression results
+- Deploy as Flask API
+- Use cross-validation
+- Add polynomial regression comparison
+
+---
+
+## 👨‍💻 Author
+
+Parth Petkar
+
+---
+
+## 📜 License
+
+This project is open-source and free to use.
+
