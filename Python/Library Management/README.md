@@ -14,7 +14,7 @@ A simple command-line based Library Management System built with Python and Pand
 
 ## Project Structure
 ```
-Library Management System/
+Library Management/
 │
 ├── lib.py              # Main application file
 ├── index.csv           # Library catalog (available books)
