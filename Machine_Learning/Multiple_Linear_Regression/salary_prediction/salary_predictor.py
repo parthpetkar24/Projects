@@ -2,7 +2,7 @@
 
 # Import Libraries 
 import pandas as pd                                                         # Data Handling 
-import numpy as nd                                                          # Numerical Calculations and Array Handling
+import numpy as np                                                          # Numerical Calculations and Array Handling
 import matplotlib.pyplot as plt                                             # Visualization
 from sklearn import linear_model                                            # Linear Model from sci-kit learn
 from sklearn import preprocessing                                           # Data Preprocessing
