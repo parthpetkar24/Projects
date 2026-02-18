@@ -76,15 +76,77 @@
     </div>
 
     <!-- DONOR CONTACT -->
-    <div class="col-md-6">
-      <div class="card dashboard-card highlight-card">
-        <h5><i class="bi bi-person-heart"></i> Requester Trying to Contact You</h5>
-        <p><strong>Name:</strong> Anonymous Requester</p>
-        <p><strong>Blood Group:</strong> A+</p>
-        <button class="btn btn-success">Accept Contact</button>
-        <button class="btn btn-outline-danger mt-2">Ignore</button>
+<div class="col-md-6">
+  <div class="card dashboard-card highlight-card">
+    <h5>
+      <i class="bi bi-person-heart"></i>
+      Emergency Requests Near You
+    </h5>
+
+    {% if notifications %}
+
+      {% for n in notifications %}
+        {% if n.blood_request and n.blood_request.is_active %}
+          <div class="emergency-item mt-3 p-3 border rounded bg-light">
+
+            <p><strong>Requester Name:</strong>
+              {{ n.blood_request.full_name }}
+            </p>
+
+            <p><strong>Blood Group Needed:</strong>
+              {{ n.blood_request.blood_group }}
+            </p>
+
+            <p><strong>City:</strong>
+              {{ n.blood_request.city }}
+            </p>
+
+            <form method="POST" action="{% url 'accept_emergency' %}">
+              {% csrf_token %}
+              <input type="hidden" name="notification_id" value="{{ n.id }}">
+              <button type="submit" class="btn btn-success btn-sm">
+                Accept Request
+              </button>
+            </form>
+
+          </div>
+
+        {% elif n.organ_request and n.organ_request.is_active %}
+          <div class="emergency-item mt-3 p-3 border rounded bg-light">
+
+            <p><strong>Requester Name:</strong>
+              {{ n.organ_request.full_name }}
+            </p>
+
+            <p><strong>Organ Needed:</strong>
+              {{ n.organ_request.organ }}
+            </p>
+
+            <p><strong>City:</strong>
+              {{ n.organ_request.city }}
+            </p>
+
+            <form method="POST" action="{% url 'accept_emergency' %}">
+              {% csrf_token %}
+              <input type="hidden" name="notification_id" value="{{ n.id }}">
+              <button type="submit" class="btn btn-success btn-sm">
+                Accept Request
+              </button>
+            </form>
+
+          </div>
+        {% endif %}
+      {% endfor %}
+
+    {% else %}
+      <div class="mt-3 text-muted">
+        No active emergency requests at the moment.
       </div>
-    </div>
+    {% endif %}
+
+  </div>
+</div>
+
 
     <!-- STATUS TRACKER -->
     <div class="col-12">

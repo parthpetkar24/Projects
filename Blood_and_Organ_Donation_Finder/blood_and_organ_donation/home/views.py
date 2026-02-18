@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import UserProfile,HospitalProfile,OrganDonation,BloodDonation,BloodRequest,OrganRequest,EmergencyBloodRequest,EmergencyOrganRequest,HospitalNews
+from .models import UserProfile,HospitalProfile,OrganDonation,BloodDonation,BloodRequest,OrganRequest,EmergencyBloodRequest,EmergencyOrganRequest,HospitalNews,EmergencyNotification
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -206,7 +206,7 @@ def emergency_request(request):
         doc_report=request.FILES.get("doc_report")
         if request_type=="blood":
             blood_group=request.POST.get("blood_group")
-            EmergencyBloodRequest.objects.create(
+            emergency_obj=EmergencyBloodRequest.objects.create(
                 user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
@@ -224,7 +224,7 @@ def emergency_request(request):
             )
         elif request_type=="organ":
             organ=request.POST.get("organ")
-            EmergencyOrganRequest.objects.create(
+            emergency_obj=EmergencyOrganRequest.objects.create(
                 user=request.user,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
@@ -241,6 +241,8 @@ def emergency_request(request):
                 form_id=create_form_id(EmergencyOrganRequest)
             )
         messages.success(request, "Request Made Successfully! ")
+        find_and_notify_nearby_donors(emergency_obj)
+
         return redirect("homepage")
     return render(request,"emergency_request.html")
 
@@ -392,7 +394,7 @@ def get_nearby_applications(hospital, radius_km=50):
     
     def filter_queryset(queryset, label):
         # Only fetch pending applications
-        for obj in queryset.filter(status='pending').exclude(latitude=None, longitude=None):
+        for obj in queryset.filter(status='pending', is_active=True).exclude(latitude=None, longitude=None):
             distance = haversine_distance(lat, lon, obj.latitude, obj.longitude)
             if distance is not None and distance <= radius_km:
                 results[label].append({
@@ -407,11 +409,42 @@ def get_nearby_applications(hospital, radius_km=50):
         # Sort by distance (nearest first)
         results[label].sort(key=lambda x: x['distance'])
 
+def find_and_notify_nearby_donors(emergency_obj, radius_km=50):
+    from .models import BloodDonation, OrganDonation, EmergencyNotification
+
+    lat = emergency_obj.latitude
+    lon = emergency_obj.longitude
+
+    if hasattr(emergency_obj, "blood_group"):
+        donors = BloodDonation.objects.filter(
+            status='approved',
+            blood_group=emergency_obj.blood_group
+        ).exclude(latitude=None, longitude=None)
+
+    else:
+        donors = OrganDonation.objects.filter(
+            status='approved',
+            organ=emergency_obj.organ
+        ).exclude(latitude=None, longitude=None)
+
+    for donor in donors:
+        distance = haversine_distance(lat, lon, donor.latitude, donor.longitude)
+
+        if distance and distance <= radius_km:
+            EmergencyNotification.objects.create(
+                donor=donor.user,
+                blood_request=emergency_obj if hasattr(emergency_obj, "blood_group") else None,
+                organ_request=emergency_obj if hasattr(emergency_obj, "organ") else None
+            )
+
+
 
 @login_required(login_url="login_user")
 def user_dashboard(request):
     news_list = HospitalNews.objects.all().order_by("-created_at")
     user = request.user
+
+    notifications = EmergencyNotification.objects.filter( donor=request.user, blood_request__is_active=True ) | EmergencyNotification.objects.filter( donor=request.user, organ_request__is_active=True)
 
     context = {
         "blood_donations": BloodDonation.objects.filter(user=user).order_by("-approved_at"),
@@ -421,7 +454,9 @@ def user_dashboard(request):
         "emergency_blood_requests": EmergencyBloodRequest.objects.filter(user=user).order_by("-approved_at"),
         "emergency_organ_requests": EmergencyOrganRequest.objects.filter(user=user).order_by("-approved_at"),
         "news_list": news_list,
+        "notification":notifications,
     }
+    
     return render(request, "user_dashboard.html", context)
 
 @login_required(login_url="login_hospital")
@@ -558,3 +593,41 @@ def reject_application(request):
         return JsonResponse({'success': True})
     except model_map[app_type].DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Application not found'})
+
+@login_required
+@require_POST
+def accept_emergency(request):
+    from .models import EmergencyNotification
+
+    notif_id = request.POST.get("notification_id")
+
+    try:
+        notification = EmergencyNotification.objects.select_related(
+            "blood_request", "organ_request"
+        ).get(id=notif_id, donor=request.user)
+    except EmergencyNotification.DoesNotExist:
+        return redirect("user_dashboard")
+
+    if notification.blood_request:
+        req = notification.blood_request
+
+    else:
+        req = notification.organ_request
+
+    if not req.is_active:
+        return redirect("user_dashboard")
+
+    req.accepted_donor = request.user
+    req.status = "approved"
+    req.is_active = False
+    req.save()
+
+    EmergencyNotification.objects.filter(
+        blood_request=req
+    ).delete()
+
+    EmergencyNotification.objects.filter(
+        organ_request=req
+    ).delete()
+
+    return redirect("user_dashboard")

@@ -441,8 +441,20 @@ class EmergencyBloodRequest(models.Model):
             self.approved_at = timezone.now()
         super().save(*args, **kwargs)
 
+    accepted_donor = models.ForeignKey(
+    User,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="accepted_emergency_blood_requests"
+    )
+
+    is_active = models.BooleanField(default=True)
+
+
     def __str__(self):
         return self.form_id or f"EmergencyBloodRequest #{self.pk}"
+    
 
 class EmergencyOrganRequest(models.Model):
     user = models.ForeignKey(
@@ -518,8 +530,43 @@ class EmergencyOrganRequest(models.Model):
             self.approved_at = timezone.now()
         super().save(*args, **kwargs)
 
+    accepted_donor = models.ForeignKey(
+    User,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="accepted_emergency_organ_requests"
+    )
+
+    is_active = models.BooleanField(default=True)
+
+
     def __str__(self):
         return self.form_id or f"EmergencyOrganRequest #{self.pk}"
+
+class EmergencyNotification(models.Model):
+    donor = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="emergency_notifications"
+    )
+
+    blood_request = models.ForeignKey(
+        EmergencyBloodRequest,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    organ_request = models.ForeignKey(
+        EmergencyOrganRequest,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
 
 class HospitalNews(models.Model):
     hospital = models.ForeignKey(
