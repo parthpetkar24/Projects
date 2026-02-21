@@ -18,4 +18,6 @@ urlpatterns = [
     path('approve_application/', views.approve_application, name='approve_application'),
     path('reject_application/', views.reject_application, name='reject_application'),
     path("accept-emergency/", views.accept_emergency, name="accept_emergency"),
+    path('emergency_status/', views.emergency_status, name='emergency_status'),
+    path('check_emergency_status/', views.check_emergency_status, name='check_emergency_status'),
 ]

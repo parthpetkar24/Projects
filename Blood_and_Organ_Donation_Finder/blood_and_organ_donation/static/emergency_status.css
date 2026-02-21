@@ -1,0 +1,146 @@
+ body { font-family: 'Poppins', sans-serif; background: #fff5f5; }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #d90429, #ef233c);
+    color: #fff;
+    padding: 60px 20px 80px;
+    text-align: center;
+    border-radius: 0 0 40px 40px;
+  }
+
+  /* ── Card ── */
+  .status-card {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.14);
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  /* ── Radar / pulse animation ── */
+  .radar-wrapper {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 1.5rem;
+  }
+  .radar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid rgba(217,4,41,0.35);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    animation: radarPulse 2.4s ease-out infinite;
+  }
+  .radar-ring:nth-child(1) { width: 60px;  height: 60px;  animation-delay: 0s;   }
+  .radar-ring:nth-child(2) { width: 110px; height: 110px; animation-delay: 0.6s; }
+  .radar-ring:nth-child(3) { width: 160px; height: 160px; animation-delay: 1.2s; }
+  @keyframes radarPulse {
+    0%   { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+  }
+  .radar-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 56px; height: 56px;
+    background: #d90429;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.6rem;
+    box-shadow: 0 4px 18px rgba(217,4,41,0.5);
+  }
+
+  /* ── Status text dots ── */
+  .dot-anim::after {
+    content: '';
+    animation: dots 1.5s steps(4, end) infinite;
+  }
+  @keyframes dots {
+    0%   { content: ''; }
+    25%  { content: '.'; }
+    50%  { content: '..'; }
+    75%  { content: '...'; }
+    100% { content: ''; }
+  }
+
+  /* ── Info badge row ── */
+  .info-badge {
+    display: inline-block;
+    background: #ffeaea;
+    color: #d90429;
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-weight: 600;
+    font-size: .9rem;
+    margin: 4px;
+  }
+
+  /* ── Donor found card ── */
+  #donorFoundSection {
+    display: none;
+    animation: fadeInUp .5s ease;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .donor-card {
+    background: linear-gradient(135deg, #e8f8ee, #d4edda);
+    border: 2px solid #28a745;
+    border-radius: 18px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    text-align: left;
+  }
+  .donor-card .donor-name { font-size: 1.2rem; font-weight: 700; color: #155724; }
+  .donor-card .donor-detail { color: #1d4731; margin-bottom: 4px; }
+  .btn-call {
+    background: #28a745;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 30px;
+    font-weight: 600;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: .75rem;
+    transition: background .2s;
+  }
+  .btn-call:hover { background: #1e7e34; color: #fff; }
+
+  /* ── Waiting section ── */
+  #waitingSection { }
+
+  /* ── Progress steps ── */
+  .progress-steps {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 1.5rem 0 0;
+  }
+  .p-step {
+    display: flex; flex-direction: column; align-items: center;
+    flex: 1; position: relative;
+  }
+  .p-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 14px; left: 60%;
+    width: 80%; height: 3px;
+    background: #e0e0e0;
+    z-index: 0;
+  }
+  .p-step.done:not(:last-child)::after { background: #28a745; }
+  .p-step.active:not(:last-child)::after { background: #ffc107; }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #e0e0e0; display: flex; align-items: center;
+    justify-content: center; font-size: .75rem; font-weight: 700;
+    z-index: 1; position: relative;
+  }
+  .p-step.done  .step-dot { background: #28a745; color: #fff; }
+  .p-step.active .step-dot { background: #d90429; color: #fff; animation: stepPulse 1s ease-in-out infinite alternate; }
+  @keyframes stepPulse { from { box-shadow: 0 0 0 0 rgba(217,4,41,.5); } to { box-shadow: 0 0 0 8px rgba(217,4,41,0); } }
+  .step-label { font-size: .7rem; color: #555; margin-top: 5px; text-align: center; }

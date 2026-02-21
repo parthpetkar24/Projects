@@ -78,66 +78,69 @@
     <!-- DONOR CONTACT -->
 <div class="col-md-6">
   <div class="card dashboard-card highlight-card">
-    <h5>
-      <i class="bi bi-person-heart"></i>
-      Emergency Requests Near You
-    </h5>
+    <h5><i class="bi bi-person-heart"></i> Requester Trying to Contact You</h5>
 
     {% if notifications %}
-
       {% for n in notifications %}
+
         {% if n.blood_request and n.blood_request.is_active %}
-          <div class="emergency-item mt-3 p-3 border rounded bg-light">
+          <div class="emergency-item mt-3 p-3 border rounded"
+               style="background:#fff5f5; border-color:#f5c6cb !important;">
 
-            <p><strong>Requester Name:</strong>
-              {{ n.blood_request.full_name }}
+            <span class="badge bg-danger mb-2">🚨 URGENT — Blood Needed</span>
+
+            <p><strong>Patient Name:</strong> {{ n.blood_request.full_name }}</p>
+            <p><strong>Blood Group:</strong>
+              <span class="badge bg-warning text-dark">
+                {{ n.blood_request.blood_group }}
+              </span>
             </p>
+            <p><strong>City:</strong> {{ n.blood_request.city }}</p>
 
-            <p><strong>Blood Group Needed:</strong>
-              {{ n.blood_request.blood_group }}
-            </p>
+            <a href="tel:{{ n.blood_request.phone }}"
+               class="btn btn-danger btn-sm">
+              <i class="bi bi-telephone-fill"></i> Call Requester
+            </a>
 
-            <p><strong>City:</strong>
-              {{ n.blood_request.city }}
-            </p>
-
-            <form method="POST" action="{% url 'accept_emergency' %}">
+            <form method="POST" action="{% url 'accept_emergency' %}" class="d-inline">
               {% csrf_token %}
               <input type="hidden" name="notification_id" value="{{ n.id }}">
-              <button type="submit" class="btn btn-success btn-sm">
-                Accept Request
+              <button type="submit" class="btn btn-outline-success btn-sm">
+                Accept & Track
               </button>
             </form>
-
           </div>
 
         {% elif n.organ_request and n.organ_request.is_active %}
-          <div class="emergency-item mt-3 p-3 border rounded bg-light">
+          <div class="emergency-item mt-3 p-3 border rounded"
+               style="background:#fff5f5; border-color:#f5c6cb !important;">
 
-            <p><strong>Requester Name:</strong>
-              {{ n.organ_request.full_name }}
+            <span class="badge bg-danger mb-2">🚨 URGENT — Organ Needed</span>
+
+            <p><strong>Patient Name:</strong> {{ n.organ_request.full_name }}</p>
+            <p><strong>Organ:</strong>
+              <span class="badge bg-warning text-dark">
+                {{ n.organ_request.organ }}
+              </span>
             </p>
+            <p><strong>City:</strong> {{ n.organ_request.city }}</p>
 
-            <p><strong>Organ Needed:</strong>
-              {{ n.organ_request.organ }}
-            </p>
+            <a href="tel:{{ n.organ_request.phone }}"
+               class="btn btn-danger btn-sm">
+              <i class="bi bi-telephone-fill"></i> Call Requester
+            </a>
 
-            <p><strong>City:</strong>
-              {{ n.organ_request.city }}
-            </p>
-
-            <form method="POST" action="{% url 'accept_emergency' %}">
+            <form method="POST" action="{% url 'accept_emergency' %}" class="d-inline">
               {% csrf_token %}
               <input type="hidden" name="notification_id" value="{{ n.id }}">
-              <button type="submit" class="btn btn-success btn-sm">
-                Accept Request
+              <button type="submit" class="btn btn-outline-success btn-sm">
+                Accept & Track
               </button>
             </form>
-
           </div>
         {% endif %}
-      {% endfor %}
 
+      {% endfor %}
     {% else %}
       <div class="mt-3 text-muted">
         No active emergency requests at the moment.
@@ -146,7 +149,6 @@
 
   </div>
 </div>
-
 
     <!-- STATUS TRACKER -->
     <div class="col-12">

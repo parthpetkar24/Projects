@@ -15,6 +15,7 @@ from django.utils import timezone
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from django.conf import settings
+from django.db.models import Q
 import os
 
 # Create your views here.
@@ -207,7 +208,7 @@ def emergency_request(request):
         if request_type=="blood":
             blood_group=request.POST.get("blood_group")
             emergency_obj=EmergencyBloodRequest.objects.create(
-                user=request.user,
+                user=request.user if request.user.is_authenticated else None,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -225,7 +226,7 @@ def emergency_request(request):
         elif request_type=="organ":
             organ=request.POST.get("organ")
             emergency_obj=EmergencyOrganRequest.objects.create(
-                user=request.user,
+                user=request.user if request.user.is_authenticated else None,
                 full_name=full_name,
                 aadhar_id=aadhar_id,
                 dob=dob,
@@ -241,10 +242,109 @@ def emergency_request(request):
                 form_id=create_form_id(EmergencyOrganRequest)
             )
         messages.success(request, "Request Made Successfully! ")
+        # Notify nearby donors
         find_and_notify_nearby_donors(emergency_obj)
 
-        return redirect("homepage")
+        # Persist request identity in session so the status page can poll without auth
+        request.session["emergency_form_id"]   = emergency_obj.form_id
+        request.session["emergency_req_type"]  = request_type   # "blood" or "organ"
+        request.session["emergency_req_phone"] = phone          # requester's contact
+
+        return redirect("emergency_status")
     return render(request,"emergency_request.html")
+
+def emergency_status(request):
+    form_id   = request.session.get("emergency_form_id")
+    req_type  = request.session.get("emergency_req_type", "blood")
+    req_phone = request.session.get("emergency_req_phone", "")
+
+    if not form_id:
+        # Someone landed here without a valid session — send them to the form
+        return redirect("emergency_request")
+
+    # Fetch the actual request object to pass initial data to the template
+    if req_type == "blood":
+        try:
+            req_obj = EmergencyBloodRequest.objects.get(form_id=form_id)
+        except EmergencyBloodRequest.DoesNotExist:
+            return redirect("emergency_request")
+        need_label = f"{req_obj.blood_group} Blood"
+    else:
+        try:
+            req_obj = EmergencyOrganRequest.objects.get(form_id=form_id)
+        except EmergencyOrganRequest.DoesNotExist:
+            return redirect("emergency_request")
+        need_label = req_obj.organ
+     # Resolve donor details safely in Python, not in the template
+    already_found = (not req_obj.is_active) and bool(req_obj.accepted_donor_id)
+    donor_name  = ""
+    donor_phone = ""
+    donor_city  = ""
+
+    if already_found:
+        try:
+            profile     = req_obj.accepted_donor.userprofile
+            donor_name  = profile.full_name
+            donor_phone = profile.phone
+            donor_city  = profile.city or "—"
+        except Exception:
+            donor_name  = req_obj.accepted_donor.username
+            donor_phone = "—"
+            donor_city  = "—"
+
+    context = {
+    "already_found": already_found,
+    "form_id": form_id,
+    "req_type": req_type,
+    "req_phone": req_phone,
+    "need_label": need_label,
+    "city": req_obj.city,
+    "is_active": req_obj.is_active,
+    "donor_name": donor_name,
+    "donor_phone": donor_phone,
+    "donor_city": donor_city,
+}
+    return render(request, "emergency_status.html", context)
+
+
+def check_emergency_status(request):
+    form_id  = request.GET.get("form_id")
+    req_type = request.GET.get("req_type", "blood")
+
+    if not form_id:
+        return JsonResponse({"found": False})
+
+    if req_type == "blood":
+        try:
+            obj = EmergencyBloodRequest.objects.get(form_id=form_id)
+        except EmergencyBloodRequest.DoesNotExist:
+            return JsonResponse({"found": False})
+    else:
+        try:
+            obj = EmergencyOrganRequest.objects.get(form_id=form_id)
+        except EmergencyOrganRequest.DoesNotExist:
+            return JsonResponse({"found": False})
+
+    if obj.accepted_donor:
+        # Expose only safe contact info
+        try:
+            donor_profile = obj.accepted_donor.userprofile
+            donor_name    = donor_profile.full_name
+            donor_phone   = donor_profile.phone
+            donor_city    = donor_profile.city or "—"
+        except Exception:
+            donor_name  = obj.accepted_donor.get_full_name() or obj.accepted_donor.username
+            donor_phone = "—"
+            donor_city  = "—"
+
+        return JsonResponse({
+            "found"      : True,
+            "donor_name" : donor_name,
+            "donor_phone": donor_phone,
+            "donor_city" : donor_city,
+        })
+
+    return JsonResponse({"found": False})
 
 def create_form_id(model, length=5):
     characters = ascii_letters + digits
@@ -410,7 +510,6 @@ def get_nearby_applications(hospital, radius_km=50):
         results[label].sort(key=lambda x: x['distance'])
 
 def find_and_notify_nearby_donors(emergency_obj, radius_km=50):
-    from .models import BloodDonation, OrganDonation, EmergencyNotification
 
     lat = emergency_obj.latitude
     lon = emergency_obj.longitude
@@ -430,7 +529,7 @@ def find_and_notify_nearby_donors(emergency_obj, radius_km=50):
     for donor in donors:
         distance = haversine_distance(lat, lon, donor.latitude, donor.longitude)
 
-        if distance and distance <= radius_km:
+        if distance is not None and distance <= radius_km:
             EmergencyNotification.objects.create(
                 donor=donor.user,
                 blood_request=emergency_obj if hasattr(emergency_obj, "blood_group") else None,
@@ -444,7 +543,7 @@ def user_dashboard(request):
     news_list = HospitalNews.objects.all().order_by("-created_at")
     user = request.user
 
-    notifications = EmergencyNotification.objects.filter( donor=request.user, blood_request__is_active=True ) | EmergencyNotification.objects.filter( donor=request.user, organ_request__is_active=True)
+    notifications = EmergencyNotification.objects.filter(donor=request.user).filter( Q(blood_request__is_active=True) | Q(organ_request__is_active=True))
 
     context = {
         "blood_donations": BloodDonation.objects.filter(user=user).order_by("-approved_at"),
@@ -454,7 +553,7 @@ def user_dashboard(request):
         "emergency_blood_requests": EmergencyBloodRequest.objects.filter(user=user).order_by("-approved_at"),
         "emergency_organ_requests": EmergencyOrganRequest.objects.filter(user=user).order_by("-approved_at"),
         "news_list": news_list,
-        "notification":notifications,
+        "notifications":notifications,
     }
     
     return render(request, "user_dashboard.html", context)
@@ -597,7 +696,6 @@ def reject_application(request):
 @login_required
 @require_POST
 def accept_emergency(request):
-    from .models import EmergencyNotification
 
     notif_id = request.POST.get("notification_id")
 
@@ -622,12 +720,12 @@ def accept_emergency(request):
     req.is_active = False
     req.save()
 
-    EmergencyNotification.objects.filter(
-        blood_request=req
-    ).delete()
+    if notification.blood_request:
+        req = notification.blood_request
+        EmergencyNotification.objects.filter(blood_request=req).delete()
 
-    EmergencyNotification.objects.filter(
-        organ_request=req
-    ).delete()
+    elif notification.organ_request:
+        req = notification.organ_request
+        EmergencyNotification.objects.filter(organ_request=req).delete()
 
     return redirect("user_dashboard")

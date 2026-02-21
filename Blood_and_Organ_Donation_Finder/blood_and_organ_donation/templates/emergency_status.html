@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Finding Donor — Emergency{% endblock %}
+
+{% block sub_head %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="{% static 'emergency_status.css' %}" rel="stylesheet">
+ 
+{% endblock %}
+
+{% block hero %}
+<section class="hero">
+  <h1>🚨 Emergency Request Sent</h1>
+  <p>Hang tight — we're scanning for nearby donors</p>
+</section>
+{% endblock %}
+
+{% block body %}
+<div class="container col-lg-6 col-md-8 mt-n5 mb-5">
+  <div class="status-card">
+
+    <!-- Request summary badges -->
+    <div class="mb-3">
+      <span class="info-badge"><i class="bi bi-droplet-fill"></i> {{ need_label }}</span>
+      <span class="info-badge"><i class="bi bi-geo-alt-fill"></i> {{ city }}</span>
+      <span class="info-badge"><i class="bi bi-card-text"></i> ID: {{ form_id }}</span>
+    </div>
+
+    <!-- ── WAITING STATE ── -->
+    <div id="waitingSection">
+      <div class="radar-wrapper">
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-center"><i class="bi bi-heart-pulse-fill"></i></div>
+      </div>
+
+      <h4 class="fw-bold text-danger mb-1">Searching for donors<span class="dot-anim"></span></h4>
+      <p class="text-muted small mb-3">Nearby registered donors are being notified automatically.</p>
+
+      <!-- Progress steps -->
+      <div class="progress-steps">
+        <div class="p-step done">
+          <div class="step-dot"><i class="bi bi-check"></i></div>
+          <div class="step-label">Request<br>Submitted</div>
+        </div>
+        <div class="p-step done">
+          <div class="step-dot"><i class="bi bi-check"></i></div>
+          <div class="step-label">Donors<br>Notified</div>
+        </div>
+        <div class="p-step active" id="stepWaiting">
+          <div class="step-dot">3</div>
+          <div class="step-label">Awaiting<br>Response</div>
+        </div>
+        <div class="p-step" id="stepConnected">
+          <div class="step-dot">4</div>
+          <div class="step-label">Donor<br>Connected</div>
+        </div>
+      </div>
+
+      <p class="mt-4 text-muted" style="font-size:.8rem;">
+        This page refreshes automatically. Keep it open.<br>
+        Your emergency contact: <strong>{{ req_phone }}</strong>
+      </p>
+    </div>
+
+    <!-- ── DONOR FOUND STATE ── -->
+    <div id="donorFoundSection">
+      <div style="font-size:3rem; margin-bottom:.5rem;">🎉</div>
+      <h4 class="fw-bold text-success">Donor Found!</h4>
+      <p class="text-muted small">A nearby donor has accepted your request. Contact them immediately.</p>
+
+      <div class="donor-card">
+        <div class="donor-name mb-2"><i class="bi bi-person-fill"></i> <span id="donorName">—</span></div>
+        <div class="donor-detail"><i class="bi bi-geo-alt-fill text-success"></i> <span id="donorCity">—</span></div>
+        <div class="donor-detail"><i class="bi bi-telephone-fill text-success"></i> <span id="donorPhone">—</span></div>
+        <a id="btnCall" href="#" class="btn-call">
+          <i class="bi bi-telephone-fill"></i> Call Donor Now
+        </a>
+      </div>
+
+      <!-- Update progress steps -->
+      <div class="progress-steps mt-3">
+        <div class="p-step done">
+          <div class="step-dot"><i class="bi bi-check"></i></div>
+          <div class="step-label">Request<br>Submitted</div>
+        </div>
+        <div class="p-step done">
+          <div class="step-dot"><i class="bi bi-check"></i></div>
+          <div class="step-label">Donors<br>Notified</div>
+        </div>
+        <div class="p-step done">
+          <div class="step-dot"><i class="bi bi-check"></i></div>
+          <div class="step-label">Response<br>Received</div>
+        </div>
+        <div class="p-step done">
+          <div class="step-dot"><i class="bi bi-check"></i></div>
+          <div class="step-label">Donor<br>Connected</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /status-card -->
+</div>
+
+<script>
+  // Data injected from Django template
+    const FORM_ID  = "{{ form_id }}";
+    const REQ_TYPE = "{{ req_type }}";
+    const ALREADY_FOUND = {{ already_found|yesno:"true,false" }};
+    const DONOR_NAME  = "{{ donor_name|escapejs }}";
+    const DONOR_PHONE = "{{ donor_phone|escapejs }}";
+    const DONOR_CITY  = "{{ donor_city|escapejs }}";
+
+    // Poll every 6 seconds
+  const pollTimer = setInterval(function() {
+    fetch(`/check_emergency_status/?form_id=${FORM_ID}&req_type=${REQ_TYPE}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.found) showDonorFound(data);
+      })
+      .catch(() => {});  // silently ignore network blips
+  }, 6000);
+
+  // If already accepted on page load (e.g. browser refresh)
+  if (ALREADY_FOUND) {
+  showDonorFound({
+    donor_name : DONOR_NAME,
+    donor_phone: DONOR_PHONE,
+    donor_city : DONOR_CITY,
+  });
+}
+
+  function showDonorFound(data) {
+    document.getElementById("waitingSection").style.display = "none";
+    document.getElementById("donorFoundSection").style.display = "block";
+    document.getElementById("donorName").textContent  = data.donor_name;
+    document.getElementById("donorPhone").textContent = data.donor_phone;
+    document.getElementById("donorCity").textContent  = data.donor_city;
+    document.getElementById("btnCall").href = "tel:" + data.donor_phone;
+    clearInterval(pollTimer);
+  }
+
+
+</script>
+{% endblock %}
