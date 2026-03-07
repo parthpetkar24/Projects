@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'blood_and_organ_donation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blood_organ_db',
-        'USER': 'parth24',
+        'NAME': 'Blood_Organ_Donation_Finder',
+        'USER': 'postgres',
         'PASSWORD': 'M@ythe4th',
         'HOST': 'localhost',
         'PORT': '5432',
