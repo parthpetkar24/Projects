@@ -30,7 +30,7 @@
     </div>
 
     <!-- ONE FORM ONLY -->
-    <form method="post" action="/donate/" enctype="multipart/form-data">
+    <form method="post" action="{% url 'donate:donate' %}" enctype="multipart/form-data">
       {% csrf_token %}
 
       <!-- STEP 1 -->

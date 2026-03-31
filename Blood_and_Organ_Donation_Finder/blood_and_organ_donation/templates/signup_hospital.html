@@ -18,14 +18,14 @@
 
 {% block body %}
 <div class="role-tabs mt-5">
-  <a href="/signup_user/" class="role-tab-btn active">👤 User</a>
-  <a href="/signup_hospital/" class="role-tab-btn">🏥 Hospital</a>
+  <a href="{% url 'users:signup_user' %}" class="role-tab-btn active">👤 User</a>
+  <a href="{% url 'users:signup_hospital' %}" class="role-tab-btn">🏥 Hospital</a>
 </div>
 
 <div class="container col-md-5 mt-5">
   <div class="auth-card">
 
-    <form method="POST" action="/signup_hospital/" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'users:signup_hospital' %}" enctype="multipart/form-data">
       {% csrf_token %}
       <input class="form-control mb-3" name="hospital_name" placeholder="Hospital Name" required>
       <input class="form-control mb-3" name="hospital_email" placeholder="Hospital Email" required>
@@ -44,7 +44,7 @@
     </form>
 
     <div class="text-center mt-3 switch-links">
-      <a href="/login-hospital/">Already registered?</a><br>
+      <a href="{% url 'users:login-hospital' %}">Already registered?</a><br>
     </div>
 
   </div>

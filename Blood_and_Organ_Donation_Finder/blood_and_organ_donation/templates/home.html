@@ -14,9 +14,9 @@
     <section class="hero">
         <h1>A Few Minutes For You, A Lifeline for Someone</h1>
         <div class="d-flex justify-content-center gap-3">
-            <button class="btn btn-donate" onclick="window.open('/donate/','_self')">Donate</button>
-            <button class="btn btn-request" onclick="window.open('/request/','_self')">Request</button>
-            <button class="btn btn-request" onclick="window.open('/emergency_request/','_self')"> Emergency Request</button>
+            <a href="{% url 'donate:donate' %}" class="btn btn-donate">Donate</a>
+            <a href="{% url 'request:request' %}" class="btn btn-request">Request</a>
+            <a href="{% url 'emergency:emergency_request' %}" class="btn btn-request">Emergency Request</a>
         </div>
     </section>
     {% endblock %}
@@ -59,7 +59,7 @@
             <div class="col-md-4">
                 <div class="card article-card">
                     <div class="card-body" onclick="window.open('https://www.who.int/news-room/fact-sheets/detail/blood-safety-and-availability', '_blank')">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/WHO_logo.svg/800px-WHO_logo.svg.png" class="articleimg" style="font-size: 3rem; color:#ef233c;" alt="WHO">
+                        <img src="https://cdn.who.int/media/images/default-source/infographics/who-emblem.png?sfvrsn=877bb56a_2" class="articleimg" style="font-size: 3rem; color:#ef233c;" alt="WHO">
                         <h6>Blood Safety & Availability</h6>
                         <p>World Health Organization (WHO)</p>
                     </div>

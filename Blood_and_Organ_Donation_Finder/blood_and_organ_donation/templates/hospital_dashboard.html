@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body %}
-<form action="/hospital_dashboard/" method="post">
+<form action="{% url 'hospital_dashboard:hospital_dashboard' %}" method="post">
 {% csrf_token %}
 <table class="table mt-3 text-center align-middle">
   <thead>
@@ -373,7 +373,7 @@
   <!-- NEWS SECTION -->
   <div class="card dashboard-card mt-5">
     <h5><i class="bi bi-megaphone"></i> Publish Hospital News</h5>
-  <form action="/hospital_dashboard/" method="post">
+  <form action="{% url 'hospital_dashboard:hospital_dashboard' %}" method="post">
     {% csrf_token %}
     <input type="text" class="form-control mb-2" placeholder="News Title" name="news_title">
     <textarea class="form-control mb-3" rows="3" placeholder="News Message" name="news_content"></textarea>
