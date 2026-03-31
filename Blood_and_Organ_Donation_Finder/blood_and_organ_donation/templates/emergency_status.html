@@ -108,7 +108,7 @@
   // Data injected from Django template
     const FORM_ID  = "{{ form_id }}";
     const REQ_TYPE = "{{ req_type }}";
-    const ALREADY_FOUND = {{ already_found|yesno:"true,false" }};
+    const ALREADY_FOUND = "{{ already_found | default:False | yesno:'true,false' }}";
     const DONOR_NAME  = "{{ donor_name|escapejs }}";
     const DONOR_PHONE = "{{ donor_phone|escapejs }}";
     const DONOR_CITY  = "{{ donor_city|escapejs }}";

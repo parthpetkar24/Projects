@@ -26,6 +26,12 @@ admin.site.index_title="LifeLink"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
+    path('donate/',include('donate.urls')),
+    path('request/',include('request.urls')),
+    path('emergency/',include('emergency.urls')),
+    path('hospital_dashboard/',include('hospital_dashboard.urls')),
+    path('user_dashboard/',include('user_dashboard.urls')),
+    path('users/',include('users.urls')),
 ]
 
 if settings.DEBUG:

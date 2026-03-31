@@ -21,7 +21,7 @@
 <div class="container col-lg-7 col-md-9 mt-n5">
   <div class="card-glass p-4">
 
-    <form method="post" action="/emergency_request/" enctype="multipart/form-data">
+    <form method="post" action="{% url 'emergency:emergency_request' %}" enctype="multipart/form-data">
       {% csrf_token %}
 
       <input type="hidden" name="priority" value="emergency">

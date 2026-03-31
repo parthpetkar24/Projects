@@ -18,8 +18,8 @@
 
 {% block body %}
 <div class="role-tabs mt-5">
-  <a href="/login_user/" class="role-tab-btn active">👤 User</a>
-  <a href="/login_hospital/" class="role-tab-btn">🏥 Hospital</a>
+  <a href="{% url 'users:login_user' %}" class="role-tab-btn active">👤 User</a>
+  <a href="{% url 'users:login_hospital' %}" class="role-tab-btn">🏥 Hospital</a>
 </div>
 
 <div class="container col-md-4 mt-5">
@@ -36,7 +36,7 @@
     </form>
 
     <div class="text-center mt-3 switch-links">
-      <a href="/signup_hospital/">Register Hospital</a><br>
+      <a href="{% url 'users:signup_hospital' %}">Register Hospital</a><br>
     </div>
 
   </div>

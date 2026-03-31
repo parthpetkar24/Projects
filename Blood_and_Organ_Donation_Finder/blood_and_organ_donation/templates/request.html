@@ -29,7 +29,7 @@
       <span id="s4">4</span>
     </div>
 
-    <form method="post" action="/request/" enctype="multipart/form-data">
+    <form method="post" action="{% url 'request:request' %}" enctype="multipart/form-data">
       {% csrf_token %}
 
       <!-- STEP 1 -->

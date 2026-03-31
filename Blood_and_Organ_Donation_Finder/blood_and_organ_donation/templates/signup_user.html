@@ -17,14 +17,14 @@
 {% endblock %}
 {% block body %}
 <div class="role-tabs mt-5">
-  <a href="/signup_user/" class="role-tab-btn active">👤 User</a>
-  <a href="/signup_hospital/" class="role-tab-btn">🏥 Hospital</a>
+  <a href="{% url 'users:signup_user' %}" class="role-tab-btn active">👤 User</a>
+  <a href="{% url 'users:signup_hospital' %}" class="role-tab-btn">🏥 Hospital</a>
 </div>
 
 <div class="container col-md-4 mt-5">
   <div class="auth-card">
 
-    <form method="POST" action="/signup_user/">
+    <form method="POST" action="{% url 'users:signup_user' %}">
       {% csrf_token %}
       <input class="form-control mb-3" name="full_name" placeholder="Full Name" required>
       <input class="form-control mb-3" name="email" placeholder="Email" required>
@@ -51,7 +51,7 @@
     </form>
 
     <div class="text-center mt-3 switch-links">
-      <a href="/login_user/">Already have an account?</a><br>
+      <a href="{% url 'users:login_user' %}">Already have an account?</a><br>
     </div>
 
   </div>
