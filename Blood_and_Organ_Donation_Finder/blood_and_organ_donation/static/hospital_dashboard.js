@@ -46,7 +46,7 @@ function approveWithAppointment(appType, formId) {
         return;
     }
 
-    fetch("/approve_application/", {
+    fetch("/hospital_dashboard/approve_application/", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -71,7 +71,7 @@ function handleRejection(appType, formId) {
         return;
     }
 
-    fetch('/reject_application/', {
+    fetch('/hospital_dashboard/reject_application/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

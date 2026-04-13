@@ -14,7 +14,7 @@ def login_user(request):
         if user:
             login(request, user)
             messages.success(request,"Login Successfull!")
-            return redirect("user_dashboard")
+            return redirect("user_dashboard:user_dashboard")
 
         messages.error(request, "Invalid credentials")
         return redirect("login_user")
@@ -28,10 +28,10 @@ def login_hospital(request):
         if user:
             login(request,user)
             messages.success(request,"Login Successfull!")
-            return redirect("hospital_dashboard")
+            return redirect("hospital_dashboard:hospital_dashboard")
         
         messages.error(request,"Invalid credentials")
-        return redirect("login_hospital")
+        return redirect("users:login_hospital")
     return render(request,"login_hospital.html")
 
 def signup_user(request):
@@ -94,4 +94,4 @@ def signup_hospital(request):
 def logout_user(request):
     logout(request) 
     messages.success(request, "You have been logged out successfully")
-    return redirect("homepage")
+    return redirect("home:homepage")

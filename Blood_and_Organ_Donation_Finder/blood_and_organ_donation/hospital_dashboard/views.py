@@ -15,7 +15,16 @@ import os
 @login_required(login_url="users:login_hospital")
 def hospital_dashboard(request):
     profile=request.user.hospitalprofile
-    if request.method=="POST":
+    
+    if request.method == "POST" and "news_title" in request.POST:
+        HospitalNews.objects.create(
+            hospital=profile,
+            title=request.POST.get("news_title"),
+            content=request.POST.get("news_content")
+        )
+        messages.success(request,'News Published Successfully!')
+        return redirect('hospital_dashboard')
+    elif request.method=="POST":
         profile.aplusunit=int(request.POST.get('aplusunit',profile.aplusunit))
         profile.aminusunit=int(request.POST.get('aminusunit',profile.aminusunit))
         profile.bplusunit=int(request.POST.get('bplusunit',profile.bplusunit))
@@ -25,23 +34,12 @@ def hospital_dashboard(request):
         profile.oplusunit=int(request.POST.get('oplusunit',profile.oplusunit))
         profile.ominusunit=int(request.POST.get('ominusunit',profile.ominusunit))
         profile.save()
-    if request.method == "POST" and "news_title" in request.POST:
-        HospitalNews.objects.create(
-            hospital=profile,
-            title=request.POST.get("news_title"),
-            content=request.POST.get("news_content")
-        )
-        messages.success(request,'News Published Successfully!')
-        return redirect('hospital_dashboard')
     nearby_data = get_nearby_applications(profile)  
     news_list = HospitalNews.objects.filter(
         hospital=profile
     ).order_by("-created_at")
 
-    context = {
-        **nearby_data,
-        "news_list": news_list
-    }
+    context={ **nearby_data,"news_list": news_list}
     return render(request, "hospital_dashboard.html", context)  
 
 @login_required(login_url="users:login_hospital")
@@ -103,11 +101,11 @@ def approve_application(request):
         pdf.showPage()
         pdf.save()
 
-        application.appointment_pdf = f"appointments/approved/{filename}"
+        application.appointment_pdf = f"appointments/{filename}"
         application.save()
-        
-        messages.success(request, f"Application {form_id} approved successfully")
-        return JsonResponse({'success': True})
+        pdf_url = f"{settings.MEDIA_URL}appointments/{filename}"  # ✅ Build the URL
+
+        return JsonResponse({'success': True, 'pdf_url': pdf_url})
     except model_map[app_type].DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Application not found'})
 
