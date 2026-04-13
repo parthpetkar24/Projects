@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import BloodDonation,OrganDonation,EmergencyNotification
+from .models import BloodDonation, BloodRequest, OrganDonation, OrganRequest, EmergencyBloodRequest, EmergencyOrganRequest,EmergencyNotification
 from geopy.geocoders import Nominatim
 from random import choice
 from string import ascii_letters,digits
@@ -66,8 +66,7 @@ def get_nearby_applications(hospital, radius_km=50):
     }
     
     def filter_queryset(queryset, label):
-        # Only fetch pending applications
-        for obj in queryset.filter(status='pending', is_active=True).exclude(latitude=None, longitude=None):
+        for obj in queryset.filter(status='pending').exclude(latitude=None, longitude=None):
             distance = haversine_distance(lat, lon, obj.latitude, obj.longitude)
             if distance is not None and distance <= radius_km:
                 results[label].append({
@@ -79,8 +78,18 @@ def get_nearby_applications(hospital, radius_km=50):
                     "data": obj,
                     "status": obj.status,
                 })
-        # Sort by distance (nearest first)
         results[label].sort(key=lambda x: x['distance'])
+
+    
+
+    filter_queryset(BloodDonation.objects.all(), "blood_donations")
+    filter_queryset(BloodRequest.objects.all(), "blood_requests")
+    filter_queryset(OrganDonation.objects.all(), "organ_donations")
+    filter_queryset(OrganRequest.objects.all(), "organ_requests")
+    filter_queryset(EmergencyBloodRequest.objects.all(), "emergency_blood_requests")
+    filter_queryset(EmergencyOrganRequest.objects.all(), "emergency_organ_requests")
+
+    return results
 
 def find_and_notify_nearby_donors(emergency_obj, radius_km=50):
 
