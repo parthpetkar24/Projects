@@ -20,22 +20,24 @@ function decreaseUnit(type) {
   display.textContent = value;
   store.value = value;
 }
-function getCookie(name) {
+function getCSRFToken() {
+    const tokenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+    if (tokenInput) return tokenInput.value;
+
+    // Fallback to cookie
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            if (cookie.substring(0, 'csrftoken'.length + 1) === 'csrftoken=') {
+                cookieValue = decodeURIComponent(cookie.substring('csrftoken='.length));
                 break;
             }
         }
     }
     return cookieValue;
 }
-
-const csrftoken = getCookie('csrftoken');
 
 function approveWithAppointment(appType, formId) {
     const date = document.getElementById(`date-${formId}`).value;
@@ -46,21 +48,33 @@ function approveWithAppointment(appType, formId) {
         return;
     }
 
+    const csrftoken = getCSRFToken();
+
     fetch("/hospital_dashboard/approve_application/", {
         method: "POST",
+        credentials: "same-origin",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             "X-CSRFToken": csrftoken
         },
         body: `app_type=${appType}&form_id=${formId}&date=${date}&time=${time}`
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) {
+            throw new Error(`Server responded with ${res.status}`);
+        }
+        return res.json();
+    })
     .then(data => {
         if (data.success) {
             window.location.href = data.pdf_url;
         } else {
             alert(data.error);
         }
+    })
+    .catch(error => {
+        console.error('Approve error:', error);
+        alert('An error occurred while approving the application');
     });
 }
 
@@ -71,15 +85,23 @@ function handleRejection(appType, formId) {
         return;
     }
 
+    const csrftoken = getCSRFToken();
+
     fetch('/hospital_dashboard/reject_application/', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRFToken': csrftoken
         },
         body: `app_type=${appType}&form_id=${formId}`
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Server responded with ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             alert(`Application ${formId} rejected`);
