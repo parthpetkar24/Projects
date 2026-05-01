@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+admin.site.site_header = "UrbanCart Admin"
+admin.site.site_title = "UrbanCart Portal"
+admin.site.index_title = "Welcome to UrbanCart Dashboard"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
