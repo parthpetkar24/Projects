@@ -103,6 +103,7 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userdropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if user.is_authenticated %}
                           {% if user.userprofile %}
@@ -116,7 +117,7 @@
                           User
                         {% endif %}
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end shadow">                    
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
                             <li>
                                     {% if user.is_authenticated %}
                                       {% if user.userprofile %}
@@ -139,7 +140,6 @@
                                     {% endif %}
                             </li>
                             <li>
-                                
                                     {% if user.is_authenticated %}
                                       {% if user.userprofile %}
                                       <a class="dropdown-item" href="{% url 'user_dashboard:user_dashboard' %}" target="_self">
@@ -160,6 +160,7 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
                 </ul>
             </div>
         </div>
