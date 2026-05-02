@@ -67,7 +67,8 @@ function approveWithAppointment(appType, formId) {
     })
     .then(data => {
         if (data.success) {
-            window.location.href = data.pdf_url;
+            alert(`Application ${formId} approved successfully! The appointment PDF is now available on the user's dashboard.`);
+            location.reload();
         } else {
             alert(data.error);
         }

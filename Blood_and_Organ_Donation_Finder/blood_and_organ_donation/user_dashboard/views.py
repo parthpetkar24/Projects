@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.db.models import Q
+from django.conf import settings
+import os
 
 
 # Create your views here.
@@ -156,3 +158,42 @@ def accept_emergency(request):
         EmergencyNotification.objects.filter(organ_request=req).delete()
 
     return redirect("user_dashboard")
+
+@login_required(login_url="users:login_user")
+@require_POST
+def clear_application(request):
+    """Delete a user's application completely."""
+    app_type = request.POST.get('app_type')
+    form_id = request.POST.get('form_id')
+
+    model_map = {
+        'blood_donation': BloodDonation,
+        'blood_request': BloodRequest,
+        'organ_donation': OrganDonation,
+        'organ_request': OrganRequest,
+        'emergency_blood_request': EmergencyBloodRequest,
+        'emergency_organ_request': EmergencyOrganRequest,
+    }
+
+    if app_type not in model_map:
+        return JsonResponse({'success': False, 'error': 'Invalid application type'})
+
+    try:
+        application = model_map[app_type].objects.get(form_id=form_id, user=request.user)
+    except model_map[app_type].DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Application not found'})
+
+    # Delete associated PDF file from disk
+    if hasattr(application, 'appointment_pdf') and application.appointment_pdf:
+        pdf_path = os.path.join(settings.MEDIA_ROOT, str(application.appointment_pdf))
+        if os.path.exists(pdf_path):
+            os.remove(pdf_path)
+
+    # Delete the doc_report file too if it exists
+    if hasattr(application, 'doc_report') and application.doc_report:
+        report_path = os.path.join(settings.MEDIA_ROOT, str(application.doc_report))
+        if os.path.exists(report_path):
+            os.remove(report_path)
+
+    application.delete()
+    return JsonResponse({'success': True})

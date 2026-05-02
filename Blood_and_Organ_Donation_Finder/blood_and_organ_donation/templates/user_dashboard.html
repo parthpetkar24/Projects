@@ -166,6 +166,7 @@
           <th>Status</th>
           <th>Progress</th>
           <th>Approved By</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -210,10 +211,21 @@
           <td>
             {{ d.approved_by.hospital_name|default:"—" }}
           </td>
+
+          <td>
+            {% if d.status == 'approved' and d.appointment_pdf %}
+              <a href="/media/{{ d.appointment_pdf }}" download class="btn btn-sm btn-outline-success me-1" title="Download PDF">
+                <i class="bi bi-download"></i> PDF
+              </a>
+            {% endif %}
+            <button class="btn btn-sm btn-outline-danger" onclick="clearApplication('blood_donation', '{{ d.form_id }}', this)" title="Delete Application">
+              <i class="bi bi-trash"></i> Clear
+            </button>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5" class="text-center text-muted">
+          <td colspan="6" class="text-center text-muted">
             No blood donation applications found
           </td>
         </tr>
@@ -259,10 +271,21 @@
           <td>
             {{ r.approved_by.hospital_name|default:"—" }}
           </td>
+
+          <td>
+            {% if r.status == 'approved' and r.appointment_pdf %}
+              <a href="/media/{{ r.appointment_pdf }}" download class="btn btn-sm btn-outline-success me-1" title="Download PDF">
+                <i class="bi bi-download"></i> PDF
+              </a>
+            {% endif %}
+            <button class="btn btn-sm btn-outline-danger" onclick="clearApplication('blood_request', '{{ r.form_id }}', this)" title="Delete Application">
+              <i class="bi bi-trash"></i> Clear
+            </button>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5" class="text-center text-muted">
+          <td colspan="6" class="text-center text-muted">
             No blood request applications found
           </td>
         </tr>
@@ -305,10 +328,21 @@
           <td>
             {{ od.approved_by.hospital_name|default:"—" }}
           </td>
+
+          <td>
+            {% if od.status == 'approved' and od.appointment_pdf %}
+              <a href="/media/{{ od.appointment_pdf }}" download class="btn btn-sm btn-outline-success me-1" title="Download PDF">
+                <i class="bi bi-download"></i> PDF
+              </a>
+            {% endif %}
+            <button class="btn btn-sm btn-outline-danger" onclick="clearApplication('organ_donation', '{{ od.form_id }}', this)" title="Delete Application">
+              <i class="bi bi-trash"></i> Clear
+            </button>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5" class="text-center text-muted">
+          <td colspan="6" class="text-center text-muted">
             No organ donations applications found
           </td>
         </tr>
@@ -351,10 +385,21 @@
           <td>
             {{ or.approved_by.hospital_name|default:"—" }}
           </td>
+
+          <td>
+            {% if or.status == 'approved' and or.appointment_pdf %}
+              <a href="/media/{{ or.appointment_pdf }}" download class="btn btn-sm btn-outline-success me-1" title="Download PDF">
+                <i class="bi bi-download"></i> PDF
+              </a>
+            {% endif %}
+            <button class="btn btn-sm btn-outline-danger" onclick="clearApplication('organ_request', '{{ or.form_id }}', this)" title="Delete Application">
+              <i class="bi bi-trash"></i> Clear
+            </button>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5" class="text-center text-muted">
+          <td colspan="6" class="text-center text-muted">
             No organ request applications found
           </td>
         </tr>
@@ -397,10 +442,21 @@
           <td>
             {{ ebr.approved_by.hospital_name|default:"—" }}
           </td>
+
+          <td>
+            {% if ebr.status == 'approved' and ebr.appointment_pdf %}
+              <a href="/media/{{ ebr.appointment_pdf }}" download class="btn btn-sm btn-outline-success me-1" title="Download PDF">
+                <i class="bi bi-download"></i> PDF
+              </a>
+            {% endif %}
+            <button class="btn btn-sm btn-outline-danger" onclick="clearApplication('emergency_blood_request', '{{ ebr.form_id }}', this)" title="Delete Application">
+              <i class="bi bi-trash"></i> Clear
+            </button>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5" class="text-center text-muted">
+          <td colspan="6" class="text-center text-muted">
             No emergency blood request applications found
           </td>
         </tr>
@@ -443,10 +499,21 @@
           <td>
             {{ eor.approved_by.hospital_name|default:"—" }}
           </td>
+
+          <td>
+            {% if eor.status == 'approved' and eor.appointment_pdf %}
+              <a href="/media/{{ eor.appointment_pdf }}" download class="btn btn-sm btn-outline-success me-1" title="Download PDF">
+                <i class="bi bi-download"></i> PDF
+              </a>
+            {% endif %}
+            <button class="btn btn-sm btn-outline-danger" onclick="clearApplication('emergency_organ_request', '{{ eor.form_id }}', this)" title="Delete Application">
+              <i class="bi bi-trash"></i> Clear
+            </button>
+          </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="5" class="text-center text-muted">
+          <td colspan="6" class="text-center text-muted">
             No emergency organ request applications found
           </td>
         </tr>
@@ -459,6 +526,9 @@
 
   </div>
 </div>
+
+<!-- Hidden CSRF token for JS requests -->
+<form id="csrf-form" style="display:none;">{% csrf_token %}</form>
 
 <script src="{% static 'user_dashboard.js' %}"></script>
 {% endblock %}
