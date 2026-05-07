@@ -180,11 +180,3 @@ The system includes error handling for:
 
 Feel free to fork this project and submit pull requests for any enhancements.
 
-## License
-
-This project is open source and available for educational purposes.
-
-## Contact
-
-For questions or suggestions, please open an issue in the project repository.
-```
