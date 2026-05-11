@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>{% block title %}{% endblock %}</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <link href="{% static 'home/base.css' %}" rel="stylesheet">
+        {% block head %}{% endblock %}
+        <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bfc7d4",
+                        "on-primary-container": "#fdfcff",
+                        "on-surface": "#181c21",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "primary-fixed-dim": "#9ccaff",
+                        "tertiary-fixed-dim": "#ffb781",
+                        "primary-container": "#0079c4",
+                        "inverse-primary": "#9ccaff",
+                        "tertiary": "#8f4900",
+                        "on-primary-fixed": "#001d35",
+                        "surface-container": "#ebeef6",
+                        "on-tertiary-fixed-variant": "#703800",
+                        "on-background": "#181c21",
+                        "surface-container-highest": "#dfe2ea",
+                        "secondary": "#565e74",
+                        "on-primary-fixed-variant": "#00497a",
+                        "on-tertiary-fixed": "#2f1400",
+                        "surface-container-high": "#e5e8f0",
+                        "outline": "#707883",
+                        "on-primary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-secondary-container": "#5c647a",
+                        "on-surface-variant": "#3f4752",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#edf1f9",
+                        "tertiary-fixed": "#ffdcc4",
+                        "surface-container-low": "#f0f4fb",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "secondary-container": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#b45e00",
+                        "surface-variant": "#dfe2ea",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#dae2fd",
+                        "inverse-surface": "#2c3137",
+                        "primary-fixed": "#d0e4ff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-dim": "#d7dae2",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-tint": "#0062a0",
+                        "primary": "#005f9c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "xl": "40px",
+                        "gutter": "24px",
+                        "sm": "8px",
+                        "margin": "32px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Montserrat"],
+                        "display-xl": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["13px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+        </script>
+    </head>
+    <body class="bg-surface font-body-md text-on-surface overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+        <!-- Navigation Shell -->
+        <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-md max-w-full bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+            <div class="flex items-center gap-xl">
+                <span class="font-display-xl text-headline-lg font-bold text-primary tracking-tight">UrbanCart</span>
+                <nav class="hidden md:flex items-center gap-lg">
+                    <a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">Categories</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">Deals</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">What's New</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-md">
+                <div class="relative hidden sm:block">
+                    <div class="flex items-center bg-surface-container-low border border-outline-variant/40 rounded-full px-md py-xs depth-shadow">
+                        <span class="material-symbols-outlined text-outline">search</span>
+                        <input class="bg-transparent border-none focus:ring-0 text-label-sm w-48" placeholder="Explore future tech..." type="text"/>
+                    </div>
+                </div>
+                <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">shopping_cart</button>
+                <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">account_circle</button>
+            </div>
+        </header>
+
+
+        {% block body %}
+        {% endblock %}
+        
+        <!-- Footer Shell -->
+        <footer class="w-full flex flex-col md:flex-row justify-between items-center px-xl py-lg mt-xl bg-surface-container-lowest border-t border-outline-variant/30">
+            <div class="flex flex-col items-center md:items-start gap-xs mb-md md:mb-0">
+                <span class="font-display-xl text-headline-md text-primary">UrbanCart</span>
+                <p class="font-label-sm text-on-surface-variant opacity-70">© 2024 UrbanCart. Powered by Circuit Design.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-lg">
+                <a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                <a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+                <a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+            </div>
+        </footer>
+        <!-- Side Navigation (Mobile/Menu) -->
+        <div class="fixed left-0 top-0 h-full z-40 hidden flex-col p-md bg-surface-container-low/90 backdrop-blur-2xl w-64 border-r border-outline-variant/20 shadow-xl transition-transform duration-300">
+            <div class="mb-xl px-md pt-xl">
+                <span class="font-display-xl text-headline-md text-primary">UrbanCart</span>
+                <p class="text-label-sm text-on-surface-variant mt-xs">Welcome back</p>
+            </div>
+            <nav class="flex flex-col gap-sm flex-grow">
+                <a class="flex items-center gap-md p-md bg-primary-container text-on-primary-container rounded-full shadow-[0_0_15px_rgba(0,145,234,0.2)]" href="#">
+                    <span class="material-symbols-outlined">memory</span>
+                    <span class="font-headline-md text-label-sm">Electronics</span>
+                </a>
+                <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all" href="#">
+                    <span class="material-symbols-outlined">checkroom</span>
+                    <span class="font-headline-md text-label-sm">Fashion</span>
+                </a>
+                <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all" href="#">
+                    <span class="material-symbols-outlined">home_app_logo</span>
+                    <span class="font-headline-md text-label-sm">Home</span>
+                </a>
+                <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all" href="#">
+                    <span class="material-symbols-outlined">face</span>
+                    <span class="font-headline-md text-label-sm">Beauty</span>
+                </a>
+                <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all" href="#">
+                    <span class="material-symbols-outlined">sports_esports</span>
+                    <span class="font-headline-md text-label-sm">Sports</span>
+                </a>
+            </nav>
+            <button class="mt-xl p-md bg-primary/10 text-primary font-bold rounded-xl border border-primary/20">
+                Circuit Navigator
+            </button>
+        </div>
+    </body>
+</html>

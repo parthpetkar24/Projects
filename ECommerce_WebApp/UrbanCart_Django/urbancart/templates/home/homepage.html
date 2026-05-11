@@ -1,0 +1,164 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Home | UrbanCart {% endblock %}
+
+{% block body %}
+<main class="relative">
+    <!-- Hero Section -->
+    <section class="relative min-h-[921px] flex items-center pt-xl hero-gradient overflow-hidden">
+        <div class="absolute inset-0 light-leak pointer-events-none">
+        </div>
+        <div class="container mx-auto px-gutter grid lg:grid-cols-2 gap-xl items-center relative z-10">
+            <div class="space-y-lg">
+                <span class="inline-block px-md py-xs bg-primary-container/20 text-primary font-label-sm rounded-full neon-glow border border-primary/30">LATEST RELEASE: OMNI-X1</span>
+                <h1 class="font-display-xl text-display-xl font-extrabold text-on-surface leading-tight">
+                    Experience <span class="text-primary italic">Precision</span> Beyond Limits.
+                </h1>
+                <p class="font-body-lg text-on-surface-variant max-w-lg">
+                    The Omni-X1 combines neural-adaptive materials with cinematic 3D fidelity. Step into the next generation of wearable intelligence.
+                </p>
+                <div class="flex flex-wrap gap-md pt-md">
+                    <button class="px-xl py-md bg-primary text-on-primary font-headline-md rounded-xl depth-shadow hover:bg-primary-container transition-all scale-100 active:scale-95">
+                        Pre-Order Now
+                    </button>
+                    <button class="px-xl py-md glass-panel text-primary font-headline-md rounded-xl border-primary/20 hover:border-primary/50 transition-all">
+                        View Specs
+                    </button>
+                </div>
+            </div>
+            <div class="relative flex justify-center items-center">
+                <div class="absolute w-[120%] h-[120%] bg-primary/5 rounded-full blur-[100px] animate-pulse"></div>
+                    <img alt="Omni-X1 Tech Sneaker" class="relative z-20 w-full max-w-xl drop-shadow-[0_35px_35px_rgba(0,145,234,0.3)] neon-glow transform -rotate-12" data-alt="A cinematic 3D studio render of a high-tech athletic sneaker floating in mid-air. The shoe features sleek, metallic silver and neon cyan accents with intricate mechanical details. Dramatic rim lighting highlights the curves of the sneaker, casting a soft light blue glow. The background is a minimalist, atmospheric dark studio with subtle lens flares and light leaks that enhance the futuristic 3D depth of the composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd_m6LDFvNxx2IlCkvmn0JUui4a2Fq2EzfMyNwm4Ml23UVo_K_qiV5jCSm0GxI0HgjLbUfV_Bsymu1zoQIGK9GqoJzwTQMR4Iz_dGo9iaPsmOZYgpX9EppV3CDi9c8B7oc6aOqdao9uEiEdd-RemJRiksihx9PrYSTNNQx0WaSBx22Vy1oc01xthQuBVaVezI5Dzl4liivjrVaX9QsBQnJNItx9uCIbVGdNAQIX98zPmzPzIY31ZRldJ2lj4PflNIVx7fi-aSfHCl_"/>
+                </div>
+            </div>
+    </section>
+    <!-- Category Grid (Floating Cards) -->
+    <section class="py-xl bg-background relative">
+        <div class="container mx-auto px-gutter">
+            <div class="flex justify-between items-end mb-xl">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Elite Tech Drops</h2>
+                <a class="text-primary font-label-sm flex items-center gap-xs hover:gap-sm transition-all" href="#">
+                    EXPLORE ALL <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+                <!-- Card 1 -->
+                <div class="three-d-card glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-64 relative bg-surface-container-high overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-end, futuristic pair of studio headphones shown in a clean light-mode studio environment. The headphones have polished metallic surfaces and soft leather padding, with subtle glowing blue indicators on the earcups. Soft, directional 3D lighting creates elegant shadows and highlights, emphasizing the premium build quality. The mood is sophisticated, clean, and technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfYxFj731piAaoftRWpOvUTjtKeQ4PRPzxRVgZI7bDcUaVH-3BvnI3I5FYFFQa0bCDFEVcq3R60pt0P23yCotbFARR-uty-lkB03OfVDTEJWM7OqPbC5oi6cAAukffLagUkheAQ4h7-Dzjp5RBz38oGSUrnkx1PqMBfk8ERg6u7mXa-hPZ18356MWb2oXrMCPRT1pljdv6uXuwD8Kdpj0uKH-8IXZYbLF7p2giPI1RglHhg19zDEDMCGvQ7lYSrjODcwU2KtKkvNsK"/>
+                        <div class="absolute top-md right-md bg-white/60 backdrop-blur-md p-xs rounded-full">
+                            <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                        </div>
+                    </div>
+                    <div class="p-lg">
+                        <h3 class="font-headline-md text-on-surface mb-xs">Neural Audio S1</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-primary text-headline-md">$2,499</span>
+                            <button class="p-sm bg-primary text-white rounded-lg shadow-lg">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="three-d-card glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-64 relative bg-surface-container-high overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional high-performance camera with a sleek matte black body and glass lenses, displayed in a high-key lighting setup. The camera lens has multi-colored glass reflections and sharp metallic details. The lighting is crisp, highlighting the 3D form and texture of the device against a soft light blue background. The aesthetic is modern corporate, focusing on precision and high-fidelity tech design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtbBzAsNdNceKsQ9F9dJq1Dvm1jzlB4WDVn0gEAgUCve2PjUrP7sZe3k32nscNCpRotKsvmhlPP5NOI91lT2piQ_k81PgPiheNCJIwbbYuzPs3hhpbqvUWI3mq_k4Cj9wpDw3IYjtAaAhWLqEctoFaK9jQLH4hE14oNGsUKnJaxlM9jcCXF1vXvEtYIToI7fWtCrB9kz6JZ0hiQB5EhIwaGBgY6LVAYiAh6NbEM8NZaIuWsdw3E8jmmf3TTBIgnLBdizrNd0azk3oJ"/>
+                    </div>
+                    <div class="p-lg">
+                        <h3 class="font-headline-md text-on-surface mb-xs">Optic Pro Max</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-primary text-headline-md">$3,120</span>
+                            <button class="p-sm bg-primary text-white rounded-lg shadow-lg">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="three-d-card glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-64 relative bg-surface-container-high overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A sophisticated luxury smartwatch with a sapphire glass face and a sleek metallic band. The watch face displays complex holographic data visualizations in cyan and light blue. The device is lit with soft rim lighting that defines its edges and suggests a three-dimensional depth. The setting is a clean, minimalist professional workspace with a bright and airy atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDobTrWL6mrvdePOrUiJaBiTvD4Pcv4m4rKNYUT3xrGSD82K7yi9twYHR0F4Abgx1XcTOn2OB4H4Qt5s26nQu5lfN63V8z_d6kN0m2jeK3bYLy5FFcE6ikKsVTF5-s62wtM67CArd8p_eNKuIWXC-i24vFTKNefIhujT4CtfhWzhT712izx8LzKo7Ef7pQETg71YMVgnoHDS9zB1qKtvbBqc8XvmLM4MlIslqPNQxTGEqo9Snat-o3-SgLYHVULFDSX9g7VEnHCT-9F"/>
+                    </div>
+                    <div class="p-lg">
+                        <h3 class="font-headline-md text-on-surface mb-xs">Core Watch v4</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-primary text-headline-md">$899</span>
+                            <button class="p-sm bg-primary text-white rounded-lg shadow-lg">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="three-d-card glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-64 relative bg-surface-container-high overflow-hidden">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A high-performance wireless router with a minimalist and futuristic sculptural design. The device is white with subtle glowing blue LED light strips and soft-touch matte textures. The lighting is diffused and professional, casting soft shadows that give the object a clear 3D presence against a clean light background. The overall style is modern high-tech e-commerce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf9XN7fxdNMNEoyh2ym0H1-IV5MgA8HdCMNy7e9Yj1HAohA8bQh3pVOS1rOHHKDcZNb5aStQZ1VAAg_m_mfBwfp4q0kz0PuVDltvF0YeiKawC2qbpTkyLmdo0BV8mTwnMfO9mEqeVISoJ0tdx_EZSR_gs4eV0EnFQCE-uxQ4g94RAYRm88ayB2HN7GKitbcpNe2JZDshL5GdL4oqBhGuAjRqodbyUfm2_v-kQTcFX-akX39PB8b9uiAaT6Sck-SU2f8BxSfSMFms40"/>
+                    </div>
+                    <div class="p-lg">
+                        <h3 class="font-headline-md text-on-surface mb-xs">LinkHub Ultra</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-primary text-headline-md">$450</span>
+                            <button class="p-sm bg-primary text-white rounded-lg shadow-lg">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Feature Spotlight (Bento Grid) -->
+    <section class="py-xl bg-surface-container-low overflow-hidden">
+        <div class="container mx-auto px-gutter">
+            <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xl">Future Essentials</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-lg h-[800px] md:h-[600px]">
+                <!-- Large Bento Item -->
+                <div class="md:col-span-2 md:row-span-2 glass-panel rounded-full overflow-hidden relative group depth-shadow">
+                    <img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A massive, high-resolution curved monitor displaying vibrant, abstract digital landscapes in blue and purple tones. The monitor is positioned in a sleek, dark-themed room with ambient cyan lighting that spills onto the desk. The 3D perspective shows the monitor's thin profile and sturdy metallic stand. The atmosphere is professional yet immersive, highlighting the cutting-edge display technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUCir_qbS5g4WFd_IlkES2cNt2lBtE9XU_9VcF2ifQ1gz6QRvR4-uXISmkJ_vCvEFJKouU9KdT6ikzBsIDJH5sw5MZ0ye10QGYs4LndMOiJd5v9ZJI3-Np5781V_Af-KabmJcG_ubRGSuTyUgBQKxWY64RcT1_HNIuV8Ldy64Z0X1AxrhYA5nLIvpq51bNLaPnCuClsx8hWyvSir74ceLJDNAau4r1r8gzS5_yoqBuWzw1mC3wy5eb7tN8Ddv1H88B93J0_uVjvnhx"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent p-xl flex flex-col justify-end">
+                        <span class="text-primary font-label-sm tracking-widest uppercase mb-sm">Visual Mastery</span>
+                        <h3 class="text-white font-display-xl text-headline-lg mb-md">Quantum Curved Series</h3>
+                        <p class="text-white/70 max-w-md mb-lg">Experience absolute immersion with 8K resolution and 240Hz refresh rates.</p>
+                        <button class="w-fit px-lg py-sm bg-white text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-colors">Learn More</button>
+                    </div>
+                </div>
+                <!-- Small Bento 1 -->
+                <div class="glass-panel rounded-xl overflow-hidden relative group depth-shadow">
+                    <div class="p-lg h-full flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-headline-md text-on-surface">Kinetic Keys</h3>
+                            <p class="text-on-surface-variant text-label-sm">Silent, mechanical, perfection.</p>
+                        </div>
+                        <img class="h-32 object-contain group-hover:scale-110 transition-transform" data-alt="A minimalist mechanical keyboard with translucent keycaps that reveal a soft internal light blue glow. The keyboard is photographed from a low angle to emphasize its structural 3D design and sharp geometric lines. The setting is a clean white studio with a modern tech aesthetic, focusing on the high-quality materials and futuristic lighting effects." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYvoBQdVzkUVmcOv8voJfkCY-mM6Ak70sHlBfJPUoI-k6tUDaP7vQcqHKoyJDk_WrnJ9K2emvD1dQx4JIL7bs-nBE_sflwpXkkA-CRPFytg21B1dw1pSULkcDO60o3-E6-BLBvM5sx_PwBob5nEmFp1UbK4TZPLUkMO59NA4NvNJtBKsdjaqDL4WKTJG_AcgUEddMX617W8yI8ZWACoH_vUNl5IzdCenn8FMxmOFzXbk3WJp9M_2aPT3WQTC2-Hq32cipc4pinVeys"/>
+                    </div>
+                </div>
+                <!-- Small Bento 2 -->
+                <div class="glass-panel rounded-xl overflow-hidden relative group depth-shadow">
+                    <div class="p-lg h-full flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-headline-md text-on-surface">Hover Stand</h3>
+                            <p class="text-on-surface-variant text-label-sm">Magnetic zero-G mount.</p>
+                        </div>
+                        <img class="h-32 object-contain group-hover:scale-110 transition-transform" data-alt="A sleek tablet computer floating on a magnetic levitation stand in a bright, modern studio. The stand has a polished chrome finish with a glowing blue base. The tablet is showing high-fidelity graphics. The image uses soft studio lighting and a clean light-mode palette to convey a premium, high-tech experience with a sense of 3D depth and weightlessness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWq6QBthSXnJg2ZtZko65b2kk14SbuRczUokSiuG-YbIN74qRkx44S4m2ABPPBPRrfCe_6x9fpRoC_FhClciKM1pmpWYXB9ozwRFN690gtY6aTmuSBMOG_4bH8RrCAZt8_R6Kt3qgArvFgGh8gsv2Qm2KjHz0GlZMIMOf_wApHWtWpE4dOM5kS87ZJyhQ3QD6I8jhWJa6hJdM1hCkmV-ke4nuKX6tmQn0vufQYYAFQqGgMiYqx3NFrcEGmGMtcko_hA5ZowTcw04Ik"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Newsletter / Footer CTA -->
+    <section class="py-xl relative">
+        <div class="container mx-auto px-gutter">
+            <div class="glass-panel p-xl rounded-[2rem] depth-shadow text-center max-w-4xl mx-auto border-2 border-primary/10">
+                <h2 class="font-display-xl text-headline-lg text-primary mb-md">Join the Future.</h2>
+                <p class="font-body-lg text-on-surface-variant mb-xl max-w-xl mx-auto">Subscribe to our Elite list for early access to experimental drops and future-tech updates.</p>
+                <form class="flex flex-col sm:flex-row gap-md max-w-lg mx-auto">
+                    <input class="flex-grow glass-panel border-outline-variant/30 rounded-xl px-md py-md text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Enter your neural-id@domain.com" type="email"/>
+                    <button class="px-xl py-md bg-primary text-on-primary font-bold rounded-xl depth-shadow">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
