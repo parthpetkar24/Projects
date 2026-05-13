@@ -106,7 +106,7 @@
         <!-- Navigation Shell -->
         <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-md max-w-full bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
             <div class="flex items-center gap-xl">
-                <span class="font-display-xl text-headline-lg font-bold text-primary tracking-tight"><img src="{% static 'img/uclogo.png' %}" height="50px" width="50px"></span>
+                <span class="font-display-xl text-headline-lg font-bold text-primary tracking-tight"><img src="{% static 'img/uclogo.png' %}" class="h-auto w-20 object-contain mix-blend-multiply" alt="UrbanCart"></span>
                 <nav class="hidden md:flex items-center gap-lg">
                     <a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">Categories</a>
                     <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">Deals</a>
@@ -133,13 +133,6 @@
         <footer class="w-full flex flex-col md:flex-row justify-between items-center px-xl py-lg mt-xl bg-surface-container-lowest border-t border-outline-variant/30">
             <div class="flex flex-col items-center md:items-start gap-xs mb-md md:mb-0">
                 <span class="font-display-xl text-headline-md text-primary">UrbanCart</span>
-                <p class="font-label-sm text-on-surface-variant opacity-70">© 2024 UrbanCart. Powered by Circuit Design.</p>
-            </div>
-            <div class="flex flex-wrap justify-center gap-lg">
-                <a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-                <a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
-                <a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
-            </div>
         </footer>
         <!-- Side Navigation (Mobile/Menu) -->
         <div class="fixed left-0 top-0 h-full z-40 hidden flex-col p-md bg-surface-container-low/90 backdrop-blur-2xl w-64 border-r border-outline-variant/20 shadow-xl transition-transform duration-300">
