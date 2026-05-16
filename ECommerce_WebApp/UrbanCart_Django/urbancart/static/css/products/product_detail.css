@@ -1,0 +1,54 @@
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.circuit-line {
+    position: relative;
+}
+.circuit-line::after {
+    content: '';
+    position: absolute;
+    background: #bfc7d4;
+    height: 1px;
+    width: 32px;
+    top: 50%;
+    left: 100%;
+}
+.btn-3d-primary {
+    background: linear-gradient(180deg, #0079c4 0%, #005f9c 100%);
+    border-bottom: 3px solid #00497a;
+    box-shadow: 0 0 15px rgba(0, 145, 234, 0.2);
+    transition: all 0.2s ease;
+}
+.btn-3d-primary:active {
+    border-bottom: 1px solid #00497a;
+    transform: translateY(2px);
+}
+.btn-3d-secondary {
+    background: rgba(216, 226, 253, 0.4);
+    border: 1px solid #9ccaff;
+    border-bottom: 3px solid #9ccaff;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+.btn-3d-secondary:active {
+    border-bottom: 1px solid #9ccaff;
+    transform: translateY(2px);
+}
+.circuit-node {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #005f9c;
+    background: #ffffff;
+    border-radius: 50%;
+    position: relative;
+}
+.circuit-node::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 1px solid rgba(0, 95, 156, 0.2);
+    border-radius: 50%;
+}

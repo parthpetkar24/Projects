@@ -24,4 +24,6 @@ admin.site.index_title = "Welcome to UrbanCart Dashboard"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
+    path('seller_dashboard/',include('sell.urls')),
+    path('browse_products/',include('products.urls')),
 ]

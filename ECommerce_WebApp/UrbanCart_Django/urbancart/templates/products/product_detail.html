@@ -1,0 +1,181 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Product Detail{% endblock %}
+
+{% block head %}
+<link href="{% static 'products/product_detail.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<main class="pt-32 pb-xl px-gutter max-w-7xl mx-auto">
+    <!-- Breadcrumbs: Circuit Style -->
+    <nav class="flex items-center gap-xs mb-xl">
+        <div class="flex items-center gap-sm group">
+            <div class="circuit-node"></div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Home</span>
+        </div>
+        <div class="h-px w-8 bg-outline-variant/50"></div>
+        <div class="flex items-center gap-sm group">
+            <div class="circuit-node"></div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Electronics</span>
+        </div>
+        <div class="h-px w-8 bg-outline-variant/50"></div>
+        <div class="flex items-center gap-sm">
+            <div class="circuit-node bg-primary ring-4 ring-primary/20"></div>
+            <span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-widest">Quantum Pro Console</span>
+        </div>
+    </nav>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+        <!-- Product Gallery Section -->
+        <div class="lg:col-span-7 flex flex-col gap-lg">
+            <div class="glass-card rounded-xl overflow-hidden aspect-square flex items-center justify-center p-md">
+                <img alt="Quantum Pro Console" class="w-full h-full object-contain rounded-lg" data-alt="A sleek, high-end gaming console with a matte obsidian finish and subtle blue LED accents. The console features a futuristic, aerodynamic design and is shown in a clean, minimalist studio environment with high-key lighting. The background is a soft light blue gradient that emphasizes the premium glass-like texture of the hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3yvZssqlxXQMnm3pscZWG17FFGoNDGeOdSEHF1mRixpkcbTQ0Hl9ufLbhaYumwqiyN-Q400oj6vKni9-_cF0rRDRrjUX9ZztfJVnZK0w-A2pXymLFKYE6Pzw7-SVoLs9G748qxlVu6fKgF5X86E-J4LPUXs_siilNAIRT8Xz5aHrTZKMfuXoc-dZi36mdOsbDs13Eqb5C0tu7pLeCpzpFeBx2nDmiVCDxgqCvMb4DG2Ih93DlC76LUxV_LBObSkOgRVaqCRoM3oi6"/>
+            </div>
+            <div class="grid grid-cols-4 gap-md">
+                <button class="glass-card aspect-square rounded-lg overflow-hidden border-2 border-primary ring-2 ring-primary/20 p-xs">
+                    <img alt="Detail view 1" class="w-full h-full object-cover rounded-sm" data-alt="Close-up macro shot of the Quantum Pro Console front panel, highlighting the illuminated blue power button and recessed cooling vents. The lighting is crisp and cool, showcasing the fine metallic texture of the casing in a light mode e-commerce aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6-a9aEZupcbPzBuh-5Q0vXZak81cCXz2mFPoz9oq9kDcqWkPzPNK7fj6B93Uz-9zbODlf_qiDum8Hnd0edfmhp3crvA_GfFVF0NGGoLRxBdLN0beY65W8dGo0dR220-XMXZQZV4lQQoQDZOIwJMnOj_6FXNCeRrD9Y0H4j1nXxRhjEFVtM947_kSeK06KkOCvznFxfkPuVT9leUZb6Fv45Z56tSlC8OcsaV87E9In7cHROhnKM-7JSOofSkh4gbFZ3dxGX6d_-sDH"/>
+                </button>
+                <button class="glass-card aspect-square rounded-lg overflow-hidden p-xs hover:border-primary transition-colors">
+                    <img alt="Detail view 2" class="w-full h-full object-cover rounded-sm" data-alt="Rear view of a modern tech console showing a neatly organized array of gold-plated ports and a clean cable management system. The image is bright and airy with soft directional shadows to give a 3D feel to the components." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFPe140n_gy6o6FmREbf5eqkRiy2mRIUYkslQBJn6k61oVDzioY_Lmg_ynYOIc8rBYz_oWprNrO0PWixjU-BJNP_DlpndGOSmkLJJSLi5ipv7-mSWSNgygXzp-G1gKQd-cDR3JhIMs-O6Hg_0jbeAKCRqLdrFbPUyYfsFlIUthi7LNWn6-8YaUjuSF1hHBQFH_HcH2yedQ8T147Fs0xUfKJHZILEb8DVnQ0KyrIFMs4Y9yNi2w4cRwK07Ti9a4vhTpbJ_ElFwJ721o"/>
+                </button>
+                <button class="glass-card aspect-square rounded-lg overflow-hidden p-xs hover:border-primary transition-colors">
+                    <img alt="Detail view 3" class="w-full h-full object-cover rounded-sm" data-alt="The accompanying futuristic game controller resting on a semi-transparent glass surface. The controller features haptic triggers and a central touchpad, with a soft ambient blue glow reflecting on the surface beneath it." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxdw1pMi8AyvOQMkSMik7Fbl_YXXXtbu84uEzndqKtqENdTP82hNVx8qNhACWxpOCrKwQmgGYQnDXo-XsPe9JfQFSapM7P-85bVdaQhq3WQN3xcElT2SOSk42wV417gT6SzYMuGZDcOrA7TocuGJQ93ihKKGuCXazToOQS5SRZ6YEujPCggw6gQT125gwM_5o-s0JmIVJghOdWmotDZw2SfI1tC3SM_QzLtOyhWWZI2_-iyS2wfW2oRsDsZwPCIRhz9xzna23RivfH"/>
+                </button>
+                <button class="glass-card aspect-square rounded-lg overflow-hidden p-xs hover:border-primary transition-colors">
+                    <img alt="Detail view 4" class="w-full h-full object-cover rounded-sm" data-alt="The Quantum Pro Console shown in a lifestyle setting on a minimalist white oak desk next to a designer ceramic lamp. The overall mood is sophisticated, tech-forward, and clean, perfectly matching a premium e-commerce brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD__6kD1ZoS9qxoi7uFc3QPmSMFlRRbXzweUNdXzMbco4I5FcUpm0IcX_9jNka8u9mnrmpppfe32iEhzB-akoAWJ2o3-M7if4qalVsxnTNiYNUUnwSj6xFL6nAur_XLz4y8hZUJVQBsSr4lxP7GJlAbeCbuad5XQ7Y6WPRh7y9ACQiA3AJfK_1Qv8EMRC9MsZeEOqtm97wRTG1heSv8BAFjYzxC8MLoLRYchLn6DMSe1HPuMUGbNH6o9hIWSH-LEeuBLspRk-ExUnYD"/>
+                </button>
+            </div>
+        </div>
+        <!-- Product Info Section -->
+        <div class="lg:col-span-5 flex flex-col gap-lg">
+            <div class="flex flex-col gap-sm">
+                <div class="inline-flex items-center gap-xs px-sm py-1 bg-primary-fixed text-on-primary-fixed-variant rounded-full w-fit">
+                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">new_releases</span>
+                    <span class="font-label-sm text-label-sm">NEW ARRIVAL</span>
+                </div>
+                <h1 class="font-display-xl text-display-xl text-on-surface">Quantum Pro Console X-1</h1>
+                <div class="flex items-center gap-md">
+                    <span class="font-display-xl text-headline-lg text-primary font-bold">€499.00</span>
+                    <span class="text-outline line-through text-body-md">€599.00</span>
+                    <span class="px-sm py-1 bg-error-container text-on-error-container rounded-lg font-label-sm">-20%</span>
+                </div>
+                <div class="flex items-center gap-xs">
+                    <div class="flex text-tertiary-container">
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined text-[18px]">star_half</span>
+                    </div>
+                    <span class="text-on-surface-variant text-label-sm">(124 Reviews)</span>
+                </div>
+            </div>
+            <div class="glass-card p-lg rounded-xl flex flex-col gap-md">
+                <p class="text-on-surface-variant font-body-md">
+                    Experience the next frontier of immersive computing. The Quantum Pro Console features 12 teraflops of raw processing power, powered by our proprietary Neural-Core architecture. Designed for those who demand uncompromising performance and futuristic aesthetics.
+                </p>
+                <div class="space-y-sm">
+                    <span class="font-label-sm text-label-sm text-on-surface uppercase tracking-widest">Select Core Color</span>
+                    <div class="flex gap-md">
+                        <button class="w-10 h-10 rounded-full bg-slate-900 ring-2 ring-primary ring-offset-4 ring-offset-background"></button>
+                        <button class="w-10 h-10 rounded-full bg-slate-200 border border-outline-variant"></button>
+                        <button class="w-10 h-10 rounded-full bg-primary-container border border-outline-variant"></button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-md mt-md">
+                    <button class="btn-3d-secondary py-md px-lg rounded-xl font-headline-md text-primary flex items-center justify-center gap-sm">
+                        <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                        Add to Cart
+                    </button>
+                    <button class="btn-3d-primary py-md px-lg rounded-xl font-headline-md text-on-primary flex items-center justify-center gap-sm">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col gap-sm">
+                <div class="flex items-center gap-md p-md border border-outline-variant/30 rounded-xl bg-surface-container-low">
+                    <span class="material-symbols-outlined text-primary" data-icon="local_shipping">local_shipping</span>
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface">Free Premium Delivery</p>
+                        <p class="text-[12px] text-on-surface-variant">Arriving by Thursday, Oct 24</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-md p-md border border-outline-variant/30 rounded-xl bg-surface-container-low">
+                    <span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface">2-Year Quantum Warranty</p>
+                        <p class="text-[12px] text-on-surface-variant">Full coverage for all circuit components</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Technical Specifications -->
+    <section class="mt-xl pt-xl border-t border-outline-variant/20">
+        <h2 class="font-display-xl text-headline-lg text-on-surface mb-lg">Technical Specifications</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            <div class="glass-card p-lg rounded-xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-md opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px]" data-icon="memory">memory</span>
+                </div>
+                <h3 class="font-headline-md text-headline-md text-primary mb-md">Processing</h3>
+                <ul class="space-y-sm">
+                    <li class="flex justify-between border-b border-outline-variant/20 pb-xs">
+                        <span class="text-on-surface-variant text-label-sm">CPU</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">8-Core Neural Engine</span>
+                    </li>
+                    <li class="flex justify-between border-b border-outline-variant/20 pb-xs">
+                        <span class="text-on-surface-variant text-label-sm">GPU</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">12 TFLOPS RDNA 3</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span class="text-on-surface-variant text-label-sm">Memory</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">16GB GDDR6</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="glass-card p-lg rounded-xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-md opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px]" data-icon="storage">storage</span>
+                </div>
+                <h3 class="font-headline-md text-headline-md text-primary mb-md">Storage &amp; I/O</h3>
+                <ul class="space-y-sm">
+                    <li class="flex justify-between border-b border-outline-variant/20 pb-xs">
+                        <span class="text-on-surface-variant text-label-sm">Internal</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">1TB Custom NVMe SSD</span>
+                    </li>
+                    <li class="flex justify-between border-b border-outline-variant/20 pb-xs">
+                        <span class="text-on-surface-variant text-label-sm">Expandable</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">M.2 Slot Support</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span class="text-on-surface-variant text-label-sm">Ports</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">3x USB-C Gen 4</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="glass-card p-lg rounded-xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-md opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span class="material-symbols-outlined text-[64px]" data-icon="settings_input_hdmi">settings_input_hdmi</span>
+                </div>
+                <h3 class="font-headline-md text-headline-md text-primary mb-md">Output</h3>
+                <ul class="space-y-sm">
+                    <li class="flex justify-between border-b border-outline-variant/20 pb-xs">
+                        <span class="text-on-surface-variant text-label-sm">Resolution</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">Up to 8K @ 60Hz</span>
+                    </li>
+                    <li class="flex justify-between border-b border-outline-variant/20 pb-xs">
+                        <span class="text-on-surface-variant text-label-sm">Refresh Rate</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">4K @ 120Hz</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span class="text-on-surface-variant text-label-sm">Audio</span>
+                        <span class="font-bold text-on-surface text-label-sm text-right">Dolby Atmos Surround</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

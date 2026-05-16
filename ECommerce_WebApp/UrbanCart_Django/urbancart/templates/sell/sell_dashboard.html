@@ -1,0 +1,266 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Sell | Dashboard{% endblock %}
+
+{% block head %}
+    <link href="{% static 'sell/sell_dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-md bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20 w-64 pt-32 hidden md:flex">
+    <div class="mb-xl px-md">   
+        <h2 class="font-headline-md text-headline-md text-primary mb-xs">Welcome back</h2>
+        <p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Tech Enthusiast</p>
+    </div>
+    <nav class="flex flex-col gap-sm flex-grow">
+        <a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container rounded-full shadow-[0_0_15px_rgba(0,145,234,0.2)] transition-all duration-200" href="#">
+            <span class="material-symbols-outlined" data-icon="memory">memory</span>
+            <span class="font-label-sm text-label-sm">Electronics</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+            <span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+            <span class="font-label-sm text-label-sm">Fashion</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+            <span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+            <span class="font-label-sm text-label-sm">Home</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+            <span class="material-symbols-outlined" data-icon="face">face</span>
+            <span class="font-label-sm text-label-sm">Beauty</span>
+        </a>
+        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+            <span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+            <span class="font-label-sm text-label-sm">Sports</span>
+        </a>
+    </nav>
+    <div class="mt-auto px-md">
+        <button class="w-full py-md bg-gradient-to-br from-primary to-primary-container text-on-primary font-label-sm text-label-sm rounded-xl shadow-lg hover:scale-95 active:scale-90 transition-transform">
+            Circuit Navigator
+        </button>
+    </div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-32 px-gutter pb-xl min-h-screen">
+    <div class="max-w-7xl mx-auto">
+        <!-- Dashboard Header & Stats -->
+        <section class="mb-xl">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-lg mb-lg">
+                <div>
+                    <h1 class="font-headline-lg text-headline-lg text-on-surface">Seller Dashboard</h1>
+                    <p class="text-on-surface-variant font-body-md text-body-md mt-xs">Manage your circuit of products and monitor high-performance metrics.</p>
+                </div>
+                <div class="flex gap-md">
+                    <button class="flex items-center gap-sm px-lg py-sm glass-card text-primary font-label-sm text-label-sm rounded-full hover:bg-primary-container/10 transition-colors">
+                        <span class="material-symbols-outlined">download</span> Export Report
+                    </button>
+                    <button class="flex items-center gap-sm px-lg py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-full shadow-[0_4px_10px_rgba(0,95,156,0.3)] hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined">add</span> New Product
+                    </button>
+                </div>
+            </div>
+            <!-- Bento Grid Analytics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+                <div class="md:col-span-2 glass-card p-lg rounded-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-lg opacity-10 group-hover:opacity-20 transition-opacity">
+                        <span class="material-symbols-outlined scale-[4]" data-icon="trending_up">trending_up</span>
+                    </div>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Total Revenue</p>
+                    <h3 class="font-display-xl text-display-xl text-primary">$42,920.00</h3>
+                    <div class="mt-md flex items-center gap-xs text-tertiary font-label-sm text-label-sm">
+                        <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+                        <span>12.5% increase from last month</span>
+                    </div>
+                </div>
+                <div class="glass-card p-lg rounded-xl flex flex-col justify-between">
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-xs">Active Listings</p>
+                        <h3 class="font-headline-lg text-headline-lg text-on-surface">148</h3>
+                    </div>
+                    <div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-md">
+                        <div class="bg-primary h-full w-3/4"></div>
+                    </div>
+                </div>
+                <div class="glass-card p-lg rounded-xl flex flex-col justify-between">
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-xs">Order Completion</p>
+                        <h3 class="font-headline-lg text-headline-lg text-on-surface">98.2%</h3>
+                    </div>
+                    <div class="w-full bg-surface-container h-1 rounded-full overflow-hidden mt-md">
+                        <div class="bg-tertiary h-full w-[98%]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Product Upload Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+            <!-- Form Section -->
+            <section class="lg:col-span-2">
+                <div class="glass-card rounded-xl p-xl">
+                    <div class="flex items-center gap-md mb-xl">
+                        <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">inventory_2</span>
+                        </div>
+                        <h2 class="font-headline-md text-headline-md">Product Circuit Entry</h2>
+                    </div>
+                    <form class="space-y-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Product Name</label>
+                                <input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="e.g. Quantum X1 Controller" type="text"/>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">SKU Metadata</label>
+                                <input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="URB-QTX-001" type="text"/>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-xs">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">Description</label>
+                            <textarea class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="Describe the technical specs and features..." rows="4"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Price (USD)</label>
+                                <div class="relative">
+                                    <span class="absolute left-md top-1/2 -translate-y-1/2 text-outline">$</span>
+                                    <input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg pl-xl pr-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-display-xl font-bold" placeholder="0.00" type="number"/>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Category</label>
+                                <select class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                                    <option>Electronics</option>
+                                    <option>Gaming Gear</option>
+                                    <option>Mobile Access</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Stock Level</label>
+                                <input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="100" type="number"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <!-- Image Grid Upload -->
+            <section class="lg:col-span-1">
+                <div class="glass-card rounded-xl p-xl h-full flex flex-col">
+                    <div class="flex items-center gap-md mb-lg">
+                        <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">image</span>
+                        </div>
+                        <h2 class="font-headline-md text-headline-md">Visual Nodes</h2>
+                    </div>
+                    <div class="grid grid-cols-2 gap-md flex-grow">
+                        <!-- Main Large Upload -->
+                        <div class="col-span-2 aspect-video bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex flex-col items-center justify-center cursor-pointer group">
+                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[48px]">add_a_photo</span>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-sm">Primary Product Node</p>
+                        </div>
+                        <!-- Small Uploads -->
+                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
+                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
+                        </div>
+                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
+                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
+                        </div>
+                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
+                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
+                        </div>
+                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
+                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
+                        </div>
+                    </div>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-md text-center">Upload high-resolution images for optimal 3D rendering.</p>
+                </div>
+            </section>
+        </div>
+        <!-- Recent Listings Management -->
+        <section class="mt-xl">
+            <div class="flex items-center justify-between mb-lg">
+                <h2 class="font-headline-md text-headline-md text-on-surface">Listing Management</h2>
+                <a class="text-primary font-label-sm text-label-sm hover:underline" href="#">View All Clusters</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+                <!-- Product Card 1 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-performance luxury tech accessory placed on a sleek glass surface with soft peripheral blue lighting. The design is modern and minimalist with clean lines and premium metallic finishes, captured in a bright studio environment with a light-mode aesthetic and professional product photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-6SNKSKE_03tBuHDo1wuUMN50RntFvAcXJ-jig_IBeMnyY-Xh2mL2y0o7IgzZjR6MNB8_g-Jl0_wQFZsVNNqvubVNaioIockusLmsSAX6mkKE7xYLOfxBkqyD71bFIbrWrKwTxyMstZEAlKVyu-jbiZs9t4a-t7OMUgFqFm91BaQUW-xKimSDr0l_kitc2oacpphl-mk7BTviUbLrauJhW2N0JscvPjB2OJtWtQeS_wF3cNdNCUXpzCOCUVJVS9tPcQBSORjN7HEi"/>
+                        <div class="absolute top-sm right-sm bg-primary text-on-primary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Active</div>
+                    </div>
+                    <div class="p-md">
+                        <h4 class="font-headline-md text-body-lg mb-xs truncate">Titanium Series Watch</h4>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Sales: 1,204</p>
+                                <p class="font-display-xl text-headline-md text-primary mt-xs">$299.00</p>
+                            </div>
+                            <button class="p-sm glass-card rounded-full text-primary hover:bg-primary-container hover:text-on-primary transition-all">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 2 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Premium wireless noise-cancelling headphones resting on a minimalist desk within a brightly lit home office. The image has a high-key, modern aesthetic with soft shadows and a cool-toned color palette. The product features a sleek matte finish and ergonomic design, presented in a clean and sophisticated commercial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyLP_h7KALiLQ8UWgs2xoApS1uJQwgMrXIMWvwlhvZwDbFh9n5wSFfDtUYUxpMDZKFPAANq-Wx10fTNLzn7spGXkU2OmiYjETkbNR_ouTMvhpAL6LBvXg9j-xxjI4BKQwy2Da9XjbypY4FgrhEaVRzhi24lBBkNL1yA_QADHcNXS0ZvPy1SSnwB3NS4iECVufb7zuDpGYWb3SBB0lg4l_XjwZxWiZy6KcR4Qblqy90SjJ94lxpA45-foYQ576c6xpKsDE6eJSaJkph"/>
+                        <div class="absolute top-sm right-sm bg-tertiary text-on-tertiary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Low Stock</div>
+                    </div>
+                    <div class="p-md">
+                        <h4 class="font-headline-md text-body-lg mb-xs truncate">Aura Studio Headphones</h4>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Sales: 890</p>
+                                <p class="font-display-xl text-headline-md text-primary mt-xs">$450.00</p>
+                            </div>
+                            <button class="p-sm glass-card rounded-full text-primary hover:bg-primary-container hover:text-on-primary transition-all">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 3 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="An elegant, futuristic digital timepiece displayed against a backdrop of abstract geometric patterns. The lighting is soft and diffused, creating a serene and technologically advanced atmosphere. The watch features a transparent interface and glowing blue elements, embodying a sophisticated light-mode UI aesthetic with precision and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyRcrKckaIXEBXLsuhB5jpBkeqiLbnpzZbdvX4r2jjUpA6oZpFx7BQvUcCvcyeuNlTvzZFEd8ydBvcCQ89tIS5UcJ2S7TKRd6sMMYboFN8X8bJW5pDp8pKXJ5XjoDcwYkWXTRYdSjnrB9RG_2wyeML2CkZ3J9Dd70f7g7g2Y9DYcOW9kwKpFSc1zS6NvzcFTXUEo2qfT9CZdPzEkt7wLRMX7OWodITRgBzVNQuzHe_jgCPZEqWvuhw__RETa7OiAGdHbb2XM9Rk_AH"/>
+                        <div class="absolute top-sm right-sm bg-primary text-on-primary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Active</div>
+                    </div>
+                    <div class="p-md">
+                        <h4 class="font-headline-md text-body-lg mb-xs truncate">Neon Grid Watch</h4>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Sales: 456</p>
+                                <p class="font-display-xl text-headline-md text-primary mt-xs">$180.00</p>
+                            </div>
+                            <button class="p-sm glass-card rounded-full text-primary hover:bg-primary-container hover:text-on-primary transition-all">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 4 -->
+                <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-48 overflow-hidden relative">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A sleek, ergonomic gaming mouse with vibrant customizable LED accents in blue and coral. The product is shown from a dynamic angle on a high-tech gaming mat. The lighting is crisp and modern, emphasizing the product's textured grip and precision engineering. The background is a blurred high-end setup, maintaining a bright and professional dashboard feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0kkznUkrBSQyImy8vxXVTHND2yQI_UeAMjt9M5bTiNKZq4Dr5G0fEz_T8_Ml7_lhame5XNLF_6W6g06sRw-O2tuf6TyPZXqWzk7kRcmvaYkWF4y4X81dSZcBluBxnziwTIBAhfXvP-Qn8y_DI2rZnRpJ4nuA9Z2-zkC_SqFIP8yBU0MqMaxoYdvKLpdwYKqOiSwxLnwZq28C19-glVm8I3fEddhLfFZEYIhUhWljmi8FSmj37lKrjGw2Bg6ccgYj6JzWHeKf0Hv3U"/>
+                        <div class="absolute top-sm right-sm bg-outline text-on-secondary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Draft</div>
+                    </div>
+                    <div class="p-md">
+                        <h4 class="font-headline-md text-body-lg mb-xs truncate">Nexus M-1 Mouse</h4>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="font-label-sm text-label-sm text-on-surface-variant">Sales: 0</p>
+                                <p class="font-display-xl text-headline-md text-primary mt-xs">$75.00</p>
+                            </div>
+                            <button class="p-sm glass-card rounded-full text-primary hover:bg-primary-container hover:text-on-primary transition-all">
+                                <span class="material-symbols-outlined">edit</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

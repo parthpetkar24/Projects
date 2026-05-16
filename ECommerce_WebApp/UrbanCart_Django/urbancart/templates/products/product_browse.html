@@ -1,0 +1,177 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %} Products {% endblock %}
+
+{% block head %}
+    <link href="{% static 'products/product_browse.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <!-- SideNavBar -->
+    <aside class="left-0 top-0 h-full z-40 flex flex-col p-md pt-[88px] bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20 w-64 hidden xl:flex">
+        <div class="mb-xl px-sm">
+            <p class="font-label-sm text-label-sm text-on-surface-variant opacity-70 uppercase tracking-widest">Navigator</p>
+            <h3 class="font-headline-md text-headline-md text-primary mt-xs">Welcome back</h3>
+            <p class="font-body-md text-label-sm text-on-surface-variant">Tech Enthusiast</p>
+        </div>
+        <nav class="flex flex-col gap-sm">
+            <a class="flex items-center gap-md p-md bg-primary-container text-on-primary-container rounded-full shadow-[0_0_15px_rgba(0,145,234,0.2)] transition-all duration-200" href="#">
+                <span class="material-symbols-outlined" data-icon="memory">memory</span>
+                <span class="font-label-sm text-label-sm">Electronics</span>
+            </a>
+            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+                <span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
+                <span class="font-label-sm text-label-sm">Fashion</span>
+            </a>
+            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+                <span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
+                <span class="font-label-sm text-label-sm">Home</span>
+            </a>
+            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+                <span class="material-symbols-outlined" data-icon="face">face</span>
+                <span class="font-label-sm text-label-sm">Beauty</span>
+            </a>
+            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
+                <span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+                <span class="font-label-sm text-label-sm">Sports</span>
+            </a>
+        </nav>
+        <div class="mt-auto p-md glass-panel rounded-xl border border-primary/20">
+            <p class="font-label-sm text-label-sm text-primary mb-sm">Current Level</p>
+            <div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+                <div class="h-full bg-primary w-3/4"></div>
+            </div>
+            <button class="w-full mt-md py-sm bg-primary text-on-primary rounded-lg font-label-sm hover:brightness-110 transition-all">
+                Circuit Navigator
+            </button>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 xl:ml-64 p-gutter max-w-7xl mx-auto">
+        <!-- 3D Tab Switchers -->
+        <div class="flex items-center gap-sm mb-lg">
+            <button class="px-lg py-md rounded-t-xl font-headline-md text-body-md tab-3d-active text-primary transition-all">Featured Tech</button>
+            <button class="px-lg py-md rounded-t-xl font-headline-md text-body-md tab-3d-inactive text-on-surface-variant hover:bg-surface-container transition-all">Trending Nodes</button>
+            <button class="px-lg py-md rounded-t-xl font-headline-md text-body-md tab-3d-inactive text-on-surface-variant hover:bg-surface-container transition-all">New Arrivals</button>
+        </div>
+        <!-- Circuit Category Nodes (Sub-filters) -->
+        <section class="mb-xl relative">
+            <div class="flex flex-wrap gap-md items-center relative z-10">
+                <div class="flex flex-col items-center gap-xs">
+                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center glow-blue border border-primary/40 group cursor-pointer hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined text-primary" data-icon="laptop_mac">laptop_mac</span>
+                    </div>
+                    <span class="text-label-sm font-label-sm text-on-surface-variant">Laptops</span>
+                </div>
+                <div class="w-8 circuit-line mt-[-20px]"></div>
+                <div class="flex flex-col items-center gap-xs">
+                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center border border-outline-variant/30 group cursor-pointer hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="smartphone">smartphone</span>
+                    </div>
+                    <span class="text-label-sm font-label-sm text-on-surface-variant">Mobile</span>
+                </div>
+                <div class="w-8 circuit-line mt-[-20px]"></div>
+                <div class="flex flex-col items-center gap-xs">
+                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center border border-outline-variant/30 group cursor-pointer hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="headphones">headphones</span>
+                    </div>
+                    <span class="text-label-sm font-label-sm text-on-surface-variant">Audio</span>
+                </div>
+                <!-- Repeated for more categories -->
+                <div class="w-8 circuit-line mt-[-20px]"></div>
+                <div class="flex flex-col items-center gap-xs">
+                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center border border-outline-variant/30 group cursor-pointer hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="watch">watch</span>
+                    </div>
+                    <span class="text-label-sm font-label-sm text-on-surface-variant">Wearables</span>
+                </div>
+            </div>
+        </section>
+        <!-- Product Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-lg">
+            <!-- Product Card 1 (Large/Feature) -->
+            <div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/20 hover:shadow-xl transition-all duration-500">
+                <img alt="Pro Workstation" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-performance professional laptop workstation sitting on a minimalist glass desk. The scene is bathed in cool, light-blue ambient lighting with sharp cinematic shadows. The surrounding environment is a modern, high-tech office with blurred circuit-like patterns on the glass partitions. The lighting is sophisticated, emphasizing the sleek metallic finish of the device. Professional light-mode aesthetic with vibrant blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3pui_XIGCT5PtBk73Ddoi-MKvNAGqr2WL1NkHw9lLy6f4Kx_WyxQ5axPL-xs6EDQ4DZ6-1Wz6TZFVirPReqQ_TIq5YC2qbM8nsx7jlEuv6jWe-HiTuZTft8y4ub-M8xd3elhGf7OFDfDTJOho8lprRzlhPxRBeWzxSPI7aaF7LY9kPPI7x-SyACcT1otyvujBWdE3e54e4Lz343hMP4MPwyzdynQOmPWe60h7scpzFfQ8PN6Ds0lr5J1FxwByv2Rk7tkSzWXVF7IM"/>
+                <div class="absolute bottom-0 left-0 w-full glass-panel p-lg flex justify-between items-end">
+                    <div>
+                        <span class="bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-[10px] font-bold uppercase tracking-wider mb-sm inline-block">Flagship Edition</span>
+                        <h4 class="font-headline-md text-headline-md text-on-surface">Neural Core X1 Laptop</h4>
+                        <p class="font-body-md text-on-surface-variant">Next-gen processing with liquid cooling.</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-display-xl text-headline-lg font-bold text-primary">$2,499</p>
+                        <button class="mt-sm p-sm bg-primary text-on-primary rounded-full hover:scale-105 active:scale-95 transition-all">
+                            <span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 2 -->
+            <div class="group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/20 hover:shadow-lg transition-all duration-300">
+                <div class="aspect-square overflow-hidden">
+                    <img alt="Audio Nodes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Premium over-ear wireless headphones with a matte silver finish, resting on a white geometric pedestal. The lighting is soft and airy, featuring delicate blue lens flares and a high-key background. The aesthetic is clean, corporate modern with a focus on product precision. The color palette is dominated by light blues, whites, and subtle metallic grays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtV0joT-6p_YfM9hLwteoxOKHTBK8F3_YRoGY1K02i5UojHqEomkgeh8O-SEu0dF-DQxW9oYQQGwbXmOkgLC6xUnjR1IFYsDwp6OyBWlrMir-pYrOW6yCgI634MMqh3bnNst7yYQdRaUkU81pEl6ORLpy_jUTIG1o_ZYeMpeD6eNL9jQ_ZcbbOaq31oI_5pTG-2JeqbzJUpbYqWp9S2jbPcenle7xuio61hxncGSvVCfJ9h2LYlWqvwFPrAn6sMw-sNiezsjoOUjdI"/>
+                </div>
+                <div class="glass-panel p-md flex flex-col gap-xs">
+                    <h4 class="font-headline-md text-body-lg text-on-surface">Sonic Bloom Buds</h4>
+                    <div class="flex justify-between items-center">
+                        <p class="font-display-xl text-headline-md font-bold text-primary">$299</p>
+                        <button class="p-xs text-primary hover:bg-primary/10 rounded-full transition-colors">
+                            <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 3 -->
+            <div class="group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/20 hover:shadow-lg transition-all duration-300">
+                <div class="aspect-square overflow-hidden">
+                    <img alt="Tech Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, minimalist smartwatch with a bright OLED display showing a health-tracking circuit interface. The watch has a light blue silicone strap and is positioned against a pristine white background with subtle blue shadows. The atmosphere is tech-forward and hygienic, embodying a futuristic health-tech vibe. High-contrast lighting highlights the glass surface of the screen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQPe_rA7JZkOvZIIzFOAc5LQ9i4uVVM1MBqYJJ9jqN8wYhNP0fPezfhe_ctW-gayXXfihvUHOCBTEWWbv6eYpypVwoFke2DjsYqiMRkIQRE_yII4FEL0o0fD8E6HtxrHLNANGpACBnQTNdqbFOyGv3BQR6h0Im-3Bez7qn35rf_Z_if070TEWyArIkOfnlQVeriAX5UgNU1nbMskx6J9WFFSsox4L7TCIvGbXA07eZ5mtxMRNjc3oPtLesFOJmWuXtgZgE2jVFod1M"/>
+                </div>
+                <div class="glass-panel p-md flex flex-col gap-xs">
+                    <h4 class="font-headline-md text-body-lg text-on-surface">Vitals Pro Watch</h4>
+                    <div class="flex justify-between items-center">
+                        <p class="font-display-xl text-headline-md font-bold text-primary">$450</p>
+                        <button class="p-xs text-primary hover:bg-primary/10 rounded-full transition-colors">
+                            <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 4 -->
+            <div class="group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/20 hover:shadow-lg transition-all duration-300">
+                <div class="aspect-square overflow-hidden">
+                    <img alt="Mobile Hub" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A contemporary smartphone with multiple camera lenses, laying on a surface that reflects a soft blue neon light. The overall style is ultra-modern and premium, with a focus on high-fidelity textures and materials. The scene is bright but with deep, intentional shadows to create depth. The environment feels like a high-end technology showroom." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_E4xe82bGMy5WH_GlNnDSZoiX-LpO0vgx_dNGOIAutySgXh9WqMMPKpJH7puB_HOKe8-_xTyMcDYdplzYYS_9HEuIBqJFfEnvj3my7fkC93m0qgidwt6GScdRTyhw3ikhAXSFBegDICYX8cTNTbx4io00Mo-CpNr2jtC3IB7aKbhVN9V0myKowaL2bg7erPHPhni0d2yYug44jsGSSjz-_bREu8YZNcZndWOvWrJc-MU_x5h8rQyLYYnpGI0eH4jK4A-t9cCpKJig"/>
+                </div>
+                <div class="glass-panel p-md flex flex-col gap-xs">
+                    <h4 class="font-headline-md text-body-lg text-on-surface">Nexus Phone 15</h4>
+                    <div class="flex justify-between items-center">
+                        <p class="font-display-xl text-headline-md font-bold text-primary">$1,099</p>
+                        <button class="p-xs text-primary hover:bg-primary/10 rounded-full transition-colors">
+                            <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Card 5 -->
+            <div class="group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/20 hover:shadow-lg transition-all duration-300">
+                <div class="aspect-square overflow-hidden">
+                    <img alt="Optics Node" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A professional mirrorless camera with a large high-quality lens, showcasing detailed optics and technical dials. The background is a gradient of soft blue and white, creating a clean, professional photographer's studio look. The lighting is diffused and bright, highlighting the precision engineering of the camera body. Sophisticated modern e-commerce visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Sm3r_vXuqo9o-w9dSBksu1s9CxGmGCNk9l4twgAiBvOlfSHp965AYjVggjjxWqYB9pMLSW49GQeIxOXQglANkk3r7YITa0h2122ivWTb69bVMt-v0TxSAqsC6J9ZaDAHBGHGmNvOLcSAj0vwcyblFdAUYk2wfgL7mowF6-hrNlZUXgHP5SXC2875ZB2vFltQnO4PUsDMUU7UFQRCdnYePjcN9kuc4WCHiNRu3IpuL5zZcvXBq-NJ5Ao3VIB-_xyvj8mekTP4jZdU"/>
+                </div>
+                <div class="glass-panel p-md flex flex-col gap-xs">
+                    <h4 class="font-headline-md text-body-lg text-on-surface">Optic Prime Z4</h4>
+                    <div class="flex justify-between items-center">
+                        <p class="font-display-xl text-headline-md font-bold text-primary">$1,850</p>
+                        <button class="p-xs text-primary hover:bg-primary/10 rounded-full transition-colors">
+                            <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    </div>
+    <!-- FAB (Suppressed on Details/Settings as per logic, shown here for Home context) -->
+    <button class="fixed bottom-lg right-lg w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 glow-blue">
+        <span class="material-symbols-outlined" data-icon="support_agent" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+    </button>
+{% endblock %}

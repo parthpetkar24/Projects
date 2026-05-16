@@ -1,0 +1,41 @@
+.glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+:is(.dark .glass-card) {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.circuit-line {
+    position: relative;
+}
+
+.circuit-line::after {
+    content: '';
+    position: absolute;
+    background: #bfc7d4;
+    opacity: 0.3;
+}
+
+.circuit-h::after {
+    height: 1px;
+    width: 40px;
+    top: 50%;
+    left: -40px;
+}
+
+.circuit-v::after {
+    width: 1px;
+    height: 40px;
+    left: 50%;
+    top: -40px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
