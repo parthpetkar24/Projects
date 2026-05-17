@@ -1,3 +1,4 @@
+/* ── Light-mode custom component classes ─────────────────────── */
 .glass-panel {
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(24px);
@@ -24,82 +25,157 @@
 }
 
 /* ── Hero Video Banner ─────────────────────── */
-    .hero-banner {
-        position: relative;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        background: #060d1f;
-    }
- 
-    /* Video covers 75% of section width from the left, full height */
-    .hero-video-bg {
-        position: z;
-        top: 0;
-        left: 0;
-        width: 75%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        z-index: 0;
-    }
- 
-    /* Directional gradient: dark on left where text overlays video, clears on right */
-    .hero-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: linear-gradient(
-            to right,
-            rgba(6, 13, 31, 0.80) 0%,
-            rgba(6, 13, 31, 0.55) 38%,
-            rgba(6, 13, 31, 0.15) 62%,
-            rgba(6, 13, 31, 0.04) 100%
-        );
-    }
- 
-    /* Bottom section transition */
-    .hero-bottom-fade {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 100px;
-        z-index: 2;
-        background: linear-gradient(to bottom, transparent, #060d1f);
-    }
- 
-    /* Blue ambient glow over video area */
-    .hero-glow {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: radial-gradient(ellipse at 30% 50%, rgba(0, 98, 160, 0.20) 0%, transparent 55%);
-        pointer-events: none;
-    }
- 
-    /* Text floats on top of everything */
-    .hero-content {
-        position: relative;
-        z-index: 5;
-        width: 100%;
-    }
- 
-    /* Badge live dot pulse */
-    @keyframes badge-pulse {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(0, 145, 234, 0.5); }
-        50%       { box-shadow: 0 0 0 7px rgba(0, 145, 234, 0); }
-    }
-    .badge-live { animation: badge-pulse 2.4s ease-in-out infinite; }
- 
-    /* Staggered load reveal */
-    @keyframes fade-up {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    .reveal-1 { animation: fade-up 0.65s 0.05s ease both; }
-    .reveal-2 { animation: fade-up 0.65s 0.20s ease both; }
-    .reveal-3 { animation: fade-up 0.65s 0.35s ease both; }
-    .reveal-4 { animation: fade-up 0.65s 0.50s ease both; }
-    .reveal-5 { animation: fade-up 0.65s 0.65s ease both; }
+.hero-banner {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #060d1f;
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        to right,
+        rgba(6, 13, 31, 0.80) 0%,
+        rgba(6, 13, 31, 0.55) 38%,
+        rgba(6, 13, 31, 0.15) 62%,
+        rgba(6, 13, 31, 0.04) 100%
+    );
+}
+
+.hero-bottom-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    z-index: 2;
+    background: linear-gradient(to bottom, transparent, #060d1f);
+}
+
+.hero-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0, 98, 160, 0.20) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
+@keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 145, 234, 0.5); }
+    50%       { box-shadow: 0 0 0 7px rgba(0, 145, 234, 0); }
+}
+.badge-live { animation: badge-pulse 2.4s ease-in-out infinite; }
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.reveal-1 { animation: fade-up 0.65s 0.05s ease both; }
+.reveal-2 { animation: fade-up 0.65s 0.20s ease both; }
+.reveal-3 { animation: fade-up 0.65s 0.35s ease both; }
+.reveal-4 { animation: fade-up 0.65s 0.50s ease both; }
+.reveal-5 { animation: fade-up 0.65s 0.65s ease both; }
+
+/* ── Dark Mode Overrides for custom component classes ─────────── */
+.dark .glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+.dark .depth-shadow {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+.dark .hero-gradient {
+    background: radial-gradient(circle at 50% 50%, #041329 0%, #010e24 100%);
+}
+.dark .light-leak {
+    background: radial-gradient(circle at 0% 0%, rgba(79, 195, 247, 0.15) 0%, transparent 50%);
+}
+.dark .neon-glow {
+    filter: drop-shadow(0 0 12px rgba(79, 195, 247, 0.5));
+}
+.dark .rim-light {
+    box-shadow: inset 0 0 15px rgba(79, 195, 247, 0.2);
+}
+.dark .three-d-card:hover {
+    border-color: rgba(79, 195, 247, 0.4);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(79, 195, 247, 0.1);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   FIX: Dark-mode CSS custom properties
+   These MUST live here (outside Tailwind's @layer base) so they
+   are always present in the deployed CSS. The Vite/Tailwind build
+   silently drops the .dark{} block when it is inside @layer base.
+   ════════════════════════════════════════════════════════════════ */
+.dark {
+    --color-error-container: 147 0 10;
+    --color-outline-variant: 62 72 79;
+    --color-on-primary-container: 0 78 105;
+    --color-on-surface: 214 227 255;
+    --color-on-secondary-fixed-variant: 79 0 208;
+    --color-primary-fixed-dim: 117 209 255;
+    --color-tertiary-fixed-dim: 0 218 243;
+    --color-primary-container: 79 195 247;
+    --color-inverse-primary: 0 102 136;
+    --color-tertiary: 52 230 255;
+    --color-on-primary-fixed: 0 30 43;
+    --color-surface-container: 17 32 54;
+    --color-on-tertiary-fixed-variant: 0 79 88;
+    --color-on-background: 214 227 255;
+    --color-surface-container-highest: 39 53 76;
+    --color-secondary: 205 189 255;
+    --color-on-primary-fixed-variant: 0 77 103;
+    --color-on-tertiary-fixed: 0 31 36;
+    --color-surface-container-high: 28 42 65;
+    --color-outline: 136 146 153;
+    --color-on-primary: 0 53 72;
+    --color-background: 4 19 41;
+    --color-on-secondary-fixed: 32 0 95;
+    --color-on-secondary-container: 192 172 255;
+    --color-on-surface-variant: 189 200 208;
+    --color-on-secondary: 55 0 150;
+    --color-inverse-on-surface: 35 49 72;
+    --color-tertiary-fixed: 156 240 255;
+    --color-surface-container-low: 13 28 50;
+    --color-surface: 4 19 41;
+    --color-secondary-fixed-dim: 205 189 255;
+    --color-secondary-container: 82 3 213;
+    --color-on-error: 105 0 5;
+    --color-tertiary-container: 0 201 224;
+    --color-surface-variant: 39 53 76;
+    --color-on-error-container: 255 218 214;
+    --color-secondary-fixed: 232 222 255;
+    --color-inverse-surface: 214 227 255;
+    --color-primary-fixed: 194 232 255;
+    --color-surface-bright: 44 57 81;
+    --color-surface-dim: 4 19 41;
+    --color-on-tertiary: 0 54 61;
+    --color-error: 255 180 171;
+    --color-surface-container-lowest: 1 14 36;
+    --color-on-tertiary-container: 0 80 90;
+    --color-surface-tint: 117 209 255;
+    --color-primary: 154 219 255;
+}

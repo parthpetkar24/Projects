@@ -1,14 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
     <head>
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <title>{% block title %}{% endblock %}| UrbanCart</title>
+        <script>
+            (function () {
+                var stored = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var isDark = stored === 'dark' || (!stored && prefersDark);
+                document.documentElement.classList.toggle('dark', isDark);
+                document.documentElement.classList.toggle('light', !isDark);
+            })();
+        </script>
+
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-        <link href="{% static 'home/base.css' %}" rel="stylesheet">
+        <link href="{% static 'css/home/base.css' %}" rel="stylesheet">
         <link href="{% static 'dist/styles.css' %}" rel="stylesheet"/>
         {% block head %}{% endblock %}
     </head>
@@ -35,7 +44,7 @@
                         <input class="bg-transparent border-none focus:ring-0 text-label-sm w-48" placeholder="Explore future tech..." type="text"/>
                     </div>
                 </div>
-                <button id="theme-toggle" class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">light_mode</button>
+                <button id="theme-toggle" class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all" aria-label="Toggle dark mode">light_mode</button>
                 <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">shopping_cart</button>
                 <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">account_circle</button>
             </div>
