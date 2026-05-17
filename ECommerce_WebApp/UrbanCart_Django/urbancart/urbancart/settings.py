@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'urbancart.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 DATABASES = {
-    'default': {
+        'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': tmpPostgres.path.replace('/', ''),
         'USER': tmpPostgres.username,

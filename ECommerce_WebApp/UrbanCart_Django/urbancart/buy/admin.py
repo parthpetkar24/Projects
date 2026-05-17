@@ -8,8 +8,8 @@ class BuyerDisplay(admin.ModelAdmin):
 
 @admin.register(OrderProduct)
 class OrderDisplay(admin.ModelAdmin):
-    list_display=('order_id','buyer_id','seller_id','amount','quantity','payment_mode','payment_reference_id')
+    list_display=('order_id','buyer','seller','amount','quantity','payment_mode','payment_reference_id')
 
 @admin.register(OrderLog)
 class OrderLogDisplay(admin.ModelAdmin):
-    list_display=('order_id','product_id','seller_id','buyer_id','quantity','amount','date','time')
+    list_display=('order','product','seller','buyer','quantity','amount','date','time')

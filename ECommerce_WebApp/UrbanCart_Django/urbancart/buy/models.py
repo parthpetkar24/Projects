@@ -31,9 +31,9 @@ class Buyer_Info(models.Model):
     
 class OrderProduct(models.Model):
     order_id=models.CharField(max_length=6,primary_key=True)
-    buyer_id=models.ForeignKey(Buyer_Info,on_delete=models.CASCADE)
-    product_id=models.ForeignKey('sell.Product',on_delete=models.CASCADE)
-    seller_id=models.ForeignKey('sell.Seller_Info',on_delete=models.CASCADE)
+    buyer=models.ForeignKey(Buyer_Info,on_delete=models.CASCADE)
+    product=models.ForeignKey('products.Product',on_delete=models.CASCADE)
+    seller=models.ForeignKey('sell.Seller_Info',on_delete=models.CASCADE)
     quantity=models.IntegerField()
     amount=models.DecimalField(max_digits=15,decimal_places=3)
     payment_mode=models.CharField(
@@ -51,10 +51,10 @@ class OrderProduct(models.Model):
         return f"{self.order_id}"
     
 class OrderLog(models.Model):
-    order_id=models.ForeignKey(OrderProduct,on_delete=models.CASCADE)
-    product_id=models.ForeignKey('sell.Product',on_delete=models.CASCADE)
-    seller_id=models.ForeignKey('sell.Seller_Info',on_delete=models.CASCADE)
-    buyer_id=models.ForeignKey(Buyer_Info,on_delete=models.CASCADE)
+    order=models.ForeignKey(OrderProduct,on_delete=models.CASCADE)
+    product=models.ForeignKey('products.Product',on_delete=models.CASCADE)
+    seller=models.ForeignKey('sell.Seller_Info',on_delete=models.CASCADE)
+    buyer=models.ForeignKey(Buyer_Info,on_delete=models.CASCADE)
     quantity=models.IntegerField()
     amount=models.DecimalField(max_digits=15,decimal_places=3)
     date=models.DateField()
