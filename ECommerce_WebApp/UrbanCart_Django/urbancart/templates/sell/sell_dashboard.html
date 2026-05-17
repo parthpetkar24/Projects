@@ -49,7 +49,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-lg mb-lg">
                 <div>
                     <h1 class="font-headline-lg text-headline-lg text-on-surface">Seller Dashboard</h1>
-                    <p class="text-on-surface-variant font-body-md text-body-md mt-xs">Manage your circuit of products and monitor high-performance metrics.</p>
+                    <p class="text-on-surface-variant font-body-md text-body-md mt-xs">Manage your products and monitor high-performance metrics.</p>
                 </div>
                 <div class="flex gap-md">
                     <button class="flex items-center gap-sm px-lg py-sm glass-card text-primary font-label-sm text-label-sm rounded-full hover:bg-primary-container/10 transition-colors">
@@ -67,7 +67,7 @@
                         <span class="material-symbols-outlined scale-[4]" data-icon="trending_up">trending_up</span>
                     </div>
                     <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Total Revenue</p>
-                    <h3 class="font-display-xl text-display-xl text-primary">$42,920.00</h3>
+                    <h3 class="font-display-xl text-display-xl text-primary">₹42,920.00</h3>
                     <div class="mt-md flex items-center gap-xs text-tertiary font-label-sm text-label-sm">
                         <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
                         <span>12.5% increase from last month</span>
@@ -102,55 +102,332 @@
                         <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
                             <span class="material-symbols-outlined">inventory_2</span>
                         </div>
-                        <h2 class="font-headline-md text-headline-md">Product Circuit Entry</h2>
+                        <h2 class="font-headline-md text-headline-md">New Product</h2>
                     </div>
-                    <form class="space-y-lg">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-                            <div class="flex flex-col gap-xs">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">Product Name</label>
-                                <input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="e.g. Quantum X1 Controller" type="text"/>
-                            </div>
-                            <div class="flex flex-col gap-xs">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">SKU Metadata</label>
-                                <input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="URB-QTX-001" type="text"/>
-                            </div>
-                        </div>
+                    <form class="space-y-lg"
+                    method="post"
+                    action="{% url 'sell:seller_dashboard' %}"
+                    enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Product Name + Metadata -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                        
                         <div class="flex flex-col gap-xs">
-                            <label class="font-label-sm text-label-sm text-on-surface-variant">Description</label>
-                            <textarea class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="Describe the technical specs and features..." rows="4"></textarea>
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">
+                                Product Name
+                            </label>
+                            
+                            <input
+                            type="text"
+                            name="product_name"
+                            placeholder="e.g. Quantum X1 Controller"
+                            class="bg-surface-container-low border border-outline-variant/30
+                            rounded-lg px-md py-sm
+                            focus:ring-2 focus:ring-primary/20
+                            focus:border-primary outline-none
+                            transition-all font-body-md"
+                            >
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
-                            <div class="flex flex-col gap-xs">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">Price (USD)</label>
-                                <div class="relative">
-                                    <span class="absolute left-md top-1/2 -translate-y-1/2 text-outline">$</span>
-                                    <input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg pl-xl pr-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-display-xl font-bold" placeholder="0.00" type="number"/>
-                                </div>
-                            </div>
-                            <div class="flex flex-col gap-xs">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">Category</label>
-                                <select class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
-                                    <option>Electronics</option>
-                                    <option>Gaming Gear</option>
-                                    <option>Mobile Access</option>
-                                </select>
-                            </div>
-                            <div class="flex flex-col gap-xs">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">Stock Level</label>
-                                <input class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" placeholder="100" type="number"/>
-                            </div>
+                        
+                        <div class="flex flex-col gap-xs">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">
+                                Metadata About Product
+                            </label>
+                            
+                            <input
+                            type="text"
+                            name="metadata"
+                            placeholder="e.g. URB-QTX-001 | Controller"
+                            class="bg-surface-container-low border border-outline-variant/30
+                            rounded-lg px-md py-sm
+                            focus:ring-2 focus:ring-primary/20
+                            focus:border-primary outline-none
+                            transition-all font-body-md"
+                            >
                         </div>
-                    </form>
+                        
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="flex flex-col gap-xs">
+                        
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">
+                            Description
+                        </label>
+                        
+                        <textarea
+                        rows="4"
+                        name="description"
+                        placeholder="Describe the technical specs and features..."
+                        class="bg-surface-container-low border border-outline-variant/30
+                        rounded-lg px-md py-sm
+                        focus:ring-2 focus:ring-primary/20
+                        focus:border-primary outline-none
+                        transition-all font-body-md resize-none"
+                        ></textarea>
+                        
+                    </div>
+                    
+                    <!-- Price Category Quantity -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                        
+                        <!-- Price -->
+                        <div class="flex flex-col gap-xs">
+                            
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">
+                                Price
+                            </label>
+                            
+                            <div class="relative">
+                                
+                                <span class="absolute left-md top-1/2 -translate-y-1/2 text-outline">
+                                    ₹
+                                </span>
+                                
+                                <input
+                                type="number"
+                                step="0.01"
+                                name="price"
+                                placeholder="0.00"
+                                class="w-full bg-surface-container-low
+                                border border-outline-variant/30
+                                rounded-lg pl-xl pr-md py-sm
+                                focus:ring-2 focus:ring-primary/20
+                                focus:border-primary outline-none
+                                transition-all font-body-md"
+                                >
+                                
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Category -->
+                        <div class="flex flex-col gap-xs">
+                            
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">
+                                Category
+                            </label>
+                            
+                            <select
+                            name="category"
+                            class="bg-surface-container-low border border-outline-variant/30
+                            rounded-lg px-md py-sm
+                            focus:ring-2 focus:ring-primary/20
+                            focus:border-primary outline-none
+                            transition-all font-body-md">
+                            
+                            <option value="electronics">Electronics</option>
+                            <option value="camera_accessories">Camera & Accessories</option>
+                            <option value="tv_video">TV & Video</option>
+                            <option value="computers_laptops">Computers & Laptops</option>
+                            <option value="cooling_air_treatment">Cooling & Air Treatment</option>
+                            <option value="home_appliances">Home Appliances</option>
+                            <option value="health_beauty_hair">Health, Beauty & Hair</option>
+                            <option value="books">Books</option>
+                            <option value="music">Music</option>
+                            <option value="home_lifestyle">Home & Lifestyle</option>
+                            <option value="home_improvements_tools">Home Improvements Tools</option>
+                            <option value="women_style">Women's Style</option>
+                            <option value="mens_style">Men's Style</option>
+                            <option value="watches_glasses">Watches & Glasses</option>
+                            <option value="sports_outdoors">Sports & Outdoors</option>
+                            <option value="entertainment">Entertainment</option>
+                            
+                        </select>
+                        
+                    </div>
+                    
+                    <!-- Quantity -->
+                    <div class="flex flex-col gap-xs">
+                        
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">
+                            Quantity
+                        </label>
+                        
+                        <input
+                        type="number"
+                        name="quantity"
+                        placeholder="100"
+                        class="bg-surface-container-low border border-outline-variant/30
+                        rounded-lg px-md py-sm
+                        focus:ring-2 focus:ring-primary/20
+                        focus:border-primary outline-none
+                        transition-all font-body-md"
+                        >
+                        
+                    </div>
+                    
                 </div>
-            </section>
-            <!-- Image Grid Upload -->
-            <section class="lg:col-span-1">
-                <div class="glass-card rounded-xl p-xl h-full flex flex-col">
-                    <div class="flex items-center gap-md mb-lg">
+                
+                <!-- Product Images -->
+                <div class="flex flex-col gap-xs">
+                    
+                    <label class="font-label-sm text-label-sm text-on-surface-variant">
+                        Product Images (Maximum 4)
+                    </label>
+                    
+                    <div class="relative border border-dashed border-outline rounded-xl
+                    bg-surface-container p-lg
+                    hover:border-primary/50
+                    transition-all duration-300">
+                    
+                    <input
+                    type="file"
+                    name="product_images"
+                    multiple
+                    accept="image/*"
+                    class="w-full text-sm text-on-surface-variant
+                    file:mr-4 file:px-md file:py-sm
+                    file:rounded-lg file:border-0
+                    file:bg-primary file:text-on-primary
+                    file:font-semibold
+                    hover:file:opacity-90
+                    cursor-pointer"
+                    >
+                    
+                    <p class="text-xs text-outline mt-sm">
+                        JPG, JPEG, PNG, SVG, GIF allowed • Maximum 4 images
+                    </p>
+                    
+                </div>
+                
+            </div>
+            
+            <!-- Optional Product Details -->
+            <div class="bg-surface-container-low border border-outline-variant/30
+            rounded-xl p-lg space-y-lg">
+            
+            <div class="flex items-center justify-between">
+                
+                <div>
+                    <h3 class="font-headline-md text-on-surface">
+                        Optional Product Details
+                    </h3>
+                    
+                    <p class="text-sm text-on-surface-variant mt-1">
+                        Add customization requirements and showcase your product.
+                    </p>
+                </div>
+                
+                <div class="h-10 w-10 rounded-lg bg-primary/10
+                border border-primary/20
+                flex items-center justify-center
+                shadow-[0_0_12px_rgba(0,145,234,0.2)]">
+                
+                <span class="text-primary text-xl">+</span>
+                
+            </div>
+            
+        </div>
+        
+        <!-- Color + Size -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+            
+            <div class="flex flex-col gap-xs">
+                
+                <label class="font-label-sm text-label-sm text-on-surface-variant">
+                    Product Color (Optional)
+                </label>
+                
+                <input
+                type="text"
+                name="color"
+                placeholder="e.g. Black, Blue, Silver"
+                class="bg-surface-container-low border border-outline-variant/30
+                rounded-lg px-md py-sm
+                focus:ring-2 focus:ring-primary/20
+                focus:border-primary outline-none
+                transition-all font-body-md"
+                >
+                
+            </div>
+            
+            <div class="flex flex-col gap-xs">
+                
+                <label class="font-label-sm text-label-sm text-on-surface-variant">
+                    Product Size (Optional)
+                </label>
+                
+                <input
+                type="text"
+                name="size"
+                placeholder="e.g. XL, 42, Medium"
+                class="bg-surface-container-low border border-outline-variant/30
+                rounded-lg px-md py-sm
+                focus:ring-2 focus:ring-primary/20
+                focus:border-primary outline-none
+                transition-all font-body-md"
+                >
+                
+            </div>
+            
+        </div>
+        
+        <!-- Requirements -->
+        <div class="flex flex-col gap-xs">
+            
+            <label class="font-label-sm text-label-sm text-on-surface-variant">
+                Additional Requirements (Optional)
+            </label>
+            
+            <textarea
+            rows="4"
+            name="requirements"
+            placeholder="Any additional instructions or requirements for the buyer..."
+            class="bg-surface-container-low border border-outline-variant/30
+            rounded-xl px-md py-sm
+            focus:ring-2 focus:ring-primary/20
+            focus:border-primary outline-none
+            transition-all font-body-md resize-none"
+            ></textarea>
+            
+        </div>
+        
+    </div>
+    
+    <!-- Submit Button -->
+    <div class="flex justify-end pt-md">
+        
+        <button
+        type="submit"
+        class="group relative overflow-hidden
+        bg-primary text-on-primary
+        px-xl py-sm rounded-lg
+        font-semibold tracking-wide
+        border border-primary/30
+        transition-all duration-300
+        hover:scale-[1.02]
+        hover:shadow-[0_0_20px_rgba(0,145,234,0.35)]
+        active:scale-[0.98]">
+        
+        <span class="relative z-10 flex items-center gap-sm">
+            <span>+</span>
+            Add Item
+        </span>
+        
+        <div class="absolute inset-0
+        bg-gradient-to-r
+        from-primary via-primary-container to-primary
+        opacity-0 group-hover:opacity-100
+        transition-opacity duration-500">
+    </div>
+    
+</button>
+
+</div>
+
+</form>
+</div>
+</section>
+
+    <!-- Image Grid Upload -->
+    <section class="lg:col-span-1">
+        <div class="glass-card rounded-xl p-xl h-full flex flex-col">
+            <div class="flex items-center gap-md mb-lg">
                         <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
                             <span class="material-symbols-outlined">image</span>
                         </div>
-                        <h2 class="font-headline-md text-headline-md">Visual Nodes</h2>
+                        <h2 class="font-headline-md text-headline-md">Top Producrs</h2>
                     </div>
                     <div class="grid grid-cols-2 gap-md flex-grow">
                         <!-- Main Large Upload -->
