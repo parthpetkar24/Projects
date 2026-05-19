@@ -25,10 +25,12 @@ def seller_qr_path(instance,filename):
 
 class Seller_Info(models.Model):
     seller_user=models.OneToOneField(User,on_delete=models.CASCADE)
-    seller_id=models.CharField(max_length=6,primary_key=True)
+    seller_id=models.CharField(max_length=7,primary_key=True)
     seller_first_name=models.CharField(max_length=100,default="NA")
     seller_last_name=models.CharField(max_length=100)
+    seller_username=models.CharField(max_length=10,blank=True)
     seller_contact=PhoneNumberField()
+    seller_email_id=models.EmailField(blank=True)
     seller_verification=models.FileField(upload_to=seller_verification_path,validators=[validate_pdf])
     address=models.TextField()
     seller_qr=models.FileField(upload_to=seller_qr_path,validators=[validate_img])

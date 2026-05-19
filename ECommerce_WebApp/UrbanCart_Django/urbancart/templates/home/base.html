@@ -5,16 +5,6 @@
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <title>{% block title %}{% endblock %}| UrbanCart</title>
-        <script>
-            (function () {
-                var stored = localStorage.getItem('theme');
-                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                var isDark = stored === 'dark' || (!stored && prefersDark);
-                document.documentElement.classList.toggle('dark', isDark);
-                document.documentElement.classList.toggle('light', !isDark);
-            })();
-        </script>
-
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
         <link href="{% static 'css/home/base.css' %}" rel="stylesheet">
@@ -22,43 +12,132 @@
         {% block head %}{% endblock %}
     </head>
     <body class="bg-surface font-body-md text-on-surface overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+        {% block navbar %}
         <!-- Navigation Shell -->
         <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-md max-w-full bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
             <div class="flex items-center gap-xl">
                 <span class="font-display-xl text-headline-lg font-bold text-primary tracking-tight">
                     <!-- Light Mode Logo -->
-                    <img src="{% static 'img/uclogo.png' %}" class="h-auto w-20 object-contain mix-blend-multiply dark:hidden" alt="UrbanCart">
+                    <a href="{% url 'home:homepage' %}" >
+                        <img src="{% static 'img/uclogo.png' %}" class="h-auto w-20 object-contain mix-blend-multiply dark:hidden" alt="UrbanCart">
+                    </a>
                     <!-- Dark Mode Logo -->
-                    <img src="{% static 'img/UCLogoDark.png' %}" class="h-auto w-20 object-contain hidden dark:block" alt="UrbanCart">
+                    <a href="{% url 'home:homepage' %}" >
+                        <img src="{% static 'img/UCLogoDark.png' %}" class="h-auto w-20 object-contain hidden dark:block" alt="UrbanCart">
+                    </a>
                 </span>
                 <nav class="hidden md:flex items-center gap-lg">
-                    <a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">Categories</a>
-                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">Deals</a>
-                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">What's New</a>
+                    <a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">
+                        Categories
+                    </a>
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">
+                        Deals
+                    </a>
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">
+                        What's New
+                    </a>
                 </nav>
             </div>
             <div class="flex items-center gap-md">
+                <!-- Search -->
                 <div class="relative hidden sm:block">
                     <div class="flex items-center bg-surface-container-low border border-outline-variant/40 rounded-full px-md py-xs depth-shadow">
                         <span class="material-symbols-outlined text-outline">search</span>
-                        <input class="bg-transparent border-none focus:ring-0 text-label-sm w-48" placeholder="Explore future tech..." type="text"/>
+                        <input class="bg-transparent border-none focus:ring-0 text-label-sm w-48 outline-none" placeholder="Explore future tech..." type="text"/>
                     </div>
                 </div>
-                <button id="theme-toggle" class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all" aria-label="Toggle dark mode">light_mode</button>
-                <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">shopping_cart</button>
-                <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">account_circle</button>
+                <!-- Theme Toggle -->
+                <div>
+                    <button id="theme-toggle" class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all" aria-label="Toggle dark mode">light_mode</button>
+                </div>
+                <!-- Cart -->
+                <div>
+                    <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">shopping_cart</button>
+                </div>
+<!-- Account -->
+<div class="relative mt-1" id="account-dropdown">
+    {% if user.is_authenticated %}
+        <button id="account-btn">
+            <p class="font-semibold text-on-surface truncate">
+                    {{ user.username }}
+                </p>
+
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div id="dropdown-menu" 
+             class="hidden absolute right-0 top-full mt-2 w-56 
+                    bg-surface-container-low/95 backdrop-blur-xl
+                    border border-outline-variant/30 rounded-2xl
+                    shadow-[0_0_30px_rgba(0,0,0,0.12)]
+                    z-50 overflow-hidden">
+            
+            <!-- Username -->
+            <div class="px-lg py-md border-b border-outline-variant/20">
+                <p class="font-semibold text-on-surface truncate">
+                    {{ user.username }}
+                </p>
+            </div>
+            
+            {% if user_type == "buyer" %}
+                <a href="#" class="block px-lg py-md hover:bg-primary-container/10 transition-colors">
+                    <p class="font-semibold text-on-surface truncate">Profile</p>
+                </a>
+                <a href="#" class="block px-lg py-md hover:bg-primary-container/10 transition-colors">
+                    Cart
+                </a>
+                <a href="{% url 'home:logout' %}" 
+                   class="block px-lg py-md text-red-500 hover:bg-red-500/10 transition-colors">
+                    Logout
+                </a>
+            {% elif user_type == "seller" %}
+                <a href="{% url 'sell:seller_dashboard' %}" 
+                   class="block px-lg py-md hover:bg-primary-container/10 transition-colors">
+                    Dashboard
+                </a>
+                <a href="{% url 'home:logout' %}" 
+                   class="block px-lg py-md text-red-500 hover:bg-red-500/10 transition-colors">
+                    Logout
+                </a>
+            {% else %}
+                <a href="{% url 'home:logout' %}" 
+                   class="block px-lg py-md text-red-500 hover:bg-red-500/10 transition-colors">
+                    Logout
+                </a>
+            {% endif %}
+        </div>
+    {% else %}
+        <a href="{% url 'home:authenticate' %}" 
+           class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">
+            account_circle
+        </a>
+    {% endif %}
+</div>
             </div>
         </header>
-
-
+        {% endblock %}
+        <div class="toast-container">
+            {% for message in messages %}
+            <div class="custom-toast {{ message.tags }}">
+                <div class="toast-message">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         {% block body %}
         {% endblock %}
-        
+
+        {% block footer %}
         <!-- Footer Shell -->
         <footer class="w-full flex flex-col md:flex-row justify-between items-center px-xl py-lg mt-xl bg-surface-container-lowest border-t border-outline-variant/30">
             <div class="flex flex-col items-center md:items-start gap-xs mb-md md:mb-0">
-                <span class="font-display-xl text-headline-md text-primary">UrbanCart</span>
+                <span class="font-display-xl text-headline-md text-primary">
+                    UrbanCart
+                </span>
+            </div>
         </footer>
+        {% endblock %}
         <!-- Side Navigation (Mobile/Menu) -->
         <div class="fixed left-0 top-0 h-full z-40 hidden flex-col p-md bg-surface-container-low/90 backdrop-blur-2xl w-64 border-r border-outline-variant/20 shadow-xl transition-transform duration-300">
             <div class="mb-xl px-md pt-xl">
@@ -91,8 +170,36 @@
                 Circuit Navigator
             </button>
         </div>
+        {% block scripts %}{% endblock %}
         <script type="module" src="{% static 'dist/main.js' %}"></script>
         <script src="{% static 'js/home/base.js' %}"></script>
-        {% block scripts %}{% endblock %}
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const accountBtn = document.getElementById('account-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const accountContainer = document.getElementById('account-dropdown');
+
+        if (!accountBtn || !dropdownMenu) return;
+
+        accountBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!accountContainer.contains(e.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>
     </body>
 </html>

@@ -14,8 +14,10 @@ def profile_pic_path(instance,filename):
 class Buyer_Info(models.Model):
     buyer_user=models.OneToOneField(User,on_delete=models.CASCADE)
     buyer_id=models.CharField(max_length=7,primary_key=True)
+    buyer_username=models.CharField(max_length=10,blank=True)
     buyer_first_name=models.CharField(max_length=70)
     buyer_last_name=models.CharField(max_length=70)
+    buyer_email_id=models.EmailField(blank=True)
     buyer_contact=PhoneNumberField()
     profile_picture = models.ImageField(upload_to=profile_pic_path,blank=True,null=True)
     dob=models.DateField(null=True,blank=True)
