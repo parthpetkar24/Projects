@@ -11,12 +11,11 @@ def product_image_path(instance, filename):
 
 
 class Product(models.Model):
-    product_id=models.CharField(max_length=5,primary_key=True)
+    product_id=models.CharField(max_length=8,primary_key=True)
     product_name=models.CharField(max_length=200)
     seller=models.ForeignKey('sell.Seller_Info',on_delete=models.CASCADE)
     product_price=models.DecimalField(max_digits=15,decimal_places=3)
     quantity=models.IntegerField()
-    images=models.ImageField(upload_to=product_image_path,validators=[validate_img])
     meta_data=models.CharField(max_length=300)
     description=models.TextField()
     category=models.CharField(
@@ -32,6 +31,14 @@ class Product(models.Model):
         ],
         null=True,
     )
+    color=models.CharField(max_length=100,blank=True,null=True)
+    size=models.CharField(max_length=100,null=True,blank=True)
+    requirements=models.TextField(null=True,blank=True)
+
 
     def __str__(self):
         return f"{self.product_id} : {self.product_name}"
+    
+class ProductImage(models.Model):
+    product = models.ForeignKey( Product, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField( upload_to=product_image_path,validators=[validate_img])

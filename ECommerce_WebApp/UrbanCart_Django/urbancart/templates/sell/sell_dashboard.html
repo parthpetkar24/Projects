@@ -8,39 +8,99 @@
 {% endblock %}
 {% block body %}
 <!-- SideNavBar -->
-<aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-md bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20 w-64 pt-32 hidden md:flex">
-    <div class="mb-xl px-md">   
-        <h2 class="font-headline-md text-headline-md text-primary mb-xs">Welcome back</h2>
-        <p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">Tech Enthusiast</p>
+<aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col w-72 pt-28 px-md pb-lg bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20">
+    <!-- Seller Profile -->
+    <div class="px-md mb-xl">
+        <div class="flex items-center gap-md">
+            <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-[0_0_25px_rgba(0,145,234,0.25)]">
+                <span class="material-symbols-outlined text-on-primary text-2xl">
+                    storefront
+                </span>
+            </div>
+            <div>
+                <h2 class="font-headline-md text-headline-sm text-on-surface">
+                    Seller Hub
+                </h2>
+                <p class="text-label-sm text-on-surface-variant opacity-70">
+                    Manage your business
+                </p>
+            </div>
+        </div>
     </div>
-    <nav class="flex flex-col gap-sm flex-grow">
-        <a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container rounded-full shadow-[0_0_15px_rgba(0,145,234,0.2)] transition-all duration-200" href="#">
-            <span class="material-symbols-outlined" data-icon="memory">memory</span>
-            <span class="font-label-sm text-label-sm">Electronics</span>
+    <!-- Navigation -->
+    <nav class="flex flex-col gap-xs flex-grow">
+        <!-- Dashboard -->
+        <a href="{% url 'sell:seller_dashboard' %}" class="group flex items-center gap-md px-md py-md rounded-2xl bg-primary-container/20 text-primary border border-primary/20 shadow-[0_0_15px_rgba(0,145,234,0.15)] transition-all duration-200">
+            <span class="material-symbols-outlined">
+                dashboard
+            </span>
+            <span class="font-label-sm">
+                Dashboard
+            </span>
         </a>
-        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-            <span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
-            <span class="font-label-sm text-label-sm">Fashion</span>
+        <!-- Inventory -->
+        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
+            <span class="material-symbols-outlined">
+                inventory_2
+            </span>
+            <span class="font-label-sm">
+                Inventory
+            </span>
         </a>
-        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-            <span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
-            <span class="font-label-sm text-label-sm">Home</span>
+        <!-- Orders -->
+        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
+            <span class="material-symbols-outlined">
+                shopping_bag
+            </span>
+            <span class="font-label-sm">
+                Orders
+            </span>
         </a>
-        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-            <span class="material-symbols-outlined" data-icon="face">face</span>
-            <span class="font-label-sm text-label-sm">Beauty</span>
+        <!-- Analytics -->
+        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
+            <span class="material-symbols-outlined">
+                analytics
+            </span>
+            <span class="font-label-sm">
+                Analytics
+            </span>
         </a>
-        <a class="flex items-center gap-md px-md py-sm text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-            <span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
-            <span class="font-label-sm text-label-sm">Sports</span>
+        <!-- Customers -->
+        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
+            <span class="material-symbols-outlined">
+                groups
+            </span>
+            <span class="font-label-sm">
+                Customers
+            </span>
+        </a>
+        <!-- Revenue -->
+        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
+            <span class="material-symbols-outlined">
+                payments
+            </span>
+            <span class="font-label-sm">
+                Revenue
+            </span>
+        </a>
+        <!-- Settings -->
+        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
+            <span class="material-symbols-outlined">
+                settings
+            </span>
+            <span class="font-label-sm">
+                Settings
+            </span>
         </a>
     </nav>
-    <div class="mt-auto px-md">
-        <button class="w-full py-md bg-gradient-to-br from-primary to-primary-container text-on-primary font-label-sm text-label-sm rounded-xl shadow-lg hover:scale-95 active:scale-90 transition-transform">
-            Circuit Navigator
+    <!-- Bottom Action -->
+    <div class="mt-xl px-sm">
+        <button class="w-full py-md rounded-2xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-semibold shadow-[0_0_25px_rgba(0,145,234,0.3)] hover:scale-[0.98] active:scale-95 transition-all">
+            + Add Product
         </button>
     </div>
 </aside>
+
 <!-- Main Content Canvas -->
 <main class="md:ml-64 pt-32 px-gutter pb-xl min-h-screen">
     <div class="max-w-7xl mx-auto">
@@ -67,7 +127,7 @@
                         <span class="material-symbols-outlined scale-[4]" data-icon="trending_up">trending_up</span>
                     </div>
                     <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Total Revenue</p>
-                    <h3 class="font-display-xl text-display-xl text-primary">₹42,920.00</h3>
+                    <h3 class="font-display-xl text-display-xl text-primary">₹{{ seller_revenue }}</h3>
                     <div class="mt-md flex items-center gap-xs text-tertiary font-label-sm text-label-sm">
                         <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
                         <span>12.5% increase from last month</span>
@@ -106,12 +166,11 @@
                     </div>
                     <form class="space-y-lg"
                     method="post"
-                    action="{% url 'sell:seller_dashboard' %}"
+                    action="{% url 'sell:add_product' %}"
                     enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- Product Name + Metadata -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-                        
                         <div class="flex flex-col gap-xs">
                             <label class="font-label-sm text-label-sm text-on-surface-variant">
                                 Product Name

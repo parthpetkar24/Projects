@@ -7,6 +7,22 @@
         <title>{% block title %}{% endblock %}| UrbanCart</title>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script>
+            (function () {
+                var stored = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var isDark = stored === 'dark' || (!stored && prefersDark);
+                document.documentElement.classList.toggle('dark', isDark);
+                document.documentElement.classList.toggle('light', !isDark);
+            })();
+
+        setTimeout(() => {
+        const toasts = document.querySelectorAll('.custom-toast');
+        toasts.forEach((toast) => {
+            toast.remove();
+        });
+        }, 6000);
+        </script>
         <link href="{% static 'css/home/base.css' %}" rel="stylesheet">
         <link href="{% static 'dist/styles.css' %}" rel="stylesheet"/>
         {% block head %}{% endblock %}

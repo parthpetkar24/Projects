@@ -27,17 +27,3 @@ themeToggleBtn.addEventListener('click', function () {
     updateIcon();
 });
 
-(function () {
-                var stored = localStorage.getItem('theme');
-                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                var isDark = stored === 'dark' || (!stored && prefersDark);
-                document.documentElement.classList.toggle('dark', isDark);
-                document.documentElement.classList.toggle('light', !isDark);
-            })();
-
-        setTimeout(() => {
-        const toasts = document.querySelectorAll('.custom-toast');
-        toasts.forEach((toast) => {
-            toast.remove();
-        });
-        }, 6000);
