@@ -10,7 +10,7 @@ from sklearn.svm import LinearSVC
 import os
 
 MODEL_PATH=os.path.dirname(os.path.abspath(__file__))
-file=os.path.join(MODEL_PATH,'creditcard.csv')
+file=os.path.join(MODEL_PATH,'data/creditcard.csv')
 
 data=pd.read_csv(file)
 # print(data.head(5))
