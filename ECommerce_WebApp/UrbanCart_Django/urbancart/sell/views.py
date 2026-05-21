@@ -22,7 +22,7 @@ def productidgeneration():
 # Create your views here.
 @login_required(login_url="home:authenticate")
 def seller_dashboard(request):
-    seller=Seller_Info.objects.get(user=request.user)
+    seller=Seller_Info.objects.get(seller_user=request.user)
     seller_revenue=seller.sells_amount
     return render(request,"sell/sell_dashboard.html",{"seller_revenue":seller_revenue})
 
@@ -48,7 +48,7 @@ def add_product(request):
             product=Product.objects.create(
                 product_id=product_id,
                 product_name=product_name,
-                seller=Seller_Info.objects.get(user=request.user),
+                seller=Seller_Info.objects.get(seller_user=request.user),
                 product_price=price,
                 quantity=quantity,
                 meta_data=metadata,

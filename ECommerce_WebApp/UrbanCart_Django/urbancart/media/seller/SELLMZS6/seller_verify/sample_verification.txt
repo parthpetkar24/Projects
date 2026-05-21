@@ -1,0 +1,113 @@
+URBANCART SELLER VERIFICATION FORM
+----------------------------------
+
+Seller Verification ID:
+SV-8F2KQ9
+
+Submitted On:
+20 May 2026
+
+==================================================
+
+1. PERSONAL INFORMATION
+--------------------------------------------------
+
+Full Name:
+Parth Petkar
+
+Username:
+parthtechstore
+
+Email Address:
+parth@example.com
+
+Phone Number:
++91 9876543210
+
+Date of Birth:
+12 August 2005
+
+==================================================
+
+2. BUSINESS INFORMATION
+--------------------------------------------------
+
+Business Name:
+Parth Electronics Hub
+
+Business Type:
+Individual Seller
+
+Business Address:
+FC Road,
+Pune,
+Maharashtra,
+India - 411004
+
+GST Number:
+27ABCDE1234F1Z5
+
+==================================================
+
+3. IDENTITY VERIFICATION
+--------------------------------------------------
+
+Government ID Type:
+Aadhaar Card
+
+Government ID Number:
+XXXX-XXXX-4582
+
+Uploaded Documents:
+✓ Aadhaar Front
+✓ Aadhaar Back
+✓ PAN Card
+
+==================================================
+
+4. BANK VERIFICATION
+--------------------------------------------------
+
+Account Holder Name:
+Parth Petkar
+
+Bank Name:
+State Bank of India
+
+Account Number:
+XXXXXX4582
+
+IFSC Code:
+SBIN0001234
+
+==================================================
+
+5. STORE VERIFICATION
+--------------------------------------------------
+
+Store Name:
+UrbanTech Gadgets
+
+Store Category:
+Electronics
+
+Store Description:
+Seller of gaming accessories and smart devices.
+
+==================================================
+
+6. DECLARATION
+--------------------------------------------------
+
+I hereby declare that all information provided
+is accurate and authentic. I understand that
+UrbanCart reserves the right to suspend my
+seller account in case of fraudulent activity.
+
+Seller Signature:
+Parth Petkar
+
+==================================================
+
+Verification Status:
+PENDING REVIEW

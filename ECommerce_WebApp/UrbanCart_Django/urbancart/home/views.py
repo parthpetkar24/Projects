@@ -135,7 +135,7 @@ def authenticateuser(request):
                             seller_last_name=seller_last_name,
                             seller_username=seller_username,
                             seller_email_id=seller_email_id,
-                            seller_verify=seller_verify,
+                            seller_verification=seller_verify,
                         )
                         messages.success(request,"Account Created Successfully")
                         return redirect("home:authenticate")

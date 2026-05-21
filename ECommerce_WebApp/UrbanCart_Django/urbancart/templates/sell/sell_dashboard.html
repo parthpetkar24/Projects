@@ -4,106 +4,117 @@
 {% block title %}Sell | Dashboard{% endblock %}
 
 {% block head %}
-    <link href="{% static 'sell/sell_dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/sell/sell_dashboard.css' %}" rel="stylesheet">
 {% endblock %}
+
+{% block navbar %}{% endblock %}
+
 {% block body %}
-<!-- SideNavBar -->
-<aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col w-72 pt-28 px-md pb-lg bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20">
-    <!-- Seller Profile -->
-    <div class="px-md mb-xl">
-        <div class="flex items-center gap-md">
-            <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-[0_0_25px_rgba(0,145,234,0.25)]">
-                <span class="material-symbols-outlined text-on-primary text-2xl">
-                    storefront
-                </span>
-            </div>
-            <div>
-                <h2 class="font-headline-md text-headline-sm text-on-surface">
-                    Seller Hub
-                </h2>
-                <p class="text-label-sm text-on-surface-variant opacity-70">
-                    Manage your business
-                </p>
-            </div>
-        </div>
+
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="seller-sidebar fixed left-0 top-0 h-full z-50 hidden md:flex flex-col pt-6 pb-lg bg-surface-container-low/95 backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl">
+
+    <!-- Logo row: CSS handles centred → left-align on expand -->
+    <div class="sidebar-logo-row mb-xl">
+        <a href="{% url 'home:homepage' %}" class="flex-shrink-0">
+            <img src="{% static 'img/uclogo.png' %}" class="h-8 w-8 object-contain mix-blend-multiply dark:hidden" alt="UrbanCart">
+            <img src="{% static 'img/UCLogoDark.png' %}" class="h-8 w-8 object-contain hidden dark:block" alt="UrbanCart">
+        </a>
+        <span class="sidebar-text font-bold text-primary text-lg tracking-tight">UrbanCart</span>
     </div>
-    <!-- Navigation -->
-    <nav class="flex flex-col gap-xs flex-grow">
-        <!-- Dashboard -->
-        <a href="{% url 'sell:seller_dashboard' %}" class="group flex items-center gap-md px-md py-md rounded-2xl bg-primary-container/20 text-primary border border-primary/20 shadow-[0_0_15px_rgba(0,145,234,0.15)] transition-all duration-200">
-            <span class="material-symbols-outlined">
-                dashboard
-            </span>
-            <span class="font-label-sm">
-                Dashboard
-            </span>
+
+    <!-- Navigation: CSS turns each <a> into a 44×44 centred square when collapsed -->
+    <nav class="flex flex-col gap-xs flex-grow px-md">
+        <a href="{% url 'sell:seller_dashboard' %}"
+           class="bg-primary-container/20 text-primary border border-primary/20 shadow-[0_0_15px_rgba(0,145,234,0.15)]">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="sidebar-text font-label-sm">Dashboard</span>
         </a>
-        <!-- Inventory -->
-        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
-            <span class="material-symbols-outlined">
-                inventory_2
-            </span>
-            <span class="font-label-sm">
-                Inventory
-            </span>
+
+        <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">inventory_2</span>
+            <span class="sidebar-text font-label-sm">Inventory</span>
         </a>
-        <!-- Orders -->
-        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
-            <span class="material-symbols-outlined">
-                shopping_bag
-            </span>
-            <span class="font-label-sm">
-                Orders
-            </span>
+
+        <a href="#orders-section" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">shopping_bag</span>
+            <span class="sidebar-text font-label-sm">Orders</span>
         </a>
-        <!-- Analytics -->
-        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
-            <span class="material-symbols-outlined">
-                analytics
-            </span>
-            <span class="font-label-sm">
-                Analytics
-            </span>
+
+        <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="sidebar-text font-label-sm">Analytics</span>
         </a>
-        <!-- Customers -->
-        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
-            <span class="material-symbols-outlined">
-                groups
-            </span>
-            <span class="font-label-sm">
-                Customers
-            </span>
+
+        <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">groups</span>
+            <span class="sidebar-text font-label-sm">Customers</span>
         </a>
-        <!-- Revenue -->
-        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
-            <span class="material-symbols-outlined">
-                payments
-            </span>
-            <span class="font-label-sm">
-                Revenue
-            </span>
+
+        <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">payments</span>
+            <span class="sidebar-text font-label-sm">Revenue</span>
         </a>
-        <!-- Settings -->
-        <a href="#" class="group flex items-center gap-md px-md py-md rounded-2xl text-on-surface-variant hover:bg-primary-container/10 hover:text-primary hover:translate-x-1 transition-all duration-200">
-            <span class="material-symbols-outlined">
-                settings
-            </span>
-            <span class="font-label-sm">
-                Settings
-            </span>
+
+        <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="sidebar-text font-label-sm">Settings</span>
         </a>
     </nav>
-    <!-- Bottom Action -->
-    <div class="mt-xl px-sm">
-        <button class="w-full py-md rounded-2xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-semibold shadow-[0_0_25px_rgba(0,145,234,0.3)] hover:scale-[0.98] active:scale-95 transition-all">
-            + Add Product
-        </button>
+
+    <!-- Bottom: theme toggle + add product -->
+    <div class="px-md mt-auto pt-md border-t border-outline-variant/15 flex flex-col gap-xs">
+                <button 
+    id="theme-toggle" 
+    class="material-symbols-outlined text-on-surface-variant 
+           hover:bg-primary-container/10 
+           p-sm rounded-full 
+           transition-all
+           focus:outline focus:ring-8 focus:ring-primary focus:ring-offset-8
+           active:scale-95"
+    aria-label="Toggle dark mode">
+    light_mode
+</button>
+        <!-- Add Product — gradient pill, only visible when expanded -->
+        <div class="sidebar-add-btn">
+            <button class="w-full py-[10px] rounded-2xl bg-gradient-to-r from-primary to-primary-container text-on-primary text-sm font-semibold tracking-wide shadow-[0_0_20px_rgba(0,145,234,0.3)] hover:scale-[0.98] active:scale-95 transition-all">
+                + Add Product
+            </button>
+        </div>
     </div>
 </aside>
 
-<!-- Main Content Canvas -->
-<main class="md:ml-64 pt-32 px-gutter pb-xl min-h-screen">
+<!-- Theme toggle script -->
+<script>
+(function () {
+    const html   = document.documentElement;
+    const saved  = localStorage.getItem('uc-theme');
+    const prefer = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const dark   = saved ? saved === 'dark' : prefer;
+    if (dark) html.classList.add('dark');
+
+    function syncIcons() {
+        const isDark = html.classList.contains('dark');
+        const icon  = document.getElementById('theme-icon');
+        const label = document.getElementById('theme-label');
+        if (icon)  icon.textContent  = isDark ? 'dark_mode'  : 'light_mode';
+        if (label) label.textContent = isDark ? 'Dark Mode'  : 'Light Mode';
+    }
+    syncIcons();
+
+    window.ucToggleTheme = function () {
+        html.classList.toggle('dark');
+        localStorage.setItem('uc-theme', html.classList.contains('dark') ? 'dark' : 'light');
+        syncIcons();
+    };
+})();
+</script>
+
+<!-- ===================== MAIN CONTENT ===================== -->
+<!-- FIX: ml-[85px] pushes content away from the collapsed sidebar (85px wide) -->
+<main class="md:ml-[85px] pt-8 px-gutter pb-xl min-h-screen">
     <div class="max-w-7xl mx-auto">
+
         <!-- Dashboard Header & Stats -->
         <section class="mb-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-lg mb-lg">
@@ -120,11 +131,12 @@
                     </button>
                 </div>
             </div>
+
             <!-- Bento Grid Analytics -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
                 <div class="md:col-span-2 glass-card p-lg rounded-xl relative overflow-hidden group">
                     <div class="absolute top-0 right-0 p-lg opacity-10 group-hover:opacity-20 transition-opacity">
-                        <span class="material-symbols-outlined scale-[4]" data-icon="trending_up">trending_up</span>
+                        <span class="material-symbols-outlined scale-[4]">trending_up</span>
                     </div>
                     <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-md">Total Revenue</p>
                     <h3 class="font-display-xl text-display-xl text-primary">₹{{ seller_revenue }}</h3>
@@ -153,8 +165,241 @@
                 </div>
             </div>
         </section>
-        <!-- Product Upload Section -->
+        <!-- ===================== ORDERS SECTION ===================== -->
+        <section class="mt-xl mb-xl" id="orders-section">
+
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-md mb-lg">
+                <div class="flex items-center gap-md">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-[0_0_20px_rgba(0,145,234,0.25)]">
+                        <span class="material-symbols-outlined text-on-primary">receipt_long</span>
+                    </div>
+                    <div>
+                        <h2 class="font-headline-md text-headline-md text-on-surface">Incoming Orders</h2>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant">Review, update and track every buyer order</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-md">
+                    <span class="flex items-center gap-xs px-md py-xs rounded-full bg-primary/10 text-primary font-label-sm text-label-sm border border-primary/20">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse inline-block"></span>
+                        {{ seller_orders|length|default:"0" }} order{{ seller_orders|length|pluralize }}
+                    </span>
+                    <a href="#" class="text-primary font-label-sm text-label-sm hover:underline flex items-center gap-xs">
+                        View All <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Status progress legend -->
+            <div class="glass-card rounded-xl px-lg py-md mb-lg overflow-x-auto">
+                <div class="flex items-center gap-xs min-w-max">
+                    {% for step, color, icon in order_status_steps|default:"" %}{% endfor %}
+                    <!-- Static legend — always visible -->
+                    <div class="flex items-center gap-xs">
+                        <span class="w-6 h-6 rounded-full bg-tertiary/20 border border-tertiary/40 flex items-center justify-center text-tertiary text-[11px]">✓</span>
+                        <span class="text-[11px] text-on-surface-variant font-medium">Accepted</span>
+                    </div>
+                    <div class="h-px w-6 bg-outline-variant/30"></div>
+                    <div class="flex items-center gap-xs">
+                        <span class="w-6 h-6 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary text-[11px]">◎</span>
+                        <span class="text-[11px] text-on-surface-variant font-medium">Confirmed</span>
+                    </div>
+                    <div class="h-px w-6 bg-outline-variant/30"></div>
+                    <div class="flex items-center gap-xs">
+                        <span class="w-6 h-6 rounded-full bg-red-400/20 border border-red-400/40 flex items-center justify-center text-red-400 text-[11px]">✕</span>
+                        <span class="text-[11px] text-on-surface-variant font-medium">Rejected</span>
+                    </div>
+                    <div class="h-px w-6 bg-outline-variant/30"></div>
+                    <div class="flex items-center gap-xs">
+                        <span class="w-6 h-6 rounded-full bg-orange-400/20 border border-orange-400/40 flex items-center justify-center text-orange-400 text-[11px]">▣</span>
+                        <span class="text-[11px] text-on-surface-variant font-medium">Packed</span>
+                    </div>
+                    <div class="h-px w-6 bg-outline-variant/30"></div>
+                    <div class="flex items-center gap-xs">
+                        <span class="w-6 h-6 rounded-full bg-blue-400/20 border border-blue-400/40 flex items-center justify-center text-blue-400 text-[11px]">⇢</span>
+                        <span class="text-[11px] text-on-surface-variant font-medium">Shipped</span>
+                    </div>
+                    <div class="h-px w-6 bg-outline-variant/30"></div>
+                    <div class="flex items-center gap-xs">
+                        <span class="w-6 h-6 rounded-full bg-emerald-400/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-[11px]">✓✓</span>
+                        <span class="text-[11px] text-on-surface-variant font-medium">Delivered</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Cards -->
+            <div class="flex flex-col gap-lg">
+
+                {% for order in seller_orders %}
+                <div class="glass-card rounded-2xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,145,234,0.12)] transition-all duration-300 border border-outline-variant/20 hover:border-primary/25">
+
+                    <!-- Card top stripe — color-codes by status -->
+                    <div class="h-1 w-full
+                        {% if order.status == 'delivered' %}bg-gradient-to-r from-emerald-400 to-tertiary
+                        {% elif order.status == 'shipped'  %}bg-gradient-to-r from-blue-400 to-primary
+                        {% elif order.status == 'packed'   %}bg-gradient-to-r from-orange-400 to-yellow-400
+                        {% elif order.status == 'confirmed'%}bg-gradient-to-r from-primary to-primary-container
+                        {% elif order.status == 'accepted' %}bg-gradient-to-r from-tertiary to-tertiary/50
+                        {% elif order.status == 'rejected' %}bg-gradient-to-r from-red-400 to-red-300
+                        {% else %}bg-gradient-to-r from-outline-variant/50 to-outline-variant/20{% endif %}">
+                    </div>
+
+                    <div class="p-lg">
+
+                        <!-- Row 1: Order ID + status badge + date -->
+                        <div class="flex flex-wrap items-center justify-between gap-md mb-lg">
+                            <div class="flex items-center gap-md">
+                                <div class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary text-[20px]">package_2</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-on-surface-variant uppercase tracking-widest">Order ID</span>
+                                    <h4 class="font-headline-md text-body-lg text-on-surface font-bold font-mono">#{{ order.id }}</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-sm">
+                                {% if order.created_at %}
+                                <span class="text-[11px] text-on-surface-variant">{{ order.created_at|date:"d M Y" }}</span>
+                                {% endif %}
+                                <span class="px-md py-xs rounded-full text-[10px] font-bold uppercase tracking-wider border
+                                    {% if order.status == 'delivered' %}bg-emerald-400/15 text-emerald-400 border-emerald-400/30
+                                    {% elif order.status == 'shipped'  %}bg-blue-400/15 text-blue-400 border-blue-400/30
+                                    {% elif order.status == 'packed'   %}bg-orange-400/15 text-orange-400 border-orange-400/30
+                                    {% elif order.status == 'confirmed'%}bg-primary/15 text-primary border-primary/30
+                                    {% elif order.status == 'accepted' %}bg-tertiary/15 text-tertiary border-tertiary/30
+                                    {% elif order.status == 'rejected' %}bg-red-400/15 text-red-400 border-red-400/30
+                                    {% else %}bg-outline-variant/30 text-on-surface-variant border-outline-variant/30{% endif %}">
+                                    {{ order.status|default:"Pending"|capfirst }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Order details grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-md rounded-xl bg-surface-container/40 border border-outline-variant/10 p-md mb-lg">
+
+                            <div class="flex flex-col gap-[3px]">
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Product Name</span>
+                                <span class="font-body-md text-body-sm text-on-surface font-semibold truncate" title="{{ order.product.product_name }}">{{ order.product.product_name }}</span>
+                            </div>
+
+                            <div class="flex flex-col gap-[3px]">
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Product ID</span>
+                                <span class="font-mono text-body-sm text-primary font-semibold">#{{ order.product.id }}</span>
+                            </div>
+
+                            <div class="flex flex-col gap-[3px]">
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Quantity</span>
+                                <div class="flex items-center gap-xs">
+                                    <span class="font-headline-md text-body-lg text-on-surface font-bold">{{ order.quantity }}</span>
+                                    <span class="text-[10px] text-on-surface-variant">unit{{ order.quantity|pluralize }}</span>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-[3px]">
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Amount</span>
+                                <span class="font-bold text-primary text-body-lg">₹{{ order.total_amount }}</span>
+                            </div>
+
+                            <div class="flex flex-col gap-[3px]">
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Buyer ID</span>
+                                <span class="font-mono text-body-sm text-on-surface">#{{ order.buyer.id }}</span>
+                            </div>
+
+                            <div class="flex flex-col gap-[3px] col-span-2 md:col-span-3 xl:col-span-1">
+                                <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Delivery Address</span>
+                                <span class="text-[11px] text-on-surface leading-snug line-clamp-2">{{ order.delivery_address }}</span>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 3: Status action buttons -->
+                        <div class="flex flex-col gap-sm">
+                            <span class="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">Update Status</span>
+                            <div class="flex flex-wrap gap-xs">
+                                <form method="post" action="{% url 'sell:update_order_status' order.id %}" class="contents">
+                                    {% csrf_token %}
+
+                                    <button type="submit" name="status" value="accepted"
+                                        class="order-action-btn group/btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
+                                               text-tertiary border-tertiary/30 hover:bg-tertiary/15 hover:border-tertiary/50 hover:scale-105 active:scale-95
+                                               {% if order.status == 'accepted' %}!bg-tertiary/20 !border-tertiary/60 ring-1 ring-tertiary/30 shadow-[0_0_10px_rgba(0,200,120,0.2)]{% endif %}">
+                                        <span class="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[8px]">✓</span>
+                                        Accept
+                                    </button>
+
+                                    <button type="submit" name="status" value="confirmed"
+                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
+                                               text-primary border-primary/30 hover:bg-primary/15 hover:border-primary/50 hover:scale-105 active:scale-95
+                                               {% if order.status == 'confirmed' %}!bg-primary/20 !border-primary/60 ring-1 ring-primary/30 shadow-[0_0_10px_rgba(0,145,234,0.2)]{% endif %}">
+                                        <span class="material-symbols-outlined text-[13px]">task_alt</span>
+                                        Confirm
+                                    </button>
+
+                                    <button type="submit" name="status" value="rejected"
+                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
+                                               text-red-400 border-red-400/30 hover:bg-red-400/15 hover:border-red-400/50 hover:scale-105 active:scale-95
+                                               {% if order.status == 'rejected' %}!bg-red-400/20 !border-red-400/60 ring-1 ring-red-400/30 shadow-[0_0_10px_rgba(248,113,113,0.2)]{% endif %}">
+                                        <span class="material-symbols-outlined text-[13px]">cancel</span>
+                                        Reject
+                                    </button>
+
+                                    <div class="h-5 w-px bg-outline-variant/30 self-center mx-xs"></div>
+
+                                    <button type="submit" name="status" value="packed"
+                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
+                                               text-orange-400 border-orange-400/30 hover:bg-orange-400/15 hover:border-orange-400/50 hover:scale-105 active:scale-95
+                                               {% if order.status == 'packed' %}!bg-orange-400/20 !border-orange-400/60 ring-1 ring-orange-400/30 shadow-[0_0_10px_rgba(251,146,60,0.2)]{% endif %}">
+                                        <span class="material-symbols-outlined text-[13px]">inventory</span>
+                                        Packed
+                                    </button>
+
+                                    <button type="submit" name="status" value="shipped"
+                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
+                                               text-blue-400 border-blue-400/30 hover:bg-blue-400/15 hover:border-blue-400/50 hover:scale-105 active:scale-95
+                                               {% if order.status == 'shipped' %}!bg-blue-400/20 !border-blue-400/60 ring-1 ring-blue-400/30 shadow-[0_0_10px_rgba(96,165,250,0.2)]{% endif %}">
+                                        <span class="material-symbols-outlined text-[13px]">local_shipping</span>
+                                        Shipped
+                                    </button>
+
+                                    <button type="submit" name="status" value="delivered"
+                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
+                                               text-emerald-400 border-emerald-400/30 hover:bg-emerald-400/15 hover:border-emerald-400/50 hover:scale-105 active:scale-95
+                                               {% if order.status == 'delivered' %}!bg-emerald-400/20 !border-emerald-400/60 ring-1 ring-emerald-400/30 shadow-[0_0_10px_rgba(52,211,153,0.2)]{% endif %}">
+                                        <span class="material-symbols-outlined text-[13px]">verified</span>
+                                        Delivered
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Empty state -->
+                <div class="glass-card rounded-2xl p-2xl flex flex-col items-center justify-center gap-lg text-center py-16">
+                    <div class="relative">
+                        <div class="w-16 h-16 rounded-2xl bg-surface-container border border-outline-variant/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-outline text-3xl">shopping_bag</span>
+                        </div>
+                        <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary-container/30 border border-primary/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-[12px]">add</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-headline-md text-body-lg text-on-surface font-semibold">No orders yet</p>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">New orders from buyers will appear here</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </section>
+        <!-- ===================== END ORDERS SECTION ===================== -->
+
+        <!-- Product Upload + Inventory Panel -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+
             <!-- Form Section -->
             <section class="lg:col-span-2">
                 <div class="glass-card rounded-xl p-xl">
@@ -164,365 +409,214 @@
                         </div>
                         <h2 class="font-headline-md text-headline-md">New Product</h2>
                     </div>
-                    <form class="space-y-lg"
-                    method="post"
-                    action="{% url 'sell:add_product' %}"
-                    enctype="multipart/form-data">
+                    <form class="space-y-lg" method="post" action="{% url 'sell:add_product' %}" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <!-- Product Name + Metadata -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-                        <div class="flex flex-col gap-xs">
-                            <label class="font-label-sm text-label-sm text-on-surface-variant">
-                                Product Name
-                            </label>
-                            
-                            <input
-                            type="text"
-                            name="product_name"
-                            placeholder="e.g. Quantum X1 Controller"
-                            class="bg-surface-container-low border border-outline-variant/30
-                            rounded-lg px-md py-sm
-                            focus:ring-2 focus:ring-primary/20
-                            focus:border-primary outline-none
-                            transition-all font-body-md"
-                            >
-                        </div>
-                        
-                        <div class="flex flex-col gap-xs">
-                            <label class="font-label-sm text-label-sm text-on-surface-variant">
-                                Metadata About Product
-                            </label>
-                            
-                            <input
-                            type="text"
-                            name="metadata"
-                            placeholder="e.g. URB-QTX-001 | Controller"
-                            class="bg-surface-container-low border border-outline-variant/30
-                            rounded-lg px-md py-sm
-                            focus:ring-2 focus:ring-primary/20
-                            focus:border-primary outline-none
-                            transition-all font-body-md"
-                            >
-                        </div>
-                        
-                    </div>
-                    
-                    <!-- Description -->
-                    <div class="flex flex-col gap-xs">
-                        
-                        <label class="font-label-sm text-label-sm text-on-surface-variant">
-                            Description
-                        </label>
-                        
-                        <textarea
-                        rows="4"
-                        name="description"
-                        placeholder="Describe the technical specs and features..."
-                        class="bg-surface-container-low border border-outline-variant/30
-                        rounded-lg px-md py-sm
-                        focus:ring-2 focus:ring-primary/20
-                        focus:border-primary outline-none
-                        transition-all font-body-md resize-none"
-                        ></textarea>
-                        
-                    </div>
-                    
-                    <!-- Price Category Quantity -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
-                        
-                        <!-- Price -->
-                        <div class="flex flex-col gap-xs">
-                            
-                            <label class="font-label-sm text-label-sm text-on-surface-variant">
-                                Price
-                            </label>
-                            
-                            <div class="relative">
-                                
-                                <span class="absolute left-md top-1/2 -translate-y-1/2 text-outline">
-                                    ₹
-                                </span>
-                                
-                                <input
-                                type="number"
-                                step="0.01"
-                                name="price"
-                                placeholder="0.00"
-                                class="w-full bg-surface-container-low
-                                border border-outline-variant/30
-                                rounded-lg pl-xl pr-md py-sm
-                                focus:ring-2 focus:ring-primary/20
-                                focus:border-primary outline-none
-                                transition-all font-body-md"
-                                >
-                                
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Product Name</label>
+                                <input type="text" name="product_name" placeholder="e.g. Quantum X1 Controller"
+                                class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
                             </div>
-                            
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Metadata About Product</label>
+                                <input type="text" name="metadata" placeholder="e.g. URB-QTX-001 | Controller"
+                                class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                            </div>
                         </div>
-                        
-                        <!-- Category -->
+
                         <div class="flex flex-col gap-xs">
-                            
-                            <label class="font-label-sm text-label-sm text-on-surface-variant">
-                                Category
-                            </label>
-                            
-                            <select
-                            name="category"
-                            class="bg-surface-container-low border border-outline-variant/30
-                            rounded-lg px-md py-sm
-                            focus:ring-2 focus:ring-primary/20
-                            focus:border-primary outline-none
-                            transition-all font-body-md">
-                            <option value="">Category</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="camera_accessories">Camera & Accessories</option>
-                            <option value="tv_video">TV & Video</option>
-                            <option value="computers_laptops">Computers & Laptops</option>
-                            <option value="cooling_air_treatment">Cooling & Air Treatment</option>
-                            <option value="home_appliances">Home Appliances</option>
-                            <option value="health_beauty_hair">Health, Beauty & Hair</option>
-                            <option value="books">Books</option>
-                            <option value="music">Music</option>
-                            <option value="home_lifestyle">Home & Lifestyle</option>
-                            <option value="home_improvements_tools">Home Improvements Tools</option>
-                            <option value="women_style">Women's Style</option>
-                            <option value="mens_style">Men's Style</option>
-                            <option value="watches_glasses">Watches & Glasses</option>
-                            <option value="sports_outdoors">Sports & Outdoors</option>
-                            <option value="entertainment">Entertainment</option>
-                            
-                        </select>
-                        
-                    </div>
-                    
-                    <!-- Quantity -->
-                    <div class="flex flex-col gap-xs">
-                        
-                        <label class="font-label-sm text-label-sm text-on-surface-variant">
-                            Quantity
-                        </label>
-                        
-                        <input
-                        type="number"
-                        name="quantity"
-                        placeholder="100"
-                        class="bg-surface-container-low border border-outline-variant/30
-                        rounded-lg px-md py-sm
-                        focus:ring-2 focus:ring-primary/20
-                        focus:border-primary outline-none
-                        transition-all font-body-md"
-                        >
-                        
-                    </div>
-                    
-                </div>
-                
-                <!-- Product Images -->
-                <div class="flex flex-col gap-xs">
-                    
-                    <label class="font-label-sm text-label-sm text-on-surface-variant">
-                        Product Images (Maximum 4)
-                    </label>
-                    
-                    <div class="relative border border-dashed border-outline rounded-xl
-                    bg-surface-container p-lg
-                    hover:border-primary/50
-                    transition-all duration-300">
-                    
-                    <input
-                    type="file"
-                    name="product_images"
-                    multiple
-                    accept="image/*"
-                    class="w-full text-sm text-on-surface-variant
-                    file:mr-4 file:px-md file:py-sm
-                    file:rounded-lg file:border-0
-                    file:bg-primary file:text-on-primary
-                    file:font-semibold
-                    hover:file:opacity-90
-                    cursor-pointer"
-                    >
-                    
-                    <p class="text-xs text-outline mt-sm">
-                        JPG, JPEG, PNG, SVG, GIF allowed • Maximum 4 images
-                    </p>
-                    
-                </div>
-                
-            </div>
-            
-            <!-- Optional Product Details -->
-            <div class="bg-surface-container-low border border-outline-variant/30
-            rounded-xl p-lg space-y-lg">
-            
-            <div class="flex items-center justify-between">
-                
-                <div>
-                    <h3 class="font-headline-md text-on-surface">
-                        Optional Product Details
-                    </h3>
-                    
-                    <p class="text-sm text-on-surface-variant mt-1">
-                        Add customization requirements and showcase your product.
-                    </p>
-                </div>
-                
-                <div class="h-10 w-10 rounded-lg bg-primary/10
-                border border-primary/20
-                flex items-center justify-center
-                shadow-[0_0_12px_rgba(0,145,234,0.2)]">
-                
-                <span class="text-primary text-xl">+</span>
-                
-            </div>
-            
-        </div>
-        
-        <!-- Color + Size -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-            
-            <div class="flex flex-col gap-xs">
-                
-                <label class="font-label-sm text-label-sm text-on-surface-variant">
-                    Product Color (Optional)
-                </label>
-                
-                <input
-                type="text"
-                name="color"
-                placeholder="e.g. Black, Blue, Silver"
-                class="bg-surface-container-low border border-outline-variant/30
-                rounded-lg px-md py-sm
-                focus:ring-2 focus:ring-primary/20
-                focus:border-primary outline-none
-                transition-all font-body-md"
-                >
-                
-            </div>
-            
-            <div class="flex flex-col gap-xs">
-                
-                <label class="font-label-sm text-label-sm text-on-surface-variant">
-                    Product Size (Optional)
-                </label>
-                
-                <input
-                type="text"
-                name="size"
-                placeholder="e.g. XL, 42, Medium"
-                class="bg-surface-container-low border border-outline-variant/30
-                rounded-lg px-md py-sm
-                focus:ring-2 focus:ring-primary/20
-                focus:border-primary outline-none
-                transition-all font-body-md"
-                >
-                
-            </div>
-            
-        </div>
-        
-        <!-- Requirements -->
-        <div class="flex flex-col gap-xs">
-            
-            <label class="font-label-sm text-label-sm text-on-surface-variant">
-                Additional Requirements (Optional)
-            </label>
-            
-            <textarea
-            rows="4"
-            name="requirements"
-            placeholder="Any additional instructions or requirements for the buyer..."
-            class="bg-surface-container-low border border-outline-variant/30
-            rounded-xl px-md py-sm
-            focus:ring-2 focus:ring-primary/20
-            focus:border-primary outline-none
-            transition-all font-body-md resize-none"
-            ></textarea>
-            
-        </div>
-        
-    </div>
-    
-    <!-- Submit Button -->
-    <div class="flex justify-end pt-md">
-        
-        <button
-        type="submit"
-        class="group relative overflow-hidden
-        bg-primary text-on-primary
-        px-xl py-sm rounded-lg
-        font-semibold tracking-wide
-        border border-primary/30
-        transition-all duration-300
-        hover:scale-[1.02]
-        hover:shadow-[0_0_20px_rgba(0,145,234,0.35)]
-        active:scale-[0.98]">
-        
-        <span class="relative z-10 flex items-center gap-sm">
-            <span>+</span>
-            Add Item
-        </span>
-        
-        <div class="absolute inset-0
-        bg-gradient-to-r
-        from-primary via-primary-container to-primary
-        opacity-0 group-hover:opacity-100
-        transition-opacity duration-500">
-    </div>
-    
-</button>
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">Description</label>
+                            <textarea rows="4" name="description" placeholder="Describe the technical specs and features..."
+                            class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md resize-none"></textarea>
+                        </div>
 
-</div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Price</label>
+                                <div class="relative">
+                                    <span class="absolute left-md top-1/2 -translate-y-1/2 text-outline">₹</span>
+                                    <input type="number" step="0.01" name="price" placeholder="0.00"
+                                    class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg pl-xl pr-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Category</label>
+                                <select name="category" class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                                    <option value="">Category</option>
+                                    <option value="electronics">Electronics</option>
+                                    <option value="camera_accessories">Camera & Accessories</option>
+                                    <option value="tv_video">TV & Video</option>
+                                    <option value="computers_laptops">Computers & Laptops</option>
+                                    <option value="cooling_air_treatment">Cooling & Air Treatment</option>
+                                    <option value="home_appliances">Home Appliances</option>
+                                    <option value="health_beauty_hair">Health, Beauty & Hair</option>
+                                    <option value="books">Books</option>
+                                    <option value="music">Music</option>
+                                    <option value="home_lifestyle">Home & Lifestyle</option>
+                                    <option value="home_improvements_tools">Home Improvements Tools</option>
+                                    <option value="women_style">Women's Style</option>
+                                    <option value="mens_style">Men's Style</option>
+                                    <option value="watches_glasses">Watches & Glasses</option>
+                                    <option value="sports_outdoors">Sports & Outdoors</option>
+                                    <option value="entertainment">Entertainment</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Quantity</label>
+                                <input type="number" name="quantity" placeholder="100"
+                                class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                            </div>
+                        </div>
 
-</form>
-</div>
-</section>
+                        <div class="flex flex-col gap-xs">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">Product Images (Maximum 4)</label>
+                            <div class="relative border border-dashed border-outline rounded-xl bg-surface-container p-lg hover:border-primary/50 transition-all duration-300">
+                                <input type="file" name="product_images" multiple accept="image/*"
+                                class="w-full text-sm text-on-surface-variant file:mr-4 file:px-md file:py-sm file:rounded-lg file:border-0 file:bg-primary file:text-on-primary file:font-semibold hover:file:opacity-90 cursor-pointer">
+                                <p class="text-xs text-outline mt-sm">JPG, JPEG, PNG, SVG, GIF allowed • Maximum 4 images</p>
+                            </div>
+                        </div>
 
-    <!-- Image Grid Upload -->
-    <section class="lg:col-span-1">
-        <div class="glass-card rounded-xl p-xl h-full flex flex-col">
-            <div class="flex items-center gap-md mb-lg">
-                        <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined">image</span>
+                        <div class="bg-surface-container-low border border-outline-variant/30 rounded-xl p-lg space-y-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-headline-md text-on-surface">Optional Product Details</h3>
+                                    <p class="text-sm text-on-surface-variant mt-1">Add customization requirements.</p>
+                                </div>
+                                <div class="h-10 w-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shadow-[0_0_12px_rgba(0,145,234,0.2)]">
+                                    <span class="text-primary text-xl">+</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                                <div class="flex flex-col gap-xs">
+                                    <label class="font-label-sm text-label-sm text-on-surface-variant">Product Color (Optional)</label>
+                                    <input type="text" name="color" placeholder="e.g. Black, Blue, Silver"
+                                    class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                                </div>
+                                <div class="flex flex-col gap-xs">
+                                    <label class="font-label-sm text-label-sm text-on-surface-variant">Product Size (Optional)</label>
+                                    <input type="text" name="size" placeholder="e.g. XL, 42, Medium"
+                                    class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md">
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-xs">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">Additional Requirements (Optional)</label>
+                                <textarea rows="4" name="requirements" placeholder="Any additional instructions or requirements for the buyer..."
+                                class="bg-surface-container-low border border-outline-variant/30 rounded-xl px-md py-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md resize-none"></textarea>
+                            </div>
                         </div>
-                        <h2 class="font-headline-md text-headline-md">Top Producrs</h2>
-                    </div>
-                    <div class="grid grid-cols-2 gap-md flex-grow">
-                        <!-- Main Large Upload -->
-                        <div class="col-span-2 aspect-video bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex flex-col items-center justify-center cursor-pointer group">
-                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[48px]">add_a_photo</span>
-                            <p class="font-label-sm text-label-sm text-on-surface-variant mt-sm">Primary Product Node</p>
+
+                        <div class="flex justify-end pt-md">
+                            <button type="submit"
+                            class="group relative overflow-hidden bg-primary text-on-primary px-xl py-sm rounded-lg font-semibold tracking-wide border border-primary/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,145,234,0.35)] active:scale-[0.98]">
+                                <span class="relative z-10 flex items-center gap-sm">
+                                    <span>+</span> Add Item
+                                </span>
+                                <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary-container to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            </button>
                         </div>
-                        <!-- Small Uploads -->
-                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
-                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
-                        </div>
-                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
-                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
-                        </div>
-                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
-                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
-                        </div>
-                        <div class="aspect-square bg-surface-container-high rounded-xl border-2 border-dashed border-outline-variant hover:border-primary transition-colors flex items-center justify-center cursor-pointer group">
-                            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">add</span>
-                        </div>
-                    </div>
-                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-md text-center">Upload high-resolution images for optimal 3D rendering.</p>
+                    </form>
                 </div>
             </section>
+
+            <!-- ===================== INVENTORY PANEL ===================== -->
+            <section class="lg:col-span-1">
+                <div class="glass-card rounded-xl p-xl h-full flex flex-col">
+
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-lg">
+                        <div class="flex items-center gap-md">
+                            <div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined">warehouse</span>
+                            </div>
+                            <h2 class="font-headline-md text-headline-md">Inventory</h2>
+                        </div>
+                        <a href="#" class="text-primary font-label-sm text-label-sm hover:underline flex items-center gap-xs">
+                            View All
+                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                        </a>
+                    </div>
+
+                    <!-- Column Labels -->
+                    <div class="grid grid-cols-12 gap-xs px-sm mb-sm">
+                        <span class="col-span-5 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px]">Product</span>
+                        <span class="col-span-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px] text-center">Qty</span>
+                        <span class="col-span-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px] text-right">Price</span>
+                    </div>
+
+                    <!-- Inventory Rows — Django loop -->
+                    <div class="flex flex-col gap-xs flex-grow overflow-y-auto max-h-[420px] pr-xs inventory-scroll">
+
+                        {% for product in seller_products %}
+                        <div class="grid grid-cols-12 gap-xs items-center px-sm py-md rounded-xl hover:bg-primary-container/10 transition-colors group">
+
+                            <!-- Name + category badge -->
+                            <div class="col-span-5 flex flex-col gap-[2px] min-w-0">
+                                <span class="font-body-md text-body-sm text-on-surface truncate leading-tight">{{ product.product_name }}</span>
+                                <span class="text-[10px] text-on-surface-variant opacity-60 truncate">{{ product.category }}</span>
+                            </div>
+
+                            <!-- Quantity with stock indicator -->
+                            <div class="col-span-3 flex flex-col items-center gap-[3px]">
+                                <span class="font-headline-md text-body-md text-on-surface font-semibold">{{ product.quantity }}</span>
+                                <div class="w-full h-[3px] rounded-full overflow-hidden bg-surface-container">
+                                    {% if product.quantity > 50 %}
+                                        <div class="bg-tertiary h-full w-full"></div>
+                                    {% elif product.quantity > 10 %}
+                                        <div class="bg-yellow-400 h-full w-2/3"></div>
+                                    {% else %}
+                                        <div class="bg-red-400 h-full w-1/4"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Price -->
+                            <div class="col-span-4 text-right">
+                                <span class="font-display-xl text-body-md text-primary font-bold">₹{{ product.price }}</span>
+                            </div>
+
+                        </div>
+                        <!-- Divider -->
+                        <div class="h-px bg-outline-variant/15 mx-sm"></div>
+                        {% empty %}
+                        <!-- Empty state -->
+                        <div class="flex flex-col items-center justify-center py-xl gap-md flex-grow text-center">
+                            <div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center">
+                                <span class="material-symbols-outlined text-outline text-3xl">inventory_2</span>
+                            </div>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant">No products yet.<br>Add your first item!</p>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Footer total count -->
+                    {% if seller_products %}
+                    <div class="mt-md pt-md border-t border-outline-variant/20 flex justify-between items-center">
+                        <span class="text-[11px] text-on-surface-variant">{{ seller_products|length }} product{{ seller_products|length|pluralize }} listed</span>
+                        <a href="#" class="flex items-center gap-xs text-primary font-label-sm text-label-sm hover:underline">
+                            <span class="material-symbols-outlined text-[15px]">open_in_new</span>
+                            Manage All
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </section>
+            <!-- ===================== END INVENTORY ===================== -->
+
         </div>
+
         <!-- Recent Listings Management -->
         <section class="mt-xl">
             <div class="flex items-center justify-between mb-lg">
                 <h2 class="font-headline-md text-headline-md text-on-surface">Listing Management</h2>
-                <a class="text-primary font-label-sm text-label-sm hover:underline" href="#">View All Clusters</a>
+                <a class="text-primary font-label-sm text-label-sm hover:underline" href="#">View All</a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
-                <!-- Product Card 1 -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                     <div class="h-48 overflow-hidden relative">
-                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-performance luxury tech accessory placed on a sleek glass surface with soft peripheral blue lighting. The design is modern and minimalist with clean lines and premium metallic finishes, captured in a bright studio environment with a light-mode aesthetic and professional product photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-6SNKSKE_03tBuHDo1wuUMN50RntFvAcXJ-jig_IBeMnyY-Xh2mL2y0o7IgzZjR6MNB8_g-Jl0_wQFZsVNNqvubVNaioIockusLmsSAX6mkKE7xYLOfxBkqyD71bFIbrWrKwTxyMstZEAlKVyu-jbiZs9t4a-t7OMUgFqFm91BaQUW-xKimSDr0l_kitc2oacpphl-mk7BTviUbLrauJhW2N0JscvPjB2OJtWtQeS_wF3cNdNCUXpzCOCUVJVS9tPcQBSORjN7HEi"/>
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-6SNKSKE_03tBuHDo1wuUMN50RntFvAcXJ-jig_IBeMnyY-Xh2mL2y0o7IgzZjR6MNB8_g-Jl0_wQFZsVNNqvubVNaioIockusLmsSAX6mkKE7xYLOfxBkqyD71bFIbrWrKwTxyMstZEAlKVyu-jbiZs9t4a-t7OMUgFqFm91BaQUW-xKimSDr0l_kitc2oacpphl-mk7BTviUbLrauJhW2N0JscvPjB2OJtWtQeS_wF3cNdNCUXpzCOCUVJVS9tPcQBSORjN7HEi" alt="Titanium Series Watch">
                         <div class="absolute top-sm right-sm bg-primary text-on-primary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Active</div>
                     </div>
                     <div class="p-md">
@@ -538,10 +632,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Product Card 2 -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                     <div class="h-48 overflow-hidden relative">
-                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Premium wireless noise-cancelling headphones resting on a minimalist desk within a brightly lit home office. The image has a high-key, modern aesthetic with soft shadows and a cool-toned color palette. The product features a sleek matte finish and ergonomic design, presented in a clean and sophisticated commercial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyLP_h7KALiLQ8UWgs2xoApS1uJQwgMrXIMWvwlhvZwDbFh9n5wSFfDtUYUxpMDZKFPAANq-Wx10fTNLzn7spGXkU2OmiYjETkbNR_ouTMvhpAL6LBvXg9j-xxjI4BKQwy2Da9XjbypY4FgrhEaVRzhi24lBBkNL1yA_QADHcNXS0ZvPy1SSnwB3NS4iECVufb7zuDpGYWb3SBB0lg4l_XjwZxWiZy6KcR4Qblqy90SjJ94lxpA45-foYQ576c6xpKsDE6eJSaJkph"/>
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyLP_h7KALiLQ8UWgs2xoApS1uJQwgMrXIMWvwlhvZwDbFh9n5wSFfDtUYUxpMDZKFPAANq-Wx10fTNLzn7spGXkU2OmiYjETkbNR_ouTMvhpAL6LBvXg9j-xxjI4BKQwy2Da9XjbypY4FgrhEaVRzhi24lBBkNL1yA_QADHcNXS0ZvPy1SSnwB3NS4iECVufb7zuDpGYWb3SBB0lg4l_XjwZxWiZy6KcR4Qblqy90SjJ94lxpA45-foYQ576c6xpKsDE6eJSaJkph" alt="Aura Studio Headphones">
                         <div class="absolute top-sm right-sm bg-tertiary text-on-tertiary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Low Stock</div>
                     </div>
                     <div class="p-md">
@@ -557,10 +650,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Product Card 3 -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                     <div class="h-48 overflow-hidden relative">
-                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="An elegant, futuristic digital timepiece displayed against a backdrop of abstract geometric patterns. The lighting is soft and diffused, creating a serene and technologically advanced atmosphere. The watch features a transparent interface and glowing blue elements, embodying a sophisticated light-mode UI aesthetic with precision and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyRcrKckaIXEBXLsuhB5jpBkeqiLbnpzZbdvX4r2jjUpA6oZpFx7BQvUcCvcyeuNlTvzZFEd8ydBvcCQ89tIS5UcJ2S7TKRd6sMMYboFN8X8bJW5pDp8pKXJ5XjoDcwYkWXTRYdSjnrB9RG_2wyeML2CkZ3J9Dd70f7g7g2Y9DYcOW9kwKpFSc1zS6NvzcFTXUEo2qfT9CZdPzEkt7wLRMX7OWodITRgBzVNQuzHe_jgCPZEqWvuhw__RETa7OiAGdHbb2XM9Rk_AH"/>
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyRcrKckaIXEBXLsuhB5jpBkeqiLbnpzZbdvX4r2jjUpA6oZpFx7BQvUcCvcyeuNlTvzZFEd8ydBvcCQ89tIS5UcJ2S7TKRd6sMMYboFN8X8bJW5pDp8pKXJ5XjoDcwYkWXTRYdSjnrB9RG_2wyeML2CkZ3J9Dd70f7g7g2Y9DYcOW9kwKpFSc1zS6NvzcFTXUEo2qfT9CZdPzEkt7wLRMX7OWodITRgBzVNQuzHe_jgCPZEqWvuhw__RETa7OiAGdHbb2XM9Rk_AH" alt="Neon Grid Watch">
                         <div class="absolute top-sm right-sm bg-primary text-on-primary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Active</div>
                     </div>
                     <div class="p-md">
@@ -576,10 +668,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Product Card 4 -->
                 <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300">
                     <div class="h-48 overflow-hidden relative">
-                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A sleek, ergonomic gaming mouse with vibrant customizable LED accents in blue and coral. The product is shown from a dynamic angle on a high-tech gaming mat. The lighting is crisp and modern, emphasizing the product's textured grip and precision engineering. The background is a blurred high-end setup, maintaining a bright and professional dashboard feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0kkznUkrBSQyImy8vxXVTHND2yQI_UeAMjt9M5bTiNKZq4Dr5G0fEz_T8_Ml7_lhame5XNLF_6W6g06sRw-O2tuf6TyPZXqWzk7kRcmvaYkWF4y4X81dSZcBluBxnziwTIBAhfXvP-Qn8y_DI2rZnRpJ4nuA9Z2-zkC_SqFIP8yBU0MqMaxoYdvKLpdwYKqOiSwxLnwZq28C19-glVm8I3fEddhLfFZEYIhUhWljmi8FSmj37lKrjGw2Bg6ccgYj6JzWHeKf0Hv3U"/>
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0kkznUkrBSQyImy8vxXVTHND2yQI_UeAMjt9M5bTiNKZq4Dr5G0fEz_T8_Ml7_lhame5XNLF_6W6g06sRw-O2tuf6TyPZXqWzk7kRcmvaYkWF4y4X81dSZcBluBxnziwTIBAhfXvP-Qn8y_DI2rZnRpJ4nuA9Z2-zkC_SqFIP8yBU0MqMaxoYdvKLpdwYKqOiSwxLnwZq28C19-glVm8I3fEddhLfFZEYIhUhWljmi8FSmj37lKrjGw2Bg6ccgYj6JzWHeKf0Hv3U" alt="Nexus M-1 Mouse">
                         <div class="absolute top-sm right-sm bg-outline text-on-secondary px-sm py-xs rounded text-[10px] font-bold uppercase tracking-widest">Draft</div>
                     </div>
                     <div class="p-md">
@@ -597,6 +688,10 @@
                 </div>
             </div>
         </section>
+
+        
+
     </div>
 </main>
+
 {% endblock %}

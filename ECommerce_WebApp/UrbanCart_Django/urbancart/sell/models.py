@@ -18,17 +18,17 @@ upi_validator = RegexValidator(
 )
 
 def seller_verification_path(instance,filename):
-    return f'seller/{instance.seller_id.seller_id}/seller_verify/{filename}'
+    return f'seller/{instance.seller_id}/seller_verify/{filename}'
 
 def seller_qr_path(instance,filename):
-    return f'seller/{instance.seller_id.seller_id}/seller_qr/{filename}'
+    return f'seller/{instance.seller_id}/seller_qr/{filename}'
 
 class Seller_Info(models.Model):
     seller_user=models.OneToOneField(User,on_delete=models.CASCADE)
-    seller_id=models.CharField(max_length=7,primary_key=True)
+    seller_id=models.CharField(max_length=8,primary_key=True)
     seller_first_name=models.CharField(max_length=100,default="NA")
     seller_last_name=models.CharField(max_length=100)
-    seller_username=models.CharField(max_length=10,blank=True)
+    seller_username=models.CharField(max_length=50,blank=True)
     seller_contact=PhoneNumberField()
     seller_email_id=models.EmailField(blank=True)
     seller_verification=models.FileField(upload_to=seller_verification_path,validators=[validate_pdf])

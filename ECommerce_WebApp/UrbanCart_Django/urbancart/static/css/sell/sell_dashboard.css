@@ -11,31 +11,179 @@
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-.circuit-line {
-    position: relative;
-}
-
+.circuit-line { position: relative; }
 .circuit-line::after {
     content: '';
     position: absolute;
     background: #bfc7d4;
     opacity: 0.3;
 }
-
-.circuit-h::after {
-    height: 1px;
-    width: 40px;
-    top: 50%;
-    left: -40px;
-}
-
-.circuit-v::after {
-    width: 1px;
-    height: 40px;
-    left: 50%;
-    top: -40px;
-}
+.circuit-h::after { height: 1px; width: 40px; top: 50%; left: -40px; }
+.circuit-v::after { width: 1px; height: 40px; left: 50%; top: -40px; }
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ── SIDEBAR ────────────────────────────────────────── */
+
+.seller-sidebar {
+    width: 72px;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+.seller-sidebar:hover {
+    width: 260px;
+}
+
+/*
+  Sidebar text: zero-width clip so it takes NO layout space when hidden.
+  This prevents any text from bleeding through the 72px collapsed sidebar.
+*/
+.sidebar-text {
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
+}
+.seller-sidebar:hover .sidebar-text {
+    max-width: 200px;
+    opacity: 1;
+}
+
+/* Icon: never shrinks, always 24px */
+.seller-sidebar .material-symbols-outlined {
+    min-width: 24px;
+    width: 24px;
+    flex-shrink: 0;
+}
+
+/* ── LOGO ROW ────────────────────────────────────────── */
+/*
+  Remove any outer padding and center purely in CSS so the logo
+  sits at the exact same horizontal position as nav icons.
+*/
+.seller-sidebar .sidebar-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* centred at 72px */
+    padding: 0;
+    gap: 0;
+    margin-bottom: 24px;
+    transition: justify-content 0s, padding 0.3s ease, gap 0.3s ease;
+}
+.seller-sidebar:hover .sidebar-logo-row {
+    justify-content: flex-start;
+    padding: 0 16px;
+    gap: 12px;
+}
+
+/* ── NAV LINKS ───────────────────────────────────────── */
+/*
+  Collapsed: 44×44 square, perfectly centred in the 72px rail.
+  The square is the clickable/hoverable hit area AND the rounded highlight.
+  No stray padding pushing the icon off-axis.
+*/
+.seller-sidebar nav a {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1),
+                height 0.35s cubic-bezier(0.4,0,0.2,1),
+                padding 0.35s cubic-bezier(0.4,0,0.2,1),
+                margin 0.35s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.25s ease,
+                background 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+/* Expanded: full-width row */
+.seller-sidebar:hover nav a {
+    width: 100%;
+    height: auto;
+    padding: 10px 14px;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 16px;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+/* ── BOTTOM AREA ─────────────────────────────────────── */
+/*
+  Theme toggle and Add Product button share the same
+  collapsed-square / expanded-row treatment as nav links.
+*/
+.sidebar-icon-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1),
+                height 0.35s cubic-bezier(0.4,0,0.2,1),
+                padding 0.35s cubic-bezier(0.4,0,0.2,1),
+                margin 0.35s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.25s ease,
+                background 0.2s ease,
+                color 0.2s ease;
+}
+.seller-sidebar:hover .sidebar-icon-btn {
+    width: 100%;
+    height: auto;
+    padding: 10px 14px;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 16px;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+/* Add Product: full-width gradient pill, only shown when expanded */
+.sidebar-add-btn {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+.seller-sidebar:hover .sidebar-add-btn {
+    max-height: 80px;
+    opacity: 1;
+}
+
+/* ── MAIN CONTENT ────────────────────────────────────── */
+/* Sidebar is fixed + z-50, so it overlays on hover — no layout shift needed. */
+
+/* ── FOOTER FIX ──────────────────────────────────────── */
+@media (min-width: 768px) {
+    footer { margin-left: 85px; }
+}
+
+/* ── INVENTORY SCROLL ────────────────────────────────── */
+.inventory-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,145,234,0.2) transparent;
+}
+.inventory-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+.inventory-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0,145,234,0.25);
+    border-radius: 99px;
+}
+.inventory-scroll::-webkit-scrollbar-track {
+    background: transparent;
 }
