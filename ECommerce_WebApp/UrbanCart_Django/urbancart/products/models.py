@@ -7,7 +7,7 @@ def validate_img(file):
         raise ValidationError("Only Image File Format (png/jpg/jpeg/svg/gif) Allowed")
     
 def product_image_path(instance, filename):
-    return f'product/{instance.seller_id.seller_id}/{instance.product_id}/{filename}'
+    return f'product/{instance.product.seller.seller_id}/{instance.product_id}/{filename}'
 
 
 class Product(models.Model):

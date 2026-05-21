@@ -1,7 +1,7 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
-{% block title %}Sell | Dashboard{% endblock %}
+{% block title %}Seller | Dashboard{% endblock %}
 
 {% block head %}
     <link href="{% static 'css/sell/sell_dashboard.css' %}" rel="stylesheet">
@@ -47,6 +47,10 @@
         <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">settings</span>
             <span class="sidebar-text font-label-sm">Settings</span>
+        </a>
+        <a href="{% url 'home:logout' %}" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
+            <span class="material-symbols-outlined">logout</span>
+            <span class="sidebar-text font-label-sm">Logout</span>
         </a>
     </nav>
     <!-- Bottom: theme toggle + add product -->
@@ -460,20 +464,19 @@
                         <span class="col-span-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px] text-right">Price</span>
                     </div>
                     <div class="flex flex-col gap-xs flex-grow overflow-y-auto max-h-[420px] pr-xs inventory-scroll">
-                        {% for product in seller_products %}
+                        {% for item in inventory %}
                         <div class="grid grid-cols-12 gap-xs items-center px-sm py-md rounded-xl hover:bg-primary-container/10 transition-colors group">
-                            <!-- Name + category badge -->
+                            <!-- Name -->
                             <div class="col-span-5 flex flex-col gap-[2px] min-w-0">
-                                <span class="font-body-md text-body-sm text-on-surface truncate leading-tight">{{ product.product_name }}</span>
-                                <span class="text-[10px] text-on-surface-variant opacity-60 truncate">{{ product.category }}</span>
+                                <span class="font-body-md text-body-sm text-on-surface truncate leading-tight">{{ item.product.product_name }}</span>
                             </div>
                             <!-- Quantity with stock indicator -->
                             <div class="col-span-3 flex flex-col items-center gap-[3px]">
-                                <span class="font-headline-md text-body-md text-on-surface font-semibold">{{ product.quantity }}</span>
+                                <span class="font-headline-md text-body-md text-on-surface font-semibold">{{ item.quantity }}</span>
                                 <div class="w-full h-[3px] rounded-full overflow-hidden bg-surface-container">
-                                    {% if product.quantity > 50 %}
+                                    {% if item.quantity > 50%}
                                         <div class="bg-tertiary h-full w-full"></div>
-                                    {% elif product.quantity > 10 %}
+                                    {% elif item.quantity > 10%}
                                         <div class="bg-yellow-400 h-full w-2/3"></div>
                                     {% else %}
                                         <div class="bg-red-400 h-full w-1/4"></div>
@@ -482,7 +485,7 @@
                             </div>
                             <!-- Price -->
                             <div class="col-span-4 text-right">
-                                <span class="font-display-xl text-body-md text-primary font-bold">₹{{ product.price }}</span>
+                                <span class="font-display-xl text-body-md text-primary font-bold">₹{{ item.amount }}</span>
                             </div>
                         </div>
                         <!-- Divider -->
@@ -497,16 +500,6 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <!-- Footer total count -->
-                    {% if seller_products %}
-                    <div class="mt-md pt-md border-t border-outline-variant/20 flex justify-between items-center">
-                        <span class="text-[11px] text-on-surface-variant">{{ seller_products|length }} product{{ seller_products|length|pluralize }} listed</span>
-                        <a href="#" class="flex items-center gap-xs text-primary font-label-sm text-label-sm hover:underline">
-                            <span class="material-symbols-outlined text-[15px]">open_in_new</span>
-                            Manage All
-                        </a>
-                    </div>
-                    {% endif %}
                 </div>
             </section>
         </div>

@@ -53,3 +53,11 @@ class SellingLog(models.Model):
 
     def __str__(self):
         return f"{self.order_id}"
+    
+class Inventory(models.Model):
+    product=models.ForeignKey('products.Product',on_delete=models.CASCADE)
+    quantity=models.IntegerField()
+    amount=models.DecimalField(max_digits=15,decimal_places=3)
+
+    def __str__(self):
+        return f"{self.product}"
