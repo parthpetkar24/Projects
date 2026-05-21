@@ -10,11 +10,7 @@
 {% block navbar %}{% endblock %}
 
 {% block body %}
-
-<!-- ===================== SIDEBAR ===================== -->
 <aside class="seller-sidebar fixed left-0 top-0 h-full z-50 hidden md:flex flex-col pt-6 pb-lg bg-surface-container-low/95 backdrop-blur-2xl border-r border-outline-variant/20 shadow-xl">
-
-    <!-- Logo row: CSS handles centred → left-align on expand -->
     <div class="sidebar-logo-row mb-xl">
         <a href="{% url 'home:homepage' %}" class="flex-shrink-0">
             <img src="{% static 'img/uclogo.png' %}" class="h-8 w-8 object-contain mix-blend-multiply dark:hidden" alt="UrbanCart">
@@ -22,59 +18,40 @@
         </a>
         <span class="sidebar-text font-bold text-primary text-lg tracking-tight">UrbanCart</span>
     </div>
-
-    <!-- Navigation: CSS turns each <a> into a 44×44 centred square when collapsed -->
     <nav class="flex flex-col gap-xs flex-grow px-md">
         <a href="{% url 'sell:seller_dashboard' %}"
            class="bg-primary-container/20 text-primary border border-primary/20 shadow-[0_0_15px_rgba(0,145,234,0.15)]">
             <span class="material-symbols-outlined">dashboard</span>
             <span class="sidebar-text font-label-sm">Dashboard</span>
         </a>
-
         <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">inventory_2</span>
             <span class="sidebar-text font-label-sm">Inventory</span>
         </a>
-
         <a href="#orders-section" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">shopping_bag</span>
             <span class="sidebar-text font-label-sm">Orders</span>
         </a>
-
         <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">analytics</span>
             <span class="sidebar-text font-label-sm">Analytics</span>
         </a>
-
         <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">groups</span>
             <span class="sidebar-text font-label-sm">Customers</span>
         </a>
-
         <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">payments</span>
             <span class="sidebar-text font-label-sm">Revenue</span>
         </a>
-
         <a href="#" class="text-on-surface-variant hover:bg-primary-container/10 hover:text-primary">
             <span class="material-symbols-outlined">settings</span>
             <span class="sidebar-text font-label-sm">Settings</span>
         </a>
     </nav>
-
     <!-- Bottom: theme toggle + add product -->
     <div class="px-md mt-auto pt-md border-t border-outline-variant/15 flex flex-col gap-xs">
-                <button 
-    id="theme-toggle" 
-    class="material-symbols-outlined text-on-surface-variant 
-           hover:bg-primary-container/10 
-           p-sm rounded-full 
-           transition-all
-           focus:outline focus:ring-8 focus:ring-primary focus:ring-offset-8
-           active:scale-95"
-    aria-label="Toggle dark mode">
-    light_mode
-</button>
+        <button  id="theme-toggle"  class="material-symbols-outlined text-on-surface-variant  hover:bg-primary-container/10  p-sm rounded-full  transition-all focus:outline focus:ring-8 focus:ring-primary focus:ring-offset-8 active:scale-95" aria-label="Toggle dark mode"> light_mode</button>
         <!-- Add Product — gradient pill, only visible when expanded -->
         <div class="sidebar-add-btn">
             <button class="w-full py-[10px] rounded-2xl bg-gradient-to-r from-primary to-primary-container text-on-primary text-sm font-semibold tracking-wide shadow-[0_0_20px_rgba(0,145,234,0.3)] hover:scale-[0.98] active:scale-95 transition-all">
@@ -83,8 +60,6 @@
         </div>
     </div>
 </aside>
-
-<!-- Theme toggle script -->
 <script>
 (function () {
     const html   = document.documentElement;
@@ -110,11 +85,9 @@
 })();
 </script>
 
-<!-- ===================== MAIN CONTENT ===================== -->
-<!-- FIX: ml-[85px] pushes content away from the collapsed sidebar (85px wide) -->
+
 <main class="md:ml-[85px] pt-8 px-gutter pb-xl min-h-screen">
     <div class="max-w-7xl mx-auto">
-
         <!-- Dashboard Header & Stats -->
         <section class="mb-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-lg mb-lg">
@@ -131,7 +104,6 @@
                     </button>
                 </div>
             </div>
-
             <!-- Bento Grid Analytics -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
                 <div class="md:col-span-2 glass-card p-lg rounded-xl relative overflow-hidden group">
@@ -165,9 +137,7 @@
                 </div>
             </div>
         </section>
-        <!-- ===================== ORDERS SECTION ===================== -->
         <section class="mt-xl mb-xl" id="orders-section">
-
             <!-- Section Header -->
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-md mb-lg">
                 <div class="flex items-center gap-md">
@@ -189,12 +159,10 @@
                     </a>
                 </div>
             </div>
-
             <!-- Status progress legend -->
             <div class="glass-card rounded-xl px-lg py-md mb-lg overflow-x-auto">
                 <div class="flex items-center gap-xs min-w-max">
                     {% for step, color, icon in order_status_steps|default:"" %}{% endfor %}
-                    <!-- Static legend — always visible -->
                     <div class="flex items-center gap-xs">
                         <span class="w-6 h-6 rounded-full bg-tertiary/20 border border-tertiary/40 flex items-center justify-center text-tertiary text-[11px]">✓</span>
                         <span class="text-[11px] text-on-surface-variant font-medium">Accepted</span>
@@ -226,14 +194,9 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Order Cards -->
             <div class="flex flex-col gap-lg">
-
                 {% for order in seller_orders %}
                 <div class="glass-card rounded-2xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,145,234,0.12)] transition-all duration-300 border border-outline-variant/20 hover:border-primary/25">
-
-                    <!-- Card top stripe — color-codes by status -->
                     <div class="h-1 w-full
                         {% if order.status == 'delivered' %}bg-gradient-to-r from-emerald-400 to-tertiary
                         {% elif order.status == 'shipped'  %}bg-gradient-to-r from-blue-400 to-primary
@@ -243,10 +206,7 @@
                         {% elif order.status == 'rejected' %}bg-gradient-to-r from-red-400 to-red-300
                         {% else %}bg-gradient-to-r from-outline-variant/50 to-outline-variant/20{% endif %}">
                     </div>
-
                     <div class="p-lg">
-
-                        <!-- Row 1: Order ID + status badge + date -->
                         <div class="flex flex-wrap items-center justify-between gap-md mb-lg">
                             <div class="flex items-center gap-md">
                                 <div class="w-10 h-10 rounded-xl bg-surface-container border border-outline-variant/20 flex items-center justify-center flex-shrink-0">
@@ -273,20 +233,15 @@
                                 </span>
                             </div>
                         </div>
-
-                        <!-- Row 2: Order details grid -->
                         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-md rounded-xl bg-surface-container/40 border border-outline-variant/10 p-md mb-lg">
-
                             <div class="flex flex-col gap-[3px]">
                                 <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Product Name</span>
                                 <span class="font-body-md text-body-sm text-on-surface font-semibold truncate" title="{{ order.product.product_name }}">{{ order.product.product_name }}</span>
                             </div>
-
                             <div class="flex flex-col gap-[3px]">
                                 <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Product ID</span>
                                 <span class="font-mono text-body-sm text-primary font-semibold">#{{ order.product.id }}</span>
                             </div>
-
                             <div class="flex flex-col gap-[3px]">
                                 <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Quantity</span>
                                 <div class="flex items-center gap-xs">
@@ -294,85 +249,52 @@
                                     <span class="text-[10px] text-on-surface-variant">unit{{ order.quantity|pluralize }}</span>
                                 </div>
                             </div>
-
                             <div class="flex flex-col gap-[3px]">
                                 <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Amount</span>
                                 <span class="font-bold text-primary text-body-lg">₹{{ order.total_amount }}</span>
                             </div>
-
                             <div class="flex flex-col gap-[3px]">
                                 <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Buyer ID</span>
                                 <span class="font-mono text-body-sm text-on-surface">#{{ order.buyer.id }}</span>
                             </div>
-
                             <div class="flex flex-col gap-[3px] col-span-2 md:col-span-3 xl:col-span-1">
                                 <span class="text-[9px] text-on-surface-variant uppercase tracking-widest font-semibold">Delivery Address</span>
                                 <span class="text-[11px] text-on-surface leading-snug line-clamp-2">{{ order.delivery_address }}</span>
                             </div>
-
                         </div>
-
-                        <!-- Row 3: Status action buttons -->
                         <div class="flex flex-col gap-sm">
                             <span class="text-[10px] text-on-surface-variant uppercase tracking-widest font-semibold">Update Status</span>
                             <div class="flex flex-wrap gap-xs">
                                 <form method="post" action="{% url 'sell:update_order_status' order.id %}" class="contents">
                                     {% csrf_token %}
-
-                                    <button type="submit" name="status" value="accepted"
-                                        class="order-action-btn group/btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
-                                               text-tertiary border-tertiary/30 hover:bg-tertiary/15 hover:border-tertiary/50 hover:scale-105 active:scale-95
-                                               {% if order.status == 'accepted' %}!bg-tertiary/20 !border-tertiary/60 ring-1 ring-tertiary/30 shadow-[0_0_10px_rgba(0,200,120,0.2)]{% endif %}">
+                                    <button type="submit" name="status" value="accepted" class="order-action-btn group/btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200 text-tertiary border-tertiary/30 hover:bg-tertiary/15 hover:border-tertiary/50 hover:scale-105 active:scale-95 {% if order.status == 'accepted' %}!bg-tertiary/20 !border-tertiary/60 ring-1 ring-tertiary/30 shadow-[0_0_10px_rgba(0,200,120,0.2)]{% endif %}">
                                         <span class="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[8px]">✓</span>
                                         Accept
                                     </button>
-
-                                    <button type="submit" name="status" value="confirmed"
-                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
-                                               text-primary border-primary/30 hover:bg-primary/15 hover:border-primary/50 hover:scale-105 active:scale-95
-                                               {% if order.status == 'confirmed' %}!bg-primary/20 !border-primary/60 ring-1 ring-primary/30 shadow-[0_0_10px_rgba(0,145,234,0.2)]{% endif %}">
+                                    <button type="submit" name="status" value="confirmed" class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200 text-primary border-primary/30 hover:bg-primary/15 hover:border-primary/50 hover:scale-105 active:scale-95 {% if order.status == 'confirmed' %}!bg-primary/20 !border-primary/60 ring-1 ring-primary/30 shadow-[0_0_10px_rgba(0,145,234,0.2)]{% endif %}">
                                         <span class="material-symbols-outlined text-[13px]">task_alt</span>
                                         Confirm
                                     </button>
-
-                                    <button type="submit" name="status" value="rejected"
-                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
-                                               text-red-400 border-red-400/30 hover:bg-red-400/15 hover:border-red-400/50 hover:scale-105 active:scale-95
-                                               {% if order.status == 'rejected' %}!bg-red-400/20 !border-red-400/60 ring-1 ring-red-400/30 shadow-[0_0_10px_rgba(248,113,113,0.2)]{% endif %}">
+                                    <button type="submit" name="status" value="rejected" class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200 text-red-400 border-red-400/30 hover:bg-red-400/15 hover:border-red-400/50 hover:scale-105 active:scale-95 {% if order.status == 'rejected' %}!bg-red-400/20 !border-red-400/60 ring-1 ring-red-400/30 shadow-[0_0_10px_rgba(248,113,113,0.2)]{% endif %}">
                                         <span class="material-symbols-outlined text-[13px]">cancel</span>
                                         Reject
                                     </button>
-
                                     <div class="h-5 w-px bg-outline-variant/30 self-center mx-xs"></div>
-
-                                    <button type="submit" name="status" value="packed"
-                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
-                                               text-orange-400 border-orange-400/30 hover:bg-orange-400/15 hover:border-orange-400/50 hover:scale-105 active:scale-95
-                                               {% if order.status == 'packed' %}!bg-orange-400/20 !border-orange-400/60 ring-1 ring-orange-400/30 shadow-[0_0_10px_rgba(251,146,60,0.2)]{% endif %}">
+                                    <button type="submit" name="status" value="packed" class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200 text-orange-400 border-orange-400/30 hover:bg-orange-400/15 hover:border-orange-400/50 hover:scale-105 active:scale-95 {% if order.status == 'packed' %}!bg-orange-400/20 !border-orange-400/60 ring-1 ring-orange-400/30 shadow-[0_0_10px_rgba(251,146,60,0.2)]{% endif %}">
                                         <span class="material-symbols-outlined text-[13px]">inventory</span>
                                         Packed
                                     </button>
-
-                                    <button type="submit" name="status" value="shipped"
-                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
-                                               text-blue-400 border-blue-400/30 hover:bg-blue-400/15 hover:border-blue-400/50 hover:scale-105 active:scale-95
-                                               {% if order.status == 'shipped' %}!bg-blue-400/20 !border-blue-400/60 ring-1 ring-blue-400/30 shadow-[0_0_10px_rgba(96,165,250,0.2)]{% endif %}">
+                                    <button type="submit" name="status" value="shipped" class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200 text-blue-400 border-blue-400/30 hover:bg-blue-400/15 hover:border-blue-400/50 hover:scale-105 active:scale-95 {% if order.status == 'shipped' %}!bg-blue-400/20 !border-blue-400/60 ring-1 ring-blue-400/30 shadow-[0_0_10px_rgba(96,165,250,0.2)]{% endif %}">
                                         <span class="material-symbols-outlined text-[13px]">local_shipping</span>
                                         Shipped
                                     </button>
-
-                                    <button type="submit" name="status" value="delivered"
-                                        class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200
-                                               text-emerald-400 border-emerald-400/30 hover:bg-emerald-400/15 hover:border-emerald-400/50 hover:scale-105 active:scale-95
-                                               {% if order.status == 'delivered' %}!bg-emerald-400/20 !border-emerald-400/60 ring-1 ring-emerald-400/30 shadow-[0_0_10px_rgba(52,211,153,0.2)]{% endif %}">
+                                    <button type="submit" name="status" value="delivered" class="order-action-btn flex items-center gap-xs px-md py-xs rounded-full text-[11px] font-semibold border transition-all duration-200 text-emerald-400 border-emerald-400/30 hover:bg-emerald-400/15 hover:border-emerald-400/50 hover:scale-105 active:scale-95 {% if order.status == 'delivered' %}!bg-emerald-400/20 !border-emerald-400/60 ring-1 ring-emerald-400/30 shadow-[0_0_10px_rgba(52,211,153,0.2)]{% endif %}">
                                         <span class="material-symbols-outlined text-[13px]">verified</span>
                                         Delivered
                                     </button>
-
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 {% empty %}
@@ -395,11 +317,8 @@
 
             </div>
         </section>
-        <!-- ===================== END ORDERS SECTION ===================== -->
-
         <!-- Product Upload + Inventory Panel -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
-
             <!-- Form Section -->
             <section class="lg:col-span-2">
                 <div class="glass-card rounded-xl p-xl">
@@ -519,10 +438,9 @@
                 </div>
             </section>
 
-            <!-- ===================== INVENTORY PANEL ===================== -->
+            <!-- Inventory -->
             <section class="lg:col-span-1">
                 <div class="glass-card rounded-xl p-xl h-full flex flex-col">
-
                     <!-- Header -->
                     <div class="flex items-center justify-between mb-lg">
                         <div class="flex items-center gap-md">
@@ -536,26 +454,19 @@
                             <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
                         </a>
                     </div>
-
-                    <!-- Column Labels -->
                     <div class="grid grid-cols-12 gap-xs px-sm mb-sm">
                         <span class="col-span-5 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px]">Product</span>
                         <span class="col-span-3 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px] text-center">Qty</span>
                         <span class="col-span-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider text-[10px] text-right">Price</span>
                     </div>
-
-                    <!-- Inventory Rows — Django loop -->
                     <div class="flex flex-col gap-xs flex-grow overflow-y-auto max-h-[420px] pr-xs inventory-scroll">
-
                         {% for product in seller_products %}
                         <div class="grid grid-cols-12 gap-xs items-center px-sm py-md rounded-xl hover:bg-primary-container/10 transition-colors group">
-
                             <!-- Name + category badge -->
                             <div class="col-span-5 flex flex-col gap-[2px] min-w-0">
                                 <span class="font-body-md text-body-sm text-on-surface truncate leading-tight">{{ product.product_name }}</span>
                                 <span class="text-[10px] text-on-surface-variant opacity-60 truncate">{{ product.category }}</span>
                             </div>
-
                             <!-- Quantity with stock indicator -->
                             <div class="col-span-3 flex flex-col items-center gap-[3px]">
                                 <span class="font-headline-md text-body-md text-on-surface font-semibold">{{ product.quantity }}</span>
@@ -569,12 +480,10 @@
                                     {% endif %}
                                 </div>
                             </div>
-
                             <!-- Price -->
                             <div class="col-span-4 text-right">
                                 <span class="font-display-xl text-body-md text-primary font-bold">₹{{ product.price }}</span>
                             </div>
-
                         </div>
                         <!-- Divider -->
                         <div class="h-px bg-outline-variant/15 mx-sm"></div>
@@ -587,9 +496,7 @@
                             <p class="font-label-sm text-label-sm text-on-surface-variant">No products yet.<br>Add your first item!</p>
                         </div>
                         {% endfor %}
-
                     </div>
-
                     <!-- Footer total count -->
                     {% if seller_products %}
                     <div class="mt-md pt-md border-t border-outline-variant/20 flex justify-between items-center">
@@ -600,11 +507,8 @@
                         </a>
                     </div>
                     {% endif %}
-
                 </div>
             </section>
-            <!-- ===================== END INVENTORY ===================== -->
-
         </div>
 
         <!-- Recent Listings Management -->
@@ -688,9 +592,6 @@
                 </div>
             </div>
         </section>
-
-        
-
     </div>
 </main>
 
