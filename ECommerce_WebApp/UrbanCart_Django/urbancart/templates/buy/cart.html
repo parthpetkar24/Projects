@@ -1,0 +1,497 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}My Cart{% endblock %}
+
+{% block head %}
+<link href="{% static 'css/buy/cart.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<main>
+  <!-- CHECKOUT STEPS -->
+  <div class="steps-bar">
+    <div class="step done">
+      <div class="step-circle"><span class="material-symbols-outlined" style="font-size:14px">check</span></div>
+      <span class="step-label">Browse</span>
+    </div>
+    <div class="step-connector done"></div>
+    <div class="step active">
+      <div class="step-circle">2</div>
+      <span class="step-label">Cart</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step pending">
+      <div class="step-circle">3</div>
+      <span class="step-label">Address</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step pending">
+      <div class="step-circle">4</div>
+      <span class="step-label">Payment</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step pending">
+      <div class="step-circle">5</div>
+      <span class="step-label">Confirm</span>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+    <!-- ═══ LEFT COLUMN ═══ -->
+    <div class="left-col">
+
+      <!-- CART ITEMS -->
+      <div style="margin-bottom:28px;">
+        <div class="page-title">
+          <span class="material-symbols-outlined" style="font-size:28px;">shopping_cart</span>
+          My Cart
+          <span class="count-badge">3 items</span>
+        </div>
+
+        <div class="glass-card" style="position:relative;">
+          <div class="circuit-node" style="top:8px;left:8px;"></div>
+          <div class="circuit-node" style="top:8px;right:8px;"></div>
+          <div class="circuit-node" style="bottom:8px;right:8px;"></div>
+
+          <!-- Item 1 -->
+          <div class="cart-item">
+            <div class="item-img-wrap">
+              <span class="item-img-placeholder material-symbols-outlined">memory</span>
+            </div>
+            <div class="item-info">
+              <div class="item-brand">Sony</div>
+              <div class="item-name">WH-1000XM5 Wireless Headphones</div>
+              <div class="item-meta">
+                <span class="item-chip">Black</span>
+                <span class="item-chip">Over-Ear</span>
+                <span class="item-chip">Noise Cancel</span>
+              </div>
+              <div class="item-controls">
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this,-1)" aria-label="Decrease">−</button>
+                  <span class="qty-value">1</span>
+                  <button class="qty-btn" onclick="changeQty(this,1)" aria-label="Increase">+</button>
+                </div>
+                <button class="remove-btn" aria-label="Remove item">
+                  <span class="material-symbols-outlined">delete_outline</span>
+                </button>
+              </div>
+            </div>
+            <div class="item-price-col">
+              <div class="item-price">₹24,990</div>
+              <div class="item-price-orig">₹34,990</div>
+              <div class="item-discount-badge">28% off</div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="cart-item">
+            <div class="item-img-wrap">
+              <span class="item-img-placeholder material-symbols-outlined">smartphone</span>
+            </div>
+            <div class="item-info">
+              <div class="item-brand">Apple</div>
+              <div class="item-name">iPhone 16 Pro Max 256GB</div>
+              <div class="item-meta">
+                <span class="item-chip">Titanium Black</span>
+                <span class="item-chip">256GB</span>
+              </div>
+              <div class="item-controls">
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this,-1)" aria-label="Decrease">−</button>
+                  <span class="qty-value">1</span>
+                  <button class="qty-btn" onclick="changeQty(this,1)" aria-label="Increase">+</button>
+                </div>
+                <button class="remove-btn" aria-label="Remove item">
+                  <span class="material-symbols-outlined">delete_outline</span>
+                </button>
+              </div>
+            </div>
+            <div class="item-price-col">
+              <div class="item-price">₹1,34,900</div>
+              <div class="item-price-orig">₹1,49,900</div>
+              <div class="item-discount-badge">10% off</div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="cart-item">
+            <div class="item-img-wrap">
+              <span class="item-img-placeholder material-symbols-outlined">watch</span>
+            </div>
+            <div class="item-info">
+              <div class="item-brand">Samsung</div>
+              <div class="item-name">Galaxy Watch 7 Pro 47mm</div>
+              <div class="item-meta">
+                <span class="item-chip">Titanium Gray</span>
+                <span class="item-chip">47mm</span>
+                <span class="item-chip">LTE</span>
+              </div>
+              <div class="item-controls">
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="changeQty(this,-1)" aria-label="Decrease">−</button>
+                  <span class="qty-value">2</span>
+                  <button class="qty-btn" onclick="changeQty(this,1)" aria-label="Increase">+</button>
+                </div>
+                <button class="remove-btn" aria-label="Remove item">
+                  <span class="material-symbols-outlined">delete_outline</span>
+                </button>
+              </div>
+            </div>
+            <div class="item-price-col">
+              <div class="item-price">₹39,998</div>
+              <div class="item-price-orig">₹49,998</div>
+              <div class="item-discount-badge">20% off</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY ADDRESS -->
+      <div style="margin-bottom:28px;">
+        <div class="page-title" style="font-size:20px;margin-bottom:16px;">
+          <span class="material-symbols-outlined" style="font-size:22px;">location_on</span>
+          Delivery Address
+        </div>
+        <div class="glass-card">
+          <div class="circuit-node" style="top:8px;left:8px;"></div>
+          <div class="circuit-node" style="bottom:8px;right:8px;"></div>
+
+          <div class="section-header">
+            <span class="material-symbols-outlined">home_pin</span>
+            <h2>Select Address</h2>
+          </div>
+
+          <div class="address-tabs">
+            <button class="addr-tab active" onclick="switchAddrTab(this,'saved')">Saved Addresses</button>
+            <button class="addr-tab" onclick="switchAddrTab(this,'new')">+ Add New</button>
+          </div>
+
+          <div class="address-body">
+            <!-- Saved Addresses -->
+            <div id="saved-addrs">
+              <div class="saved-address selected" onclick="selectAddr(this)">
+                <div class="addr-radio"><div class="addr-radio-dot"></div></div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                    <div class="addr-name">Parth Sharma</div>
+                    <span class="addr-tag home">Home</span>
+                  </div>
+                  <div class="addr-text">Flat 4B, Sunrise Apartments, Koregaon Park<br>Pune, Maharashtra – 411001<br>📞 +91 98765 43210</div>
+                </div>
+                <span class="material-symbols-outlined addr-edit" title="Edit">edit</span>
+              </div>
+
+              <div class="saved-address" onclick="selectAddr(this)">
+                <div class="addr-radio"><div class="addr-radio-dot"></div></div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                    <div class="addr-name">Parth Sharma</div>
+                    <span class="addr-tag work">Work</span>
+                  </div>
+                  <div class="addr-text">Block C, Tech Park, Hinjewadi Phase 1<br>Pune, Maharashtra – 411057<br>📞 +91 98765 43210</div>
+                </div>
+                <span class="material-symbols-outlined addr-edit" title="Edit">edit</span>
+              </div>
+            </div>
+
+            <!-- New Address Form -->
+            <div id="new-addr-form" class="new-addr-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Full Name</label>
+                  <input type="text" class="form-input" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Phone Number</label>
+                  <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="form-group full">
+                  <label class="form-label">Flat / House / Building</label>
+                  <input type="text" class="form-input" placeholder="Flat no., Building, Street">
+                </div>
+                <div class="form-group full">
+                  <label class="form-label">Area / Locality</label>
+                  <input type="text" class="form-input" placeholder="Colony, Locality, Area">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">City</label>
+                  <input type="text" class="form-input" placeholder="City">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">State</label>
+                  <select class="form-select">
+                    <option value="" disabled selected>Select State</option>
+                    <option>Maharashtra</option>
+                    <option>Karnataka</option>
+                    <option>Delhi</option>
+                    <option>Tamil Nadu</option>
+                    <option>Gujarat</option>
+                    <option>Uttar Pradesh</option>
+                    <option>West Bengal</option>
+                    <option>Rajasthan</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Pincode</label>
+                  <input type="text" class="form-input" placeholder="6-digit PIN" maxlength="6">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Address Type</label>
+                  <select class="form-select">
+                    <option>Home</option>
+                    <option>Work</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group full" style="margin-top:4px;">
+                  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <input type="checkbox">
+                    <span style="font-size:13px;color:var(--cc-on-muted);">Set as default delivery address</span>
+                  </label>
+                </div>
+              </div>
+              <button class="save-addr-btn">Save Address</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENT METHOD -->
+      <div>
+        <div class="page-title" style="font-size:20px;margin-bottom:16px;">
+          <span class="material-symbols-outlined" style="font-size:22px;">payments</span>
+          Payment Method
+        </div>
+        <div class="glass-card">
+          <div class="circuit-node" style="top:8px;right:8px;"></div>
+          <div class="circuit-node" style="bottom:8px;left:8px;"></div>
+
+          <div class="section-header">
+            <span class="material-symbols-outlined">lock</span>
+            <h2>Secure Payment</h2>
+          </div>
+
+          <div class="payment-options">
+
+            <!-- Credit / Debit Card -->
+            <div class="pay-option selected" id="pay-card" onclick="selectPayment('card')">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div class="pay-icon card"><span class="material-symbols-outlined">credit_card</span></div>
+              <div>
+                <div class="pay-label">Credit / Debit Card</div>
+                <div class="pay-desc">Visa, Mastercard, RuPay, Amex</div>
+              </div>
+            </div>
+
+            <!-- Card Details Form -->
+            <div class="card-details visible" id="card-form">
+              <div class="form-grid" style="gap:12px;">
+                <div class="form-group full card-number-wrap">
+                  <label class="form-label">Card Number</label>
+                  <input type="text" class="form-input" placeholder="0000  0000  0000  0000"
+                    maxlength="19" oninput="formatCard(this)" style="letter-spacing:0.08em;">
+                  <div class="card-icons">
+                    <span class="card-brand-chip chip-visa">VISA</span>
+                    <span class="card-brand-chip chip-mc">MC</span>
+                  </div>
+                </div>
+                <div class="form-group full">
+                  <label class="form-label">Cardholder Name</label>
+                  <input type="text" class="form-input" placeholder="Name on card">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Expiry (MM / YY)</label>
+                  <input type="text" class="form-input" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV</label>
+                  <input type="password" class="form-input" placeholder="•••" maxlength="4" style="letter-spacing:0.15em;">
+                </div>
+                <div class="form-group full">
+                  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                    <input type="checkbox" checked>
+                    <span style="font-size:13px;color:var(--cc-on-muted);">Save card for future payments</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- UPI -->
+            <div class="pay-option" id="pay-upi" onclick="selectPayment('upi')">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div class="pay-icon upi"><span class="material-symbols-outlined">qr_code_scanner</span></div>
+              <div>
+                <div class="pay-label">UPI</div>
+                <div class="pay-desc">GPay, PhonePe, Paytm, BHIM</div>
+              </div>
+            </div>
+
+            <div class="upi-form" id="upi-form">
+              <div class="form-group">
+                <label class="form-label">Enter UPI ID</label>
+                <div style="display:flex;gap:8px;">
+                  <input type="text" class="form-input" placeholder="yourname@upi" style="flex:1;">
+                  <button class="verify-btn">Verify</button>
+                </div>
+              </div>
+              <p style="font-size:11px;color:var(--cc-outline);margin-top:8px;">Or scan QR code at payment confirmation step</p>
+            </div>
+
+            <!-- Net Banking -->
+            <div class="pay-option" id="pay-net" onclick="selectPayment('net')">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div class="pay-icon net"><span class="material-symbols-outlined">account_balance</span></div>
+              <div>
+                <div class="pay-label">Net Banking</div>
+                <div class="pay-desc">All major Indian banks supported</div>
+              </div>
+            </div>
+
+            <div class="netbank-form" id="net-form">
+              <div class="form-group" style="margin-bottom:8px;">
+                <label class="form-label" style="display:block;margin-bottom:8px;">Popular Banks</label>
+                <div class="bank-grid">
+                  <div class="bank-chip selected" onclick="toggleBank(this)">SBI</div>
+                  <div class="bank-chip" onclick="toggleBank(this)">HDFC</div>
+                  <div class="bank-chip" onclick="toggleBank(this)">ICICI</div>
+                  <div class="bank-chip" onclick="toggleBank(this)">Axis</div>
+                  <div class="bank-chip" onclick="toggleBank(this)">Kotak</div>
+                  <div class="bank-chip" onclick="toggleBank(this)">PNB</div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-top:12px;">
+                <label class="form-label">Or select from all banks</label>
+                <select class="form-select" style="margin-top:6px;">
+                  <option value="" disabled selected>-- Choose Bank --</option>
+                  <option>State Bank of India</option>
+                  <option>HDFC Bank</option>
+                  <option>ICICI Bank</option>
+                  <option>Axis Bank</option>
+                  <option>Kotak Mahindra Bank</option>
+                  <option>Punjab National Bank</option>
+                  <option>Bank of Baroda</option>
+                  <option>Canara Bank</option>
+                  <option>IndusInd Bank</option>
+                  <option>Yes Bank</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Cash on Delivery -->
+            <div class="pay-option" id="pay-cod" onclick="selectPayment('cod')">
+              <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+              <div class="pay-icon cod"><span class="material-symbols-outlined">local_shipping</span></div>
+              <div>
+                <div class="pay-label">Cash on Delivery</div>
+                <div class="pay-desc">Pay when your order arrives</div>
+              </div>
+            </div>
+
+          </div><!-- /payment-options -->
+        </div>
+      </div>
+    </div><!-- /left-col -->
+
+    <!-- ═══ RIGHT COLUMN ═══ -->
+    <div class="right-col">
+
+      <!-- PROMO CODE -->
+      <div class="glass-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined">local_offer</span>
+          <h2>Promo Code</h2>
+        </div>
+        <div class="promo-section" style="padding-top:16px;">
+          <div class="promo-wrap">
+            <input type="text" class="promo-input" id="promo-input" placeholder="Enter coupon code">
+            <button class="promo-apply" onclick="applyPromo()">Apply</button>
+          </div>
+          <p id="promo-msg" style="font-size:12px;margin-top:8px;display:none;"></p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+            <span class="promo-chip cyber" onclick="fillPromo('CYBER20')">CYBER20</span>
+            <span class="promo-chip urban" onclick="fillPromo('URBAN10')">URBAN10</span>
+            <span class="promo-chip first" onclick="fillPromo('FIRST15')">FIRST15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="glass-card">
+        <div class="section-header">
+          <span class="material-symbols-outlined">receipt_long</span>
+          <h2>Order Summary</h2>
+        </div>
+
+        <div class="summary-body">
+          <div class="summary-row">
+            <span class="label">Subtotal (4 items)</span>
+            <span class="value">₹1,99,888</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Discount</span>
+            <span class="value green">− ₹35,000</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Delivery</span>
+            <span class="value green">FREE</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Platform Fee</span>
+            <span class="value">₹199</span>
+          </div>
+          <div class="summary-row" id="promo-row" style="display:none;">
+            <span class="label">Promo Applied</span>
+            <span class="value green" id="promo-savings">− ₹0</span>
+          </div>
+
+          <div class="summary-divider"></div>
+          <div class="total-row">
+            <span class="total-label">Total Payable</span>
+            <span class="total-value" id="total-value">₹1,65,087</span>
+          </div>
+
+          <div class="savings-banner">
+            <span class="material-symbols-outlined">savings</span>
+            <span>You save ₹35,000 on this order!</span>
+          </div>
+        </div>
+
+        <div class="promo-section" style="padding-top:0;padding-bottom:16px;">
+          <div style="height:1px;background:var(--cc-divider);margin-bottom:16px;"></div>
+          <button class="cta-btn" onclick="handleCheckout()">
+            <span class="material-symbols-outlined">lock</span>
+            Place Order · ₹1,65,087
+          </button>
+          <div class="secure-row">
+            <span class="material-symbols-outlined">verified_user</span>
+            <span>256-bit SSL secured · RBI compliant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY INFO -->
+      <div class="glass-card delivery-info">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="delivery-info-row">
+            <span class="material-symbols-outlined di-icon-primary">local_shipping</span>
+            <span>Free delivery on orders above ₹499</span>
+          </div>
+          <div class="delivery-info-row">
+            <span class="material-symbols-outlined di-icon-success">autorenew</span>
+            <span>10-day easy returns &amp; exchange</span>
+          </div>
+          <div class="delivery-info-row">
+            <span class="material-symbols-outlined di-icon-secondary">support_agent</span>
+            <span>24/7 customer support</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /right-col -->
+  </div><!-- /page-wrapper -->
+</main>
+
+<script src="{% static 'js/buy/cart.js' %}"></script>
+{% endblock %}

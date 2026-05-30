@@ -1,12 +1,33 @@
+/* ─── Glass Card ─────────────────────────────────────────────────────────── */
 .glass-card {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
+
+@media (prefers-color-scheme: dark) {
+    .glass-card {
+        background: rgba(15, 28, 46, 0.75);
+        border: 1px solid rgba(91, 192, 255, 0.12);
+        box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px -1px rgba(0, 0, 0, 0.5);
+        color: rgba(224, 237, 255, 0.87);
+    }
+}
+
+/* Also support explicit .dark class (e.g. Tailwind dark mode class strategy) */
+.dark .glass-card {
+    background: rgba(15, 28, 46, 0.75);
+    border: 1px solid rgba(91, 192, 255, 0.12);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px -1px rgba(0, 0, 0, 0.5);
+    color: rgba(224, 237, 255, 0.87);
+}
+
+/* ─── Circuit Line ───────────────────────────────────────────────────────── */
 .circuit-line {
     position: relative;
 }
+
 .circuit-line::after {
     content: '';
     position: absolute;
@@ -16,27 +37,18 @@
     top: 50%;
     left: 100%;
 }
-.btn-3d-primary {
-    background: linear-gradient(180deg, #0079c4 0%, #005f9c 100%);
-    border-bottom: 3px solid #00497a;
-    box-shadow: 0 0 15px rgba(0, 145, 234, 0.2);
-    transition: all 0.2s ease;
+
+@media (prefers-color-scheme: dark) {
+    .circuit-line::after {
+        background: rgba(255, 255, 255, 0.15);
+    }
 }
-.btn-3d-primary:active {
-    border-bottom: 1px solid #00497a;
-    transform: translateY(2px);
+
+.dark .circuit-line::after {
+    background: rgba(255, 255, 255, 0.15);
 }
-.btn-3d-secondary {
-    background: rgba(216, 226, 253, 0.4);
-    border: 1px solid #9ccaff;
-    border-bottom: 3px solid #9ccaff;
-    backdrop-filter: blur(8px);
-    transition: all 0.2s ease;
-}
-.btn-3d-secondary:active {
-    border-bottom: 1px solid #9ccaff;
-    transform: translateY(2px);
-}
+
+/* ─── Circuit Node ───────────────────────────────────────────────────────── */
 .circuit-node {
     width: 12px;
     height: 12px;
@@ -45,10 +57,97 @@
     border-radius: 50%;
     position: relative;
 }
+
 .circuit-node::before {
     content: '';
     position: absolute;
     inset: -4px;
     border: 1px solid rgba(0, 95, 156, 0.2);
     border-radius: 50%;
+}
+
+@media (prefers-color-scheme: dark) {
+    .circuit-node {
+        background: #1a2a3a;
+        border-color: #5bc0ff;
+    }
+
+    .circuit-node::before {
+        border-color: rgba(91, 192, 255, 0.2);
+    }
+}
+
+.dark .circuit-node {
+    background: #1a2a3a;
+    border-color: #5bc0ff;
+}
+
+.dark .circuit-node::before {
+    border-color: rgba(91, 192, 255, 0.2);
+}
+
+/* ─── Primary Button ─────────────────────────────────────────────────────── */
+.btn-3d-primary {
+    background: linear-gradient(180deg, #0079c4 0%, #005f9c 100%);
+    border-bottom: 3px solid #00497a;
+    box-shadow: 0 0 15px rgba(0, 145, 234, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-3d-primary:active {
+    border-bottom: 1px solid #00497a;
+    transform: translateY(2px);
+}
+
+/* ─── Secondary Button ───────────────────────────────────────────────────── */
+.btn-3d-secondary {
+    background: rgba(216, 226, 253, 0.4);
+    border: 1px solid #9ccaff;
+    border-bottom: 3px solid #9ccaff;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease;
+}
+
+.btn-3d-secondary:active {
+    border-bottom: 1px solid #9ccaff;
+    transform: translateY(2px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .btn-3d-secondary {
+        background: rgba(0, 121, 196, 0.15);
+        border-color: rgba(91, 192, 255, 0.35);
+        border-bottom-color: rgba(91, 192, 255, 0.35);
+        color: #5bc0ff;
+    }
+
+    .btn-3d-secondary:active {
+        border-bottom-color: rgba(91, 192, 255, 0.35);
+    }
+}
+
+.dark .btn-3d-secondary {
+    background: rgba(0, 121, 196, 0.15);
+    border-color: rgba(91, 192, 255, 0.35);
+    border-bottom-color: rgba(91, 192, 255, 0.35);
+    color: #5bc0ff;
+}
+
+/* ─── Dark Mode Info Rows (delivery/warranty boxes) ─────────────────────── */
+/* bg-surface-container-low may not update via CSS vars when dark toggled by JS */
+.dark .rounded-xl.bg-surface-container-low,
+.dark [class*="bg-surface-container-low"] {
+    background-color: rgba(15, 28, 46, 0.8) !important;
+    border-color: rgba(91, 192, 255, 0.15) !important;
+}
+
+.dark [class*="bg-surface-container-low"] p,
+.dark [class*="bg-surface-container-low"] span {
+    color: rgba(224, 237, 255, 0.87);
+}
+
+/* ─── Dark Mode Thumbnail Buttons ───────────────────────────────────────── */
+.dark .glass-card.aspect-square {
+    background: rgba(15, 28, 46, 0.65);
+    border-color: rgba(91, 192, 255, 0.12);
 }

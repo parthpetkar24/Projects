@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = "UrbanCart Admin"
 admin.site.site_title = "UrbanCart Portal"
@@ -24,6 +26,7 @@ admin.site.index_title = "Welcome to UrbanCart Dashboard"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
-    path('seller_dashboard/',include('sell.urls')),
-    path('browse_products/',include('products.urls')),
-]
+    path('seller-dashboard/',include('sell.urls')),
+    path('browse-products/',include('products.urls')),
+    path('cart/',include('buy.urls')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
