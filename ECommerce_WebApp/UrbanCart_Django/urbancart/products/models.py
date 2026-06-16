@@ -34,6 +34,9 @@ class Product(models.Model):
     color=models.CharField(max_length=100,blank=True,null=True)
     size=models.CharField(max_length=100,null=True,blank=True)
     requirements=models.TextField(null=True,blank=True)
+    ratings=models.FloatField(default=0.0,null=True)
+    discount=models.DecimalField(max_digits=5,decimal_places=2,default=0.00,null=True)
+    date_added=models.DateTimeField(auto_now_add=True,null=True)
 
 
     def __str__(self):

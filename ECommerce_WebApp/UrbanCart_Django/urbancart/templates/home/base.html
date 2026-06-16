@@ -43,15 +43,16 @@
                     </a>
                 </span>
                 <nav class="hidden md:flex items-center gap-lg">
-                    <a class="font-body-md text-primary border-b-2 border-primary pb-1" href="#">
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="{% url 'home:homepage' %}">
+                        Home
+                    </a>
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">
                         Categories
                     </a>
-                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">
-                        Deals
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="{% url 'products:browse_products' %}">
+                        Shop
                     </a>
-                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-all" href="#">
-                        What's New
-                    </a>
+                    
                 </nav>
             </div>
             <div class="flex items-center gap-md">
@@ -68,7 +69,9 @@
                 </div>
                 <!-- Cart -->
                 <div>
+                    <a href="{% url 'buy:cart' %}">
                     <button class="material-symbols-outlined text-on-surface-variant hover:bg-primary-container/10 p-sm rounded-full transition-all">shopping_cart</button>
+                    </a>
                 </div>
 <!-- Account -->
 <div class="relative mt-1" id="account-dropdown">

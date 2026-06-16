@@ -8,84 +8,194 @@
 {% endblock %}
 
 {% block body %}
-    <!-- SideNavBar -->
-    <aside class="fixed left-0 top-0 h-full z-40 flex flex-col p-md pt-[88px] bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20 w-64 hidden xl:flex">
-        <div class="mb-xl px-sm">
-            <p class="font-label-sm text-label-sm text-on-surface-variant opacity-70 uppercase tracking-widest">Navigator</p>
-            <h3 class="font-headline-md text-headline-md text-primary mt-xs">Welcome back</h3>
-            <p class="font-body-md text-label-sm text-on-surface-variant">Tech Enthusiast</p>
+    <aside class="fixed left-0 top-5 h-full z-40 flex flex-col p-md pt-[88px] bg-surface-container-low/90 backdrop-blur-2xl border-r border-outline-variant/20 w-72 hidden xl:flex overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-outline-variant/30 [&::-webkit-scrollbar-thumb]:rounded-full">
+        <div class="mb-lg px-sm">
+            <h3 class="font-headline-md text-headline-sm text-on-surface">Discover</h3>
+            <p class="font-body-md text-label-sm text-on-surface-variant opacity-80 mt-xs">Find your next favorite item</p>
         </div>
-        <nav class="flex flex-col gap-sm">
-            <a class="flex items-center gap-md p-md bg-primary-container text-on-primary-container rounded-full shadow-[0_0_15px_rgba(0,145,234,0.2)] transition-all duration-200" href="#">
-                <span class="material-symbols-outlined" data-icon="memory">memory</span>
-                <span class="font-label-sm text-label-sm">Electronics</span>
-            </a>
-            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-                <span class="material-symbols-outlined" data-icon="checkroom">checkroom</span>
-                <span class="font-label-sm text-label-sm">Fashion</span>
-            </a>
-            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-                <span class="material-symbols-outlined" data-icon="home_app_logo">home_app_logo</span>
-                <span class="font-label-sm text-label-sm">Home</span>
-            </a>
-            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-                <span class="material-symbols-outlined" data-icon="face">face</span>
-                <span class="font-label-sm text-label-sm">Beauty</span>
-            </a>
-            <a class="flex items-center gap-md p-md text-on-surface-variant opacity-70 hover:translate-x-1 hover:text-primary transition-all duration-200" href="#">
-                <span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
-                <span class="font-label-sm text-label-sm">Sports</span>
-            </a>
-        </nav>
-        <div class="mt-auto p-md glass-panel rounded-xl border border-primary/20">
-            <p class="font-label-sm text-label-sm text-primary mb-sm">Current Level</p>
-            <div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
-                <div class="h-full bg-primary w-3/4"></div>
+
+        <!-- Categories Dropdown / Accordion -->
+        <div class="mb-lg px-sm flex flex-col gap-sm">
+            <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-xs">Categories</h4>
+            
+            <details class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 border border-outline-variant/20" open>
+                <summary class="flex items-center justify-between p-md cursor-pointer hover:bg-surface-container-high transition-colors select-none">
+                    <div class="flex items-center gap-md">
+                        <span class="material-symbols-outlined text-primary" data-icon="devices">devices</span>
+                        <span class="font-label-md text-body-md font-medium text-on-surface">Electronics</span>
+                    </div>
+                    <span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-on-surface-variant" data-icon="expand_more">expand_more</span>
+                </summary>
+                <div class="flex flex-col px-md pb-md pt-xs gap-xs bg-surface-container-low">
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Laptops & PCs</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Smartphones</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Audio & Headphones</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Wearables</a>
+                </div>
+            </details>
+
+            <details class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 border border-outline-variant/20">
+                <summary class="flex items-center justify-between p-md cursor-pointer hover:bg-surface-container-high transition-colors select-none">
+                    <div class="flex items-center gap-md">
+                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="checkroom">checkroom</span>
+                        <span class="font-label-md text-body-md font-medium text-on-surface">Fashion</span>
+                    </div>
+                    <span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-on-surface-variant" data-icon="expand_more">expand_more</span>
+                </summary>
+                <div class="flex flex-col px-md pb-md pt-xs gap-xs bg-surface-container-low">
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Men's Clothing</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Women's Clothing</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Footwear</a>
+                </div>
+            </details>
+
+            <details class="group bg-surface-container rounded-xl overflow-hidden transition-all duration-300 border border-outline-variant/20">
+                <summary class="flex items-center justify-between p-md cursor-pointer hover:bg-surface-container-high transition-colors select-none">
+                    <div class="flex items-center gap-md">
+                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="chair">chair</span>
+                        <span class="font-label-md text-body-md font-medium text-on-surface">Home & Furniture</span>
+                    </div>
+                    <span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180 text-on-surface-variant" data-icon="expand_more">expand_more</span>
+                </summary>
+                <div class="flex flex-col px-md pb-md pt-xs gap-xs bg-surface-container-low">
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Decor</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Lighting</a>
+                    <a href="#" class="font-body-md text-body-sm text-on-surface-variant hover:text-primary hover:translate-x-1 transition-all py-xs px-sm rounded-lg hover:bg-primary-container/20">Furniture</a>
+                </div>
+            </details>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="mb-lg px-sm flex flex-col gap-md">
+            <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-xs">Filters</h4>
+            
+            <!-- Price Filter -->
+            <div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/20">
+                <p class="font-label-md text-body-sm font-medium text-on-surface mb-sm">Price Range</p>
+                <div class="flex flex-col gap-sm">
+                    <input type="range" min="0" max="100000" value="50000" class="w-full accent-primary h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-label-sm text-on-surface-variant mt-xs">
+                        <span>₹0</span>
+                        <span>₹100,000+</span>
+                    </div>
+                </div>
             </div>
-            <button class="w-full mt-md py-sm bg-primary text-on-primary rounded-lg font-label-sm hover:brightness-110 transition-all">
-                Circuit Navigator
+
+            <!-- Brand Filter -->
+            <div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/20">
+                <p class="font-label-md text-body-sm font-medium text-on-surface mb-sm">Brands</p>
+                <div class="flex flex-col gap-xs max-h-40 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-outline-variant/30 [&::-webkit-scrollbar-thumb]:rounded-full pr-xs">
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/50 bg-surface cursor-pointer" checked>
+                        <span class="font-body-md text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Apple</span>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/50 bg-surface cursor-pointer">
+                        <span class="font-body-md text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Samsung</span>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/50 bg-surface cursor-pointer">
+                        <span class="font-body-md text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Sony</span>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/50 bg-surface cursor-pointer">
+                        <span class="font-body-md text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Dell</span>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/50 bg-surface cursor-pointer">
+                        <span class="font-body-md text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Asus</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Rating Filter -->
+            <div class="bg-surface-container-low p-md rounded-xl border border-outline-variant/20">
+                <p class="font-label-md text-body-sm font-medium text-on-surface mb-sm">Rating</p>
+                <div class="flex flex-col gap-xs">
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="radio" name="rating" class="w-4 h-4 text-primary focus:ring-primary/50 bg-surface cursor-pointer">
+                        <div class="flex items-center text-amber-400 text-sm">
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-sm cursor-pointer group py-1">
+                        <input type="radio" name="rating" class="w-4 h-4 text-primary focus:ring-primary/50 bg-surface cursor-pointer">
+                        <div class="flex items-center text-amber-400 text-sm">
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px]" data-icon="star">star</span>
+                            <span class="material-symbols-outlined text-[16px] text-outline-variant" data-icon="star_outline">star_outline</span>
+                            <span class="ml-1 text-on-surface-variant text-xs">& up</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-auto p-md mb-md">
+            <button class="w-full py-md bg-primary text-on-primary rounded-xl font-label-md font-medium hover:brightness-110 shadow-[0_0_15px_rgba(0,145,234,0.3)] transition-all hover:-translate-y-1 active:translate-y-0">
+                Apply Filters
             </button>
         </div>
     </aside>
     <!-- Main Content -->
-    <main class="flex-1 xl:ml-64 p-gutter max-w-7xl mx-auto">
+    <main class="flex-1 xl:ml-72 p-gutter max-w-7xl mx-auto">
         <!-- 3D Tab Switchers -->
         <div class="flex items-center gap-sm mb-lg">
             <button class="px-lg py-md rounded-t-xl font-headline-md text-body-md tab-3d-active text-primary transition-all">Featured Tech</button>
             <button class="px-lg py-md rounded-t-xl font-headline-md text-body-md tab-3d-inactive text-on-surface-variant hover:bg-surface-container transition-all">Trending Nodes</button>
             <button class="px-lg py-md rounded-t-xl font-headline-md text-body-md tab-3d-inactive text-on-surface-variant hover:bg-surface-container transition-all">New Arrivals</button>
         </div>
-        <!-- Circuit Category Nodes (Sub-filters) -->
-        <section class="mb-xl relative">
-            <div class="flex flex-wrap gap-md items-center relative z-10">
-                <div class="flex flex-col items-center gap-xs">
-                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center glow-blue border border-primary/40 group cursor-pointer hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined text-primary" data-icon="laptop_mac">laptop_mac</span>
-                    </div>
-                    <span class="text-label-sm font-label-sm text-on-surface-variant">Laptops</span>
-                </div>
-                <div class="w-8 circuit-line mt-[-20px]"></div>
-                <div class="flex flex-col items-center gap-xs">
-                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center border border-outline-variant/30 group cursor-pointer hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="smartphone">smartphone</span>
-                    </div>
-                    <span class="text-label-sm font-label-sm text-on-surface-variant">Mobile</span>
-                </div>
-                <div class="w-8 circuit-line mt-[-20px]"></div>
-                <div class="flex flex-col items-center gap-xs">
-                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center border border-outline-variant/30 group cursor-pointer hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="headphones">headphones</span>
-                    </div>
-                    <span class="text-label-sm font-label-sm text-on-surface-variant">Audio</span>
-                </div>
-                <!-- Repeated for more categories -->
-                <div class="w-8 circuit-line mt-[-20px]"></div>
-                <div class="flex flex-col items-center gap-xs">
-                    <div class="w-12 h-12 glass-panel rounded-lg flex items-center justify-center border border-outline-variant/30 group cursor-pointer hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined text-on-surface-variant" data-icon="watch">watch</span>
-                    </div>
-                    <span class="text-label-sm font-label-sm text-on-surface-variant">Wearables</span>
-                </div>
+        <!-- Enhanced Category Pills -->
+        <section class="mb-xl w-full overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-outline-variant/30 [&::-webkit-scrollbar-thumb]:rounded-full pb-md">
+            <div class="flex gap-md w-max min-w-full pb-sm">
+                <!-- Active Category -->
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-gradient-to-br from-primary to-blue-600 text-on-primary shadow-lg shadow-primary/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center">
+                    <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="apps">apps</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">All Items</span>
+                </a>
+                
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:border-primary/50 hover:text-primary hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center shadow-sm">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="laptop_mac">laptop_mac</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">Laptops</span>
+                </a>
+
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:border-primary/50 hover:text-primary hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center shadow-sm">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="smartphone">smartphone</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">Phones</span>
+                </a>
+
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:border-primary/50 hover:text-primary hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center shadow-sm">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="headphones">headphones</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">Audio</span>
+                </a>
+
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:border-primary/50 hover:text-primary hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center shadow-sm">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="watch">watch</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">Wearables</span>
+                </a>
+
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:border-primary/50 hover:text-primary hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center shadow-sm">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="videogame_asset">videogame_asset</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">Gaming</span>
+                </a>
+                
+                <a href="#" class="group relative overflow-hidden flex items-center gap-sm px-lg py-md rounded-2xl bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:border-primary/50 hover:text-primary hover:-translate-y-1 transition-all duration-300 cursor-pointer min-w-[140px] justify-center shadow-sm">
+                    <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="material-symbols-outlined relative z-10" data-icon="tv">tv</span>
+                    <span class="font-label-md text-label-lg font-medium relative z-10 tracking-wide">Displays</span>
+                </a>
             </div>
         </section>
         <!-- Product Bento Grid -->

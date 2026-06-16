@@ -17,10 +17,10 @@
 
 /* Also support explicit .dark class (e.g. Tailwind dark mode class strategy) */
 .dark .glass-card {
-    background: rgba(15, 28, 46, 0.75);
-    border: 1px solid rgba(91, 192, 255, 0.12);
-    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px -1px rgba(0, 0, 0, 0.5);
-    color: rgba(224, 237, 255, 0.87);
+    background: rgba(15, 28, 46, 0.75) !important;
+    border: 1px solid rgba(91, 192, 255, 0.12) !important;
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.05), 0 4px 24px -1px rgba(0, 0, 0, 0.5) !important;
+    color: rgba(224, 237, 255, 0.87) !important;
 }
 
 /* ─── Circuit Line ───────────────────────────────────────────────────────── */
@@ -101,36 +101,37 @@
 
 /* ─── Secondary Button ───────────────────────────────────────────────────── */
 .btn-3d-secondary {
-    background: rgba(216, 226, 253, 0.4);
-    border: 1px solid #9ccaff;
-    border-bottom: 3px solid #9ccaff;
+    background: rgba(0, 95, 156, 0.1);
+    border: 1px solid #005f9c;
+    border-bottom: 3px solid #005f9c;
+    color: #005f9c;
     backdrop-filter: blur(8px);
     transition: all 0.2s ease;
 }
 
 .btn-3d-secondary:active {
-    border-bottom: 1px solid #9ccaff;
+    border-bottom: 1px solid #005f9c;
     transform: translateY(2px);
 }
 
 @media (prefers-color-scheme: dark) {
     .btn-3d-secondary {
-        background: rgba(0, 121, 196, 0.15);
-        border-color: rgba(91, 192, 255, 0.35);
-        border-bottom-color: rgba(91, 192, 255, 0.35);
-        color: #5bc0ff;
+        background: rgba(0, 121, 196, 0.15) !important;
+        border-color: rgba(91, 192, 255, 0.35) !important;
+        border-bottom-color: rgba(91, 192, 255, 0.35) !important;
+        color: #5bc0ff !important;
     }
 
     .btn-3d-secondary:active {
-        border-bottom-color: rgba(91, 192, 255, 0.35);
+        border-bottom-color: rgba(91, 192, 255, 0.35) !important;
     }
 }
 
 .dark .btn-3d-secondary {
-    background: rgba(0, 121, 196, 0.15);
-    border-color: rgba(91, 192, 255, 0.35);
-    border-bottom-color: rgba(91, 192, 255, 0.35);
-    color: #5bc0ff;
+    background: rgba(0, 121, 196, 0.15) !important;
+    border-color: rgba(91, 192, 255, 0.35) !important;
+    border-bottom-color: rgba(91, 192, 255, 0.35) !important;
+    color: #5bc0ff !important;
 }
 
 /* ─── Dark Mode Info Rows (delivery/warranty boxes) ─────────────────────── */
@@ -148,6 +149,6 @@
 
 /* ─── Dark Mode Thumbnail Buttons ───────────────────────────────────────── */
 .dark .glass-card.aspect-square {
-    background: rgba(15, 28, 46, 0.65);
-    border-color: rgba(91, 192, 255, 0.12);
+    background: rgba(15, 28, 46, 0.65) !important;
+    border-color: rgba(91, 192, 255, 0.12) !important;
 }
