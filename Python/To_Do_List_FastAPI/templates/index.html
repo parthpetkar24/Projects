@@ -23,15 +23,15 @@
        class="filter-btn {{ 'active' if current_filter=='all' else '' }}">
         All
     </a>
-    <a href="{{ url_for('index', filter='pending') }}" 
+    <a href="{{ url_for('index' ) }}" 
        class="filter-btn {{ 'active' if current_filter=='pending' else '' }}">
         Pending
     </a>
-    <a href="{{ url_for('index', filter='completed') }}" 
+    <a href="{{ url_for('index' ) }}" 
        class="filter-btn {{ 'active' if current_filter=='completed' else '' }}">
         Completed
     </a>
-    <a href="{{ url_for('index', filter='cancelled') }}" 
+    <a href="{{ url_for('index') }}" 
        class="filter-btn {{ 'active' if current_filter=='cancelled' else '' }}">
         Cancelled
     </a>
