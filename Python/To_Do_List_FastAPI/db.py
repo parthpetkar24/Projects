@@ -1,6 +1,6 @@
 from collections.abc import AsyncGenerator
 import uuid
-from sqlalchemy import Column,String,Date,Time,Enum
+from sqlalchemy import Column,String,Date,Time,Enum,Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession,create_async_engine,async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
@@ -16,16 +16,32 @@ class TaskStatus(enum.Enum):
     DUE = "Due"
     COMPLETED = "Completed"
     FAILED = "Failed"
+    URGENT="Urgent"
+
+class TaskPriority(enum.Enum):
+    LOW="Low"
+    MEDIUM="Medium"
+    HIGH="High"
+    CRITICAL="Critical"
+
+class TaskCategory(enum.Enum):
+    WORK="Work"
+    PERSONAL="Personal"
+    HEALTH="Health"
+    LEARNING="Learning"
 
 class To_Do_Task(Base):
     __tablename__="ToDo"
 
     id=Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
     task=Column(String(255),nullable=False)
+    description=Column(Text)
+    priority=Column(Enum(TaskPriority),default=TaskPriority.LOW,nullable=False)
     date=Column(Date,default=datetime.now().date(),nullable=False)
     time=Column(Time,default=datetime.now().time(),nullable=False)
     due_date=Column(Date,nullable=False)
     status=Column(Enum(TaskStatus),default=TaskStatus.PENDING,nullable=False)
+    category=Column(Enum(TaskCategory),default=TaskCategory.PERSONAL,nullable=False)
 
 engine=create_async_engine(DATABASE_URL)
 async_session_make=async_sessionmaker(engine,expire_on_commit=False)

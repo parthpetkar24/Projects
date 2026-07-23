@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+      --color-background: 247 249 251;
+      --color-error: 186 26 26;
+      --color-error-container: 255 218 214;
+      --color-inverse-on-surface: 239 241 243;
+      --color-inverse-primary: 173 198 255;
+      --color-inverse-surface: 45 49 51;
+      --color-on-background: 25 28 30;
+      --color-on-error: 255 255 255;
+      --color-on-error-container: 147 0 10;
+      --color-on-primary: 255 255 255;
+      --color-on-primary-container: 254 252 255;
+      --color-on-primary-fixed: 0 26 66;
+      --color-on-primary-fixed-variant: 0 67 149;
+      --color-on-secondary: 255 255 255;
+      --color-on-secondary-container: 103 44 0;
+      --color-on-secondary-fixed: 51 18 0;
+      --color-on-secondary-fixed-variant: 118 51 0;
+      --color-on-surface: 25 28 30;
+      --color-on-surface-variant: 66 71 84;
+      --color-on-tertiary: 255 255 255;
+      --color-on-tertiary-container: 246 255 243;
+      --color-on-tertiary-fixed: 0 33 12;
+      --color-on-tertiary-fixed-variant: 0 82 39;
+      --color-outline: 114 119 133;
+      --color-outline-variant: 194 198 214;
+      --color-primary: 0 88 190;
+      --color-primary-container: 33 112 228;
+      --color-primary-fixed: 216 226 255;
+      --color-primary-fixed-dim: 173 198 255;
+      --color-secondary: 155 69 0;
+      --color-secondary-container: 252 138 64;
+      --color-secondary-fixed: 255 219 201;
+      --color-secondary-fixed-dim: 255 182 141;
+      --color-surface: 247 249 251;
+      --color-surface-bright: 247 249 251;
+      --color-surface-container: 236 238 240;
+      --color-surface-container-high: 230 232 234;
+      --color-surface-container-highest: 224 227 229;
+      --color-surface-container-low: 242 244 246;
+      --color-surface-container-lowest: 255 255 255;
+      --color-surface-dim: 216 218 220;
+      --color-surface-tint: 0 90 194;
+      --color-surface-variant: 224 227 229;
+      --color-tertiary: 0 106 52;
+      --color-tertiary-container: 0 134 68;
+      --color-tertiary-fixed: 109 254 156;
+      --color-tertiary-fixed-dim: 77 224 130;  }
+
+  .dark {
+      --color-background: 11 19 38;
+      --color-error: 255 180 171;
+      --color-error-container: 147 0 10;
+      --color-inverse-on-surface: 40 48 68;
+      --color-inverse-primary: 0 90 194;
+      --color-inverse-surface: 218 226 253;
+      --color-on-background: 218 226 253;
+      --color-on-error: 105 0 5;
+      --color-on-error-container: 255 218 214;
+      --color-on-primary: 0 46 106;
+      --color-on-primary-container: 0 40 93;
+      --color-on-primary-fixed: 0 26 66;
+      --color-on-primary-fixed-variant: 0 67 149;
+      --color-on-secondary: 0 56 36;
+      --color-on-secondary-container: 0 49 31;
+      --color-on-secondary-fixed: 0 33 19;
+      --color-on-secondary-fixed-variant: 0 82 54;
+      --color-on-surface: 218 226 253;
+      --color-on-surface-variant: 194 198 214;
+      --color-on-tertiary: 60 0 145;
+      --color-on-tertiary-container: 52 0 128;
+      --color-on-tertiary-fixed: 35 0 92;
+      --color-on-tertiary-fixed-variant: 85 22 190;
+      --color-outline: 140 144 159;
+      --color-outline-variant: 66 71 84;
+      --color-primary: 173 198 255;
+      --color-primary-container: 77 142 255;
+      --color-primary-fixed: 216 226 255;
+      --color-primary-fixed-dim: 173 198 255;
+      --color-secondary: 78 222 163;
+      --color-secondary-container: 0 165 114;
+      --color-secondary-fixed: 111 251 190;
+      --color-secondary-fixed-dim: 78 222 163;
+      --color-surface: 11 19 38;
+      --color-surface-bright: 49 57 77;
+      --color-surface-container: 23 31 51;
+      --color-surface-container-high: 34 42 61;
+      --color-surface-container-highest: 45 52 73;
+      --color-surface-container-low: 19 27 46;
+      --color-surface-container-lowest: 6 14 32;
+      --color-surface-dim: 11 19 38;
+      --color-surface-tint: 173 198 255;
+      --color-surface-variant: 45 52 73;
+      --color-tertiary: 208 188 255;
+      --color-tertiary-container: 160 120 255;
+      --color-tertiary-fixed: 233 221 255;
+      --color-tertiary-fixed-dim: 208 188 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-on-background font-sans antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Custom scrollbar to match the design system */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-dim rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-outline-variant;
+  }
+
+  /* Visible keyboard focus ring for accessibility */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    line-height: 1;
+  }
+
+  /* Colored left-edge accent used on task cards */
+  .task-card-accent {
+    position: relative;
+    overflow: hidden;
+  }
+  .task-card-accent::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--accent-color, rgb(var(--color-primary)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
