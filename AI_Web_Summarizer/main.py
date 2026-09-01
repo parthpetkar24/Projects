@@ -52,3 +52,14 @@ def make_model(model_name="gemini-2.5-flash"):
         return genai.GenerativeModel(model_name,generation_config={"response_mime_type":"application/json"})
     except Exception:
         return genai.GenerativeModel(model_name)
+
+def parse_json(s:str)->dict:
+    try:
+        return json.loads(s)
+    except Exception:
+        m=re.search(r"```json\s*({.*?\})\s*```",s,re,s) or re.search(r"(\{.*\})",s,re.S)
+        if m:
+            try: return json.loads(m.group(1))
+            except Exception:pass
+        return {"abstract":s.strip(),"bullets":[]}
+    
